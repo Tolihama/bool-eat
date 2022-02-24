@@ -20,7 +20,7 @@ Route::middleware('auth')
     ->name('admin.')
     ->prefix('admin')
     ->group(function() {
-        // rotte autenticate da aggiungere...
+        Route::get('/', 'HomeController@index')->name('home');
     });
 
 Auth::routes();

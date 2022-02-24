@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="d-flex flex-column">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -72,7 +72,8 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="flex-grow-1 d-flex">
+            @include('admin.partials.menu')
             @yield('content')
         </main>
     </div>
