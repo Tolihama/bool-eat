@@ -24,7 +24,7 @@ class RestaurantsTableSeeder extends Seeder
 
         for ($i = 0; $i < count($users); $i++){
             $new_user = new User;
-            $new_user->name = $users[$i]['name'];
+            $new_user->name = $users[$i]['username'];
             $new_user->email = $users[$i]['e-mail'];
             $new_user->password = Hash::make('012345678');
             $new_user->bio = $users[$i]['bio'];
@@ -32,10 +32,9 @@ class RestaurantsTableSeeder extends Seeder
 
             $new_user->save();
 
-
             $new_restaurant = new Restaurant();
             $new_restaurant->name = $restaurants[$i]['name']; 
-            $new_restaurant->user_id = DB::table('users')->select('id')->where('email',$users[$i]['e-mail'])->first();
+            $new_restaurant->user_id = DB::table('users')->select('id')->where('email',$users[$i]['e-mail'])->first()->id;
             $new_restaurant->slug = Str::slug($new_restaurant->name,'-');
             $new_restaurant->thumb = $restaurants[$i]['thumb'];
             $new_restaurant->cover = $restaurants[$i]['cover'];

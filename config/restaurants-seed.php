@@ -1,6 +1,6 @@
 <?php
 
-$restaurants = [
+return [
     [
         'name' => 'Zangaloro',
         'thumb' => 'https://tse4.explicit.bing.net/th?id=OIP.-w9fPMZHZ_H-sD6jumQXqAHaFj&pid=Api&P=0&w=219&h=164',

@@ -1,6 +1,6 @@
 <?php
 
-$dishes = [
+return [
     [
         'name' => 'Arancina con carne',
         'thumb' => 'https://tse4.mm.bing.net/th?id=OIP.qLSiVA5Symt1UvvUXpLwrwHaE6&pid=Api&P=0&w=254&h=168',
