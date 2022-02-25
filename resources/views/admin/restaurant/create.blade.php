@@ -2,11 +2,20 @@
 
 @section('content')
     <div class="container py-4">
+        @if ($errors->any()) 
+            <div class="alert alert-danger">
+                <ul class="py-0 my-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{route('admin.restaurant.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="input mb-2">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control">
+                <input type="text" name="name" id="name" class="form-control" value="{{old('name')}}">
 
                 @error('name')
                 <div class="text-danger">{{$message}}</div>
@@ -15,7 +24,7 @@
 
             <div class="input mb-2">
                 <label for="address">Address</label>
-                <input type="text" name="address" id="address" class="form-control">
+                <input type="text" name="address" id="address" class="form-control" value="{{old('address')}}">
 
                 @error('address')
                 <div class="text-danger">{{$message}}</div>
@@ -24,7 +33,7 @@
 
             <div class="input mb-2">
                 <label for="vat">Vat number</label>
-                <input type="text" name="vat" id="vat" class="form-control">
+                <input type="text" name="vat" id="vat" class="form-control" value="{{old('vat')}}">
 
                 @error('vat')
                 <div class="text-danger">{{$message}}</div>
@@ -57,14 +66,15 @@
             @if ($categories)
                 <div class="input mb-2">
                         @foreach ($categories as $category)
-                            <label for="{{$category->id}}">{{$category->name}}</label>
-                            <input 
+                            <span class="d-inline-block form-check mr-3">
+                                <input 
                                 type="checkbox" 
                                 id="category{{$loop->iteration}}" 
                                 name="categories[]" 
                                 value="{{$category->id}}" 
-                                @if ($category->id == old('category_id')) selected @endif
-                                >
+                                @if(in_array($category->id, old('categories', []))) checked @endif>
+                                
+                                <label for="category{{$loop->iteration}}">{{$category->name}}</label>
                         @endforeach
 
                         @error('category_id')

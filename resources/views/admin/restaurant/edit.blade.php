@@ -2,6 +2,17 @@
 
 @section('content')
     <div class="container py-4">
+
+        @if ($errors->any()) 
+            <div class="alert alert-danger">
+                <ul class="py-0 my-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
         <form action="{{route('admin.restaurant.update', $restaurant->slug)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
@@ -46,7 +57,7 @@
             <div class="input mb-2">
                 <label for="cover">Cover</label>
                 <div class="browse">
-                    <input type="file" name="cover" id="cover">
+                    <input type="file" name="cover" id="cover" >
                 </div>
 
                 @error('cover')
@@ -58,14 +69,19 @@
             @if ($categories)
                 <div class="input mb-2">
                         @foreach ($categories as $category)
-                            <label for="{{$category->id}}">{{$category->name}}</label>
-                            <input 
+                            <span class="d-inline-block form-check mr-3">
+                                <input 
                                 type="checkbox" 
-                                id="{{$category->id}}" 
-                                name="{{$category->name}}" 
+                                id="category-{{$loop->iteration}}" 
+                                name="categories[]" 
                                 value="{{$category->id}}" 
-                                @if ($category->id == old('category_id')) selected @endif
-                                >
+                                @if($errors->any() && in_array($category->id, old('categories'))) 
+                                checked 
+                                @elseif(!$errors->any() && $restaurant->categories->contains($category->id))
+                                checked
+                                @endif>
+                                
+                                <label for="category-{{$loop->iteration}}">{{$category->name}}</label>
                         @endforeach
 
                         @error('category_id')
