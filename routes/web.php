@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Authentication routes (backoffice)
+// Authentication user routes (backoffice)
 Route::middleware('auth')
     ->namespace('admin')
     ->name('admin.')
@@ -25,7 +25,7 @@ Route::middleware('auth')
 
 Auth::routes();
 
-    // Front SPA route
+// Front SPA route
 Route::get('{any?}', function() {
     return view('guest.home');
 })->where('any', '.*');
