@@ -60,8 +60,8 @@
                             <label for="{{$category->id}}">{{$category->name}}</label>
                             <input 
                                 type="checkbox" 
-                                id="{{$category->id}}" 
-                                name="{{$category->name}}" 
+                                id="category{{$loop->iteration}}" 
+                                name="categories[]" 
                                 value="{{$category->id}}" 
                                 @if ($category->id == old('category_id')) selected @endif
                                 >
