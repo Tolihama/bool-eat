@@ -7,10 +7,10 @@
             <a href="#">User</a>
         </li>
         <li>
-            <a href="#">Restaurant</a>
+            <a href="{{route('admin.restaurant.index')}}">Restaurant</a>
         </li>
-        <li>
-            <a href="#">Dishes</a>
+        <li class= "@if(Request::route()->getName() == 'admin.dishes.index') active @endif">
+            <a href="{{ route('admin.dishes.index') }}">Dishes</a>
         </li>
     </ul>
 </aside>

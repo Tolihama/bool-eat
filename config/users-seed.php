@@ -1,6 +1,6 @@
 <?php
 
-$users = [
+ return [
     [
         'username' => 'Zangaloro',
         'e-mail' => 'ifo@zangaloro.it',

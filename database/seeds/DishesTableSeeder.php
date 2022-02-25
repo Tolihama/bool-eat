@@ -14,17 +14,18 @@ class DishesTableSeeder extends Seeder
      */
     public function run()
     {
-        $dishes = config('diches-seed');
+        $dishes = config('dishes-seed');
 
         foreach ($dishes as $dish){
             $new_dish = new Dish();
             $new_dish->name = $dish['name'];
-            $new_dish->restaurant_id = DB::table('restaurants')->select('id')->first();
+            $new_dish->restaurant_id = DB::table('restaurants')->select('id')->first()->id;
             $new_dish->slug = Str::slug($new_dish->name,'-');
             $new_dish->ingredients = $dish['ingredients'];
             $new_dish->description = $dish['description'];
-            $new_dish->price = $dish['price'];
-            $new_dish->is_visible = $dish[0];
+            $new_dish->price = floatval($dish['price']);
+            $new_dish->thumb = $dish['thumb'];
+            $new_dish->is_visible = false;
             
             $new_dish->save(); 
         }

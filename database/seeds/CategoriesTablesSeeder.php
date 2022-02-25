@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-//use App\Category;
+use App\Category;
 
-class CategoriesTablesSeeder extends Seeder
+class CategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
+    //MASS ASSGINMENT
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'thumb',
+        'cover',
+        'address',
+        'vat'
+    ];
+
+
     public function categories()
     {
         return $this->belongsToMany('App\Category');
@@ -22,4 +34,6 @@ class Restaurant extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    
 }
