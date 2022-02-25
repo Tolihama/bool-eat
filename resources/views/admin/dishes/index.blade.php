@@ -12,31 +12,34 @@
                     <th colspan="4"> Actions</th>
                 </tr>
             </thead>
+
             <tbody>
-                {{-- content foreach --}}
-                <td>Id static</td>
-                <td>name static</td>
-                <td>20$</td>
 
-                <td>
-                    <a class="btn btn-primary" href="{{route('admin.dishes.create')}}">Create</a>
-                </td>
-
-                <td>
-                    <a class="btn btn-primary" href="#">Edit</a>
-                </td>
-
-                <td>
-                    <a class="btn btn-primary" href="#">show</a>
-                </td>
-
-                <td>
-                    <form action="" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input class="btn btn-danger" type="submit" value="Delete">
-                    </form>
-                </td>
+                @foreach ($dishes as $dish)
+                    <tr>
+                        <td>{{ $dish->id }}</td>
+                        <td>{{ $dish->name }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{route('admin.dishes.create')}}">Create</a>
+                        </td>
+        
+                        <td>
+                            <a class="btn btn-primary" href="#">Edit</a>
+                        </td>
+        
+                        <td>
+                            <a class="btn btn-primary" href="#">show</a>
+                        </td>
+        
+                        <td>
+                            <form action="" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
