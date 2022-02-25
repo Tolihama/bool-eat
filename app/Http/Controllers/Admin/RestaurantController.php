@@ -19,7 +19,14 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        //
+        if (DB::table('restaurants')->where('user_id', Auth::id())->exists()) {
+
+            $restaurant = Restaurant::where('user_id', Auth::id())->first();
+            
+            return redirect()->route('admin.restaurant.show', $restaurant->slug);
+        } else {
+           return redirect()->route('admin.restaurant.create');
+        }
     }
 
     /**
@@ -35,7 +42,6 @@ class RestaurantController extends Controller
 
             $restaurant = Restaurant::where('user_id', Auth::id())->first();
             
-            // $this->show($restaurant->slug);
             return redirect()->route('admin.restaurant.show', $restaurant->slug);
         } else {
             return view('admin.restaurant.create', compact('categories'));

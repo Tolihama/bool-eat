@@ -7,7 +7,7 @@
             <a href="#">User</a>
         </li>
         <li>
-            <a href="{{route('admin.restaurant.create')}}">Restaurant</a>
+            <a href="{{route('admin.restaurant.index')}}">Restaurant</a>
         </li>
         <li>
             <a href="#">Dishes</a>
