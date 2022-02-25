@@ -80,10 +80,7 @@ class RestaurantController extends Controller
 
         $data['slug'] = $slug;
 
-        //CATEGORIES
-        if(array_key_exists('categories', $data)) {
-            $new_restaurant->categories()->attach($data['categories']);
-        }
+        
 
         //IMAGES
 
@@ -101,6 +98,11 @@ class RestaurantController extends Controller
         $new_restaurant->fill($data);
 
         $new_restaurant->save();
+
+        //CATEGORIES
+        if(array_key_exists('categories', $data)) {
+            $new_restaurant->categories()->attach($data['categories']);
+        }
 
         return redirect()->route('admin.restaurant.show', $new_restaurant->slug);
 
