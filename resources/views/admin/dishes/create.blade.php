@@ -4,7 +4,7 @@
     <div class="container mt-3">
         <h1 class="text-center mb-5">Create a new dishes</h1>
 
-        <form action="{{route('admin.dishes.store')}}" method="POST" encrypted="multiple/from-data">
+        <form action="{{route('admin.dishes.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- name --}}

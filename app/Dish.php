@@ -11,6 +11,7 @@ class Dish extends Model
         'description',
         'slug',
         'price',
+        'restaurant_id',
         'thumb',
         'ingredients',
         'is_visible'

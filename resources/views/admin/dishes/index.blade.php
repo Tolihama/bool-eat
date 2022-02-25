@@ -3,6 +3,15 @@
     <div class="container mt-3">
         <h1 class="text-center">Dishes archive</h1>
 
+        {{-- delete --}}
+        @if (session('deleted'))
+            <div class="alert alert-success">
+                <strong>{{ session('delete') }}</strong>
+                delete successfully.
+            </div>
+            
+        @endif
+
         <table class="table">
             <thead>
                 <tr>
@@ -19,20 +28,18 @@
                     <tr>
                         <td>{{ $dish->id }}</td>
                         <td>{{ $dish->name }}</td>
-                        <td>
-                            <a class="btn btn-primary" href="{{route('admin.dishes.create')}}">Create</a>
-                        </td>
+                        <td>{{ $dish->price }} $</td>
         
                         <td>
                             <a class="btn btn-primary" href="#">Edit</a>
                         </td>
         
                         <td>
-                            <a class="btn btn-primary" href="#">show</a>
+                            <a class="btn btn-primary" href="{{ route('admin.dishes.show', $dish->slug) }}">show</a>
                         </td>
         
                         <td>
-                            <form action="" method="POST">
+                            <form action="{{ route('admin.dishes.destroy', $dish->id )}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <input class="btn btn-danger" type="submit" value="Delete">

@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Str;
 
 use App\Dish;
+use App\Restaurant;
 
 class DishesController extends Controller
 {
@@ -43,13 +46,16 @@ class DishesController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->validation_rules(), $this->validation_messages() );
+        
 
         $data = $request->all();
         $new_dish = new Dish();
 
+        $data['restaurant_id']= Restaurant::where( 'user_id', Auth::id() )->first()->id;
+
         //add img 
-        if(array_key_exists ('thumb', $data)){
-            $data['thumb'] = Storage::put('dishes-imgages', $data['thumb']);
+        if(array_key_exists('thumb', $data)){
+            $data['thumb'] = Storage::put('dishes-images', $data['thumb']);
         }
 
         // slug univoco
@@ -75,7 +81,7 @@ class DishesController extends Controller
         // dd($new_dish);
         $new_dish->save();
 
-        return view('admin.dishes.show', $new_dish->slug);
+        return redirect()->route('admin.dishes.show', $new_dish->slug);
 
 
     }
@@ -127,7 +133,15 @@ class DishesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete_dish = Dish::find($id);
+
+        if($delete_dish ->thumb){
+            Storage::delete($delete_dish ->thumb);
+        }
+
+        $delete_dish ->delete();
+
+        return redirect()->route('admin.dishes.index')->with('deleted', $delete_dish ->name);
     }
 
     //validation rules
