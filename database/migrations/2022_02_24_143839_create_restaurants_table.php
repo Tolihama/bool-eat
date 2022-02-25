@@ -19,7 +19,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('slug');
             $table->string('thumb');
             $table->string('cover');
-            $table->string('adress', 150);
+            $table->string('address', 150);
             $table->char('vat', 11);
             $table->timestamps();
         });
