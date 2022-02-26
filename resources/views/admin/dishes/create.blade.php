@@ -10,7 +10,7 @@
             {{-- name --}}
             <div class="mb-3">
                 <label for="name" class="form-label">Name*</label>
-                <input class="form-control" type="text" name="name" id="name" value{{old('name')}}>
+                <input class="form-control" type="text" name="name" id="name" value="{{old('name')}}">
             </div>
             @error('name')
                  <div class="text-danger">{{ $message }}</div>

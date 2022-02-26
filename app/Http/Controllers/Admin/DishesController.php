@@ -22,7 +22,8 @@ class DishesController extends Controller
      */
     public function index()
     {
-        $dishes = Dish::all();
+         //$dishes = Dish::all();
+        $dishes = Dish::where( 'restaurant_id', Auth::id() )->get();
 
         return view('admin.dishes.index', compact('dishes'));
     }
@@ -110,7 +111,12 @@ class DishesController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.dishes.edit');
+        $dish_edit = Dish::find($id);
+        
+        if (! $dish_edit){
+            abort(404);
+        }
+        return view('admin.dishes.edit', compact('dish_edit'));
     }
 
     /**
@@ -122,7 +128,42 @@ class DishesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->validation_rules(), $this->validation_messages() );
+
+        $data = $request->all();
+
+        //update the resource
+        $dish = Dish::find($id);
+
+        //img update 
+        if($data['name'] != $dish->name){
+
+        // slug univoco
+        $slug = Str::slug($data['name'], '-');
+        $count = 1;
+        $base_slug = $slug;
+
+        while(Dish::where('slug', $slug)->first()){
+            $slug = $base_slug . '-' . $count;
+            $count++;
+        }
+
+        $data['slug'] = $slug;
+
+        } else {
+
+            $data['slug'] = $dish->slug;
+        }
+
+        if(array_key_exists ('is_visible', $data)){
+            $data['is_visible'] = true;
+        } else {
+            $data['is_visible'] = false;
+        }
+
+        $dish->update($data);
+
+        return redirect()->route('admin.dishes.show', $dish->slug);
     }
 
     /**
