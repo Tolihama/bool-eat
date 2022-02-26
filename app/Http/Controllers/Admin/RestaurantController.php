@@ -46,10 +46,6 @@ class RestaurantController extends Controller
         } else {
             return view('admin.restaurant.create', compact('categories'));
         }
-
-
-
-        
     }
 
     /**
@@ -61,8 +57,6 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->store_validation_rules(), $this->validation_messages());
-
-        
 
         $data = $request->all();
         $new_restaurant = new Restaurant();
@@ -105,10 +99,6 @@ class RestaurantController extends Controller
         }
 
         return redirect()->route('admin.restaurant.show', $new_restaurant->slug);
-
-        
-
-
     }
 
     /**

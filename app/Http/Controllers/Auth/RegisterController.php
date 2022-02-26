@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/registration-confirmed';
 
     /**
      * Create a new controller instance.
@@ -50,9 +52,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'bio' => ['nullable', 'string'],
+            'avatar' => ['nullable', 'file', 'mimes:jpeg,jpg,bmp,png']
         ]);
     }
 
@@ -64,10 +68,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $data['bio'] = array_key_exists('bio', $data) ? $data['bio'] : null;
+        $data['avatar'] = array_key_exists('avatar', $data) ? Storage::put('avatars', $data['avatar']) : null;
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'bio' => $data['bio'],
+            'avatar' => $data['avatar'],
         ]);
     }
 }

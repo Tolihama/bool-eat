@@ -27,6 +27,12 @@ Route::middleware('auth')
 
 Auth::routes();
 
+Route::middleware('auth')->group(function() {
+    Route::get('/registration-confirmed', function() {
+        return view('auth.register-success');
+    })->name('registration-confirmed');
+});
+
 // Front SPA route
 Route::get('{any?}', function() {
     return view('guest.home');
