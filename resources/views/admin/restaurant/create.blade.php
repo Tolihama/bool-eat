@@ -3,6 +3,11 @@
 @section('content')
     <div class="container py-4">
         <h1>Crea il tuo ristorante</h1>
+        @if (session('status'))
+            <div class="alert alert-danger">
+                {{ session('status') }}
+            </div>
+        @endif
         @if ($errors->any()) 
             <div class="alert alert-danger">
                 <ul class="py-0 my-0">
