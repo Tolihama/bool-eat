@@ -9,14 +9,14 @@
             <div class="card d-flex flex-column h-100">
                 <h2>Il tuo ristorante</h2>
                 <div class="flex-grow-1">
-{{--                     @if ($user_restaurant)
+                    @if ($user_restaurant)
                         <p>Dettagli del tuo ristorante...</p>
                     @else
                         <p>
                             Non hai ancora registrato il tuo ristorante!<br>
                             <a href="{{ route('admin.restaurant.create') }}">Registralo adesso!</a>
                         </p>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
         </div>
@@ -34,13 +34,13 @@
             <div class="card d-flex flex-column h-100">
                 <h2>Il tuo menù</h2>
                 <div class="flex-grow-1">
-{{--                     @if ($user_restaurant)
+                    @if ($user_restaurant)
                         <p>Dettagli del tuo ristorante...</p>
                     @else
                         <p>
                             Non puoi aggiungere piatti al tuo menù se prima non registri il tuo ristorante!<br>
                         </p>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
         </div>

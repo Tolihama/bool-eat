@@ -13,7 +13,7 @@
                 <strong>{{ session('delete') }}</strong>
                 delete successfully.
             </div>
-            
+
         @endif
 
         @if ($dishes->isEmpty())

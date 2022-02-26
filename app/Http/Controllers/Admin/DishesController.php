@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use App\Dish;
@@ -22,9 +21,11 @@ class DishesController extends Controller
      */
     public function index()
     {
-         //$dishes = Dish::all();
-        $dishes = Dish::where( 'restaurant_id', Auth::id() )->get();
-
+        if (!DB::table('restaurants')->where('user_id', Auth::id())->exists()) {
+            return redirect()->route('admin.restaurant.create');
+        }
+        $restaurant_id = DB::table('restaurants')->where('user_id', Auth::id())->first()->id;
+        $dishes = Dish::where('restaurant_id', $restaurant_id)->get();
         return view('admin.dishes.index', compact('dishes'));
     }
 
@@ -182,7 +183,7 @@ class DishesController extends Controller
 
         $delete_dish ->delete();
 
-        return redirect()->route('admin.dishes.index')->with('deleted', $delete_dish ->name);
+        return redirect()->route('admin.dishes.index')->with('deleted', $delete_dish->name);
     }
 
     //validation rules
