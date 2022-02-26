@@ -21,9 +21,9 @@
             </div>
         </div>
             
-        <div>
-            <a class="btn btn-warning" href="{{route('admin.dishes.edit', $dish->id) }} ">Edit Dish</a>
-            <a class="btn btn-primary" href="{{route('admin.dishes.index') }} ">Back to archive</a>
+        <div class="mt-4">
+            <a class="btn btn-warning mr-4" href="{{route('admin.dishes.edit', $dish->id) }} ">Edit Dish</a>
+            <a class="btn btn-primary " href="{{route('admin.dishes.index') }} ">Back to archive</a>
         </div>
     </div>
 @endsection
