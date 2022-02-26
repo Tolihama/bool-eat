@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-3">
+    <div class="container show-dish mt-3">
         <h1 class="mb-5">{{$dish->name}}</h1>
 
         <div class="row">
