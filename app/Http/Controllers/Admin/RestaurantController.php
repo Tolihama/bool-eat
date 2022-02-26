@@ -20,18 +20,11 @@ class RestaurantController extends Controller
     public function index()
     {
         if ($this->db_restaurant_check()) {
-
             $restaurant = Restaurant::where('user_id', Auth::id())->first();
             return redirect()->route('admin.restaurant.show', $restaurant->slug);
-
-        } 
-        
-        else {
-
-            return redirect()->route('admin.dishes.create');
-
+        } else {
+            return redirect()->route('admin.restaurant.create');
         }
-        
     }
 
     /**
@@ -248,7 +241,7 @@ class RestaurantController extends Controller
         return [
             'name' => 'required|max:100',
             'category_id' => 'nullable|exists:categories,id',
-            'vat' => 'required|max:11',
+            'vat' => 'required|size:11',
             'address' => 'required|max:150',
             'thumb' => 'required|file|mimes:jpeg,jpg,bmp,png',
             'cover' => 'required|file|mimes:jpeg,jpg,bmp,png'
@@ -267,7 +260,7 @@ class RestaurantController extends Controller
         return [
             'name' => 'required|max:100',
             'category_id' => 'nullable|exists:categories,id',
-            'vat' => 'required|max:11',
+            'vat' => 'required|size:11',
             'address' => 'required|max:150',
             // 'thumb' => 'file|mimes:jpeg,jpg,bmp,png',
             // 'cover' => 'file|mimes:jpeg,jpg,bmp,png'

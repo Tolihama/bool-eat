@@ -1,7 +1,7 @@
 <aside class="side-menu">
     <ul>
         <li>
-            <a href="{{ route('admin.home', Auth::user()->id) }}" class="@if(Request::route()->getName() == 'admin.home') active @endif">
+            <a href="{{ route('admin.home') }}" class="@if(Request::route()->getName() == 'admin.home') active @endif">
                 <i class="fas fa-tachometer-alt icon mr-2"></i> Dashboard
             </a>
         </li>

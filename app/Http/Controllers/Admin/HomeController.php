@@ -12,13 +12,14 @@ use App\Restaurant;
 
 class HomeController extends Controller
 {
-    public function index($id)
+    public function index()
     {
-        if ($id != Auth::user()->id) {
+/*         if ($id != Auth::id()) {
             abort(403);
         }
 
         $user_restaurant = Restaurant::where('user_id', $id)->first();
-        return view('admin.home', compact('user_restaurant'));
+        return view('admin.home', compact('user_restaurant')); */
+        return view('admin.home');
     }
 }

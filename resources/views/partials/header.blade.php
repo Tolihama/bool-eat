@@ -26,7 +26,7 @@
                     @endif
                 @else
                     <li class="nav-item mr-2">
-                        <a id="nav-link" class="btn btn-primary" href="{{ route('admin.home', Auth::user()->id) }}">
+                        <a id="nav-link" class="btn btn-primary" href="{{ route('admin.home') }}">
                             <i class="fa-solid fa-user icon mr-2"></i> {{ Auth::user()->name }}
                         </a>
                     </li>
