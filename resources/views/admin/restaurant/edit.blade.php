@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-4">
+    <div class="container edit-restaurant py-4">
 
         @if ($errors->any()) 
             <div class="alert alert-danger">
@@ -34,7 +34,7 @@
                 @enderror
             </div>
 
-            <div class="input mb-2">
+            <div class="input mb-4">
                 <label for="vat">Vat number</label>
                 <input type="text" name="vat" id="vat" class="form-control" value="{{old('vat', $restaurant->vat)}}">
 
@@ -43,9 +43,12 @@
                 @enderror
             </div>
 
-            <div class="input mb-2">
-                <label for="thumb">Thumb</label>
+            <div class="input mb-2 d-flex align-items-center">
+                <div class="input-img mb-2 mr-4">
+                    <img src="{{asset('/storage/' . $restaurant->thumb)}}" alt="">
+                </div>
                 <div class="browse">
+                    <label for="thumb" class="d-block">Thumb</label>
                     <input type="file" name="thumb" id="thumb">
                 </div>
 
@@ -54,10 +57,13 @@
                 @enderror
             </div>
 
-            <div class="input mb-2">
-                <label for="cover">Cover</label>
+            <div class="input mb-2 d-flex align-items-center">
+                <div class="input-img mb-2 mr-4">
+                    <img src="{{asset('/storage/' . $restaurant->cover)}}" alt="">
+                </div>
                 <div class="browse">
-                    <input type="file" name="cover" id="cover" >
+                    <label for="cover" class="d-block">Cover</label>
+                    <input type="file" name="cover" id="cover">
                 </div>
 
                 @error('cover')
@@ -65,9 +71,12 @@
                 @enderror
             </div>
 
+            
+
 
             @if ($categories)
                 <div class="input mb-2">
+                        <h4>Categories</h4>
                         @foreach ($categories as $category)
                             <span class="d-inline-block form-check mr-3">
                                 <input 
