@@ -20,12 +20,18 @@ Route::middleware('auth')
     ->name('admin.')
     ->prefix('admin')
     ->group(function() {
-        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/{user_id}', 'HomeController@index')->name('home');
         Route::resource('/dishes', 'DishesController');
         Route::resource('/restaurant', 'RestaurantController');
     });
 
 Auth::routes();
+
+Route::middleware('auth')->group(function() {
+    Route::get('/registration-confirmed', function() {
+        return view('auth.register-success');
+    })->name('registration-confirmed');
+});
 
 // Front SPA route
 Route::get('{any?}', function() {

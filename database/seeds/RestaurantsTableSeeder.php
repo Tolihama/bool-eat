@@ -17,19 +17,14 @@ class RestaurantsTableSeeder extends Seeder
     public function run()
     {
         $restaurants = config('restaurants-seed');
-
         $users = config('users-seed');
   
-
-
         for ($i = 0; $i < count($users); $i++){
             $new_user = new User;
             $new_user->name = $users[$i]['username'];
             $new_user->email = $users[$i]['e-mail'];
             $new_user->password = Hash::make('012345678');
             $new_user->bio = $users[$i]['bio'];
-            $new_user->avatar = $users[$i]['avatar'];
-
             $new_user->save();
 
             $new_restaurant = new Restaurant();
@@ -40,7 +35,6 @@ class RestaurantsTableSeeder extends Seeder
             $new_restaurant->cover = $restaurants[$i]['cover'];
             $new_restaurant->address = $restaurants[$i]['address'];
             $new_restaurant->vat = $restaurants[$i]['vat'];
-
             $new_restaurant->save();
         }
     }
