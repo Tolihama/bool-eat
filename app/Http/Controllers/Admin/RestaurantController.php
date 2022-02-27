@@ -56,14 +56,17 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
         $request->validate($this->store_validation_rules(), $this->validation_messages());
-
         $data = $request->all();
+
+        // New Restaurant istance
         $new_restaurant = new Restaurant();
 
+        // User id assign to restaurant
         $new_restaurant->user_id = Auth::id();
 
-        //SLUG
+        // Slug
         $slug = Str::slug($data['name'], '-');
         $count = 1;
         $base_slug = $slug;
@@ -74,26 +77,23 @@ class RestaurantController extends Controller
 
         $data['slug'] = $slug;
 
-        
-
-        //IMAGES
-
-        //thumb
+        /**
+         * IMAGES
+         */
+        // Thumb
         if(array_key_exists('thumb', $data)) {
             $data['thumb'] = Storage::put('restaurant-image', $data['thumb']);
         } 
 
-        //cover
+        // Cover
         if(array_key_exists('cover', $data)) {
             $data['cover'] = Storage::put('restaurant-image', $data['cover']);
         }
 
-
         $new_restaurant->fill($data);
-
         $new_restaurant->save();
 
-        //CATEGORIES
+        // Categories
         if(array_key_exists('categories', $data)) {
             $new_restaurant->categories()->attach($data['categories']);
         }
@@ -219,51 +219,47 @@ class RestaurantController extends Controller
         return redirect()->route('admin.home');
     }
 
-
-    //CHECK USER/RESTAURANT
-
+    /**
+     * CHECK USER / RESTAURANT
+     */
     private function db_restaurant_check() {
-
         if (DB::table('restaurants')->where('user_id', Auth::id())->exists()) {
             return $check = true;
-
         } else {
             return $check = false;
         }
-
     }
 
-
-
-    //VALIDATION
-
+    /**
+     * VALIDATION RULES
+     */
     private function store_validation_rules() {
         return [
             'name' => 'required|max:100',
-            'category_id' => 'nullable|exists:categories,id',
             'vat' => 'required|size:11',
             'address' => 'required|max:150',
             'thumb' => 'required|file|mimes:jpeg,jpg,bmp,png',
-            'cover' => 'required|file|mimes:jpeg,jpg,bmp,png'
+            'cover' => 'required|file|mimes:jpeg,jpg,bmp,png',
+            'categories' => 'present|array|exists:categories,id',
         ];
     }
 
     private function validation_messages() {
         return [
-            'required' => 'The :attribute is required',
-            'max' => 'Max :max characters allowed for the :attribute',
-            'category_id.exists' => 'Selected category does not exists',
+            'required' => 'Campo richiesto',
+            'max' => 'Il campo :attribute ha un limite massimo di caratteri pari a :max',
+            'size.vat' => 'La partita IVA deve essere di 11 cifre',
+            'categories.present' => 'È necessario selezionare almeno una categoria',
+            'categories.exists' => 'La categoria selezionata non esiste',
         ];
     }
 
     private function update_validation_rules() {
         return [
             'name' => 'required|max:100',
-            'category_id' => 'nullable|exists:categories,id',
             'vat' => 'required|size:11',
             'address' => 'required|max:150',
-            // 'thumb' => 'file|mimes:jpeg,jpg,bmp,png',
-            // 'cover' => 'file|mimes:jpeg,jpg,bmp,png'
+            'categories' => 'present|array|exists:categories,id',
         ];
     }
 }

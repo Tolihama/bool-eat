@@ -1,49 +1,53 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-3">
-        <h1 class="text-center mb-5">Crea un nuovo piatto</h1>
+    <div id="dishes-create" class="container py-4">
+        <h1 class="pb-4">Crea un nuovo piatto</h1>
 
-        <form action="{{route('admin.dishes.store')}}" method="POST" enctype="multipart/form-data">
+        @if ($errors->any()) 
+            <div class="alert alert-danger">
+                <i class="fa-solid fa-triangle-exclamation text-danger fw-bold mr-2"></i> Attenzione: ci sono alcuni errori di compilazione!
+            </div>
+        @endif
+
+        <form action="{{ route('admin.dishes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- name --}}
             <div class="mb-3">
-                <label for="name" class="form-label">Nome*</label>
-                <input class="form-control" type="text" name="name" id="name" value="{{old('name')}}">
+                <label for="name" class="form-label">Nome piatto*</label>
+                <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}">
+                @error('name')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            @error('name')
-                 <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-            {{-- description --}}
-            <div class="mb-3">
-                <label for="description" class="form-label">Descrizione*</label>
-                <textarea class="form-control" type="text" name="description" id="description">
-                    {{ old('description') }}</textarea>
-                </textarea>
-            </div>
-            @error('description')
-                 <div class="text-danger">{{ $message }}</div>
-            @enderror
 
             {{-- price --}}
             <div class="mb-3">
                 <label for="price" class="form-label">Prezzo*</label>
-                <input class="form-control" type="text" name="price" id="price" value{{old('price')}}>
+                <input class="form-control" type="number" step="0.01" min="0" max="999.99" name="price" id="price" value="{{ old('price') }}">
+                @error('price')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            @error('price')
-                 <div class="text-danger">{{ $message }}</div>
-            @enderror
+
+            {{-- description --}}
+            <div class="mb-3">
+                <label for="description" class="form-label">Descrizione*</label>
+                <textarea class="form-control" type="text" name="description" id="description">{{ old('description') }}</textarea>
+                @error('description')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
             {{-- ingredients --}}
             <div class="mb-3">
                 <label for="ingredients" class="form-label">Ingredienti*</label>
                 <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients') }}</textarea>
+                @error('ingredients')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            @error('ingredients')
-                 <div class="text-danger">{{ $message }}</div>
-            @enderror
 
             {{-- is_visible --}}
             <div class="mb-3">
@@ -56,10 +60,10 @@
             <div class="mb-3">
                 <h4>Immagine del piatto</h4>
                 <input class="form-control-file" type="file" name="thumb" id="thumb">
+                @error('thumb')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            @error('thumb')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
 
             {{-- submit --}}
             <div>

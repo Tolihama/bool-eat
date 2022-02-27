@@ -9,12 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Restaurant;
+use App\Dish;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $user_restaurant = Restaurant::where('user_id', Auth::id())->first();
-        return view('admin.home', compact('user_restaurant'));
+        if ($user_restaurant) {
+            $dishes = Dish::where('restaurant_id', $user_restaurant->id)->get();
+        } else {
+            $dishes = [];
+        }
+        $dishes_paginate = Dish::where('restaurant_id', $user_restaurant->id)->paginate(5);
+        return view('admin.home', compact('user_restaurant', 'dishes', 'dishes_paginate'));
     }
 }

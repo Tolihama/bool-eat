@@ -1,8 +1,11 @@
+#show-dish {
+    img {
+        max-width: 100%;
+    }
 
-
-.show-dish{
-    img{
-        width: 100px;
-        height: 100px;
+    .dish-detail {
+        ul {
+            list-style: none;
+        }
     }
 }

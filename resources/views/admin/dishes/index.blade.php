@@ -1,62 +1,69 @@
 @extends('layouts.app')
+
 @section('content')
-    <div class="container mt-3">
-        <h1 class="text-center">Archivio piatti</h1>
+    <div id="dishes-index" class="container p-4">
+        <h1 class="pb-4">Il tuo menù</h1>
 
-        <div class="mb-3 row justify-content-end mr-3">
-            <a href="{{ route('admin.dishes.create')}}" class="btn btn-success end">Crea un nuovo piatto</a>
-        </div>
-
-        {{-- delete --}}
+        {{-- Dish deleted message --}}
         @if (session('deleted'))
             <div class="alert alert-success">
-                <strong>{{ session('delete') }}</strong>
-                delete successfully.
+                <strong>{{ session('deleted') }}</strong>
+                Piatto eliminato dal menù.
+            </div>
+        @endif
+        
+        {{-- No dishes case --}}
+        @if ($dishes->isEmpty())
+            <h2 class="h3">Non hai ancora piatti</h2>
+            <a href="{{ route('admin.dishes.create') }}">Crea un nuovo piatto!</a>
+        @else
+            <div class="mb-3">
+                <a href="{{ route('admin.dishes.create')}}" class="btn btn-success">Crea un nuovo piatto</a>
             </div>
 
-        @endif
-
-        @if ($dishes->isEmpty())
-            <h2>Non hai ancora piatti</h2>
-            <a class="btn btn-success" href="{{ route('admin.dishes.create') }}">Creane uno</a>
-        @else
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Prezzo</th>
-                    <th colspan="4"> Azioni</th>
-                </tr>
-            </thead>
-
-            <tbody>
+            <div class="py-3">
                 @foreach ($dishes as $dish)
-                    <tr>
-                        {{-- <td>{{ $dish->id }}</td> --}}
-                        <td>{{ $dish->name }}</td>
-                        <td>{{ $dish->price }} $</td>
-        
-                        <td>
-                            <a class="btn btn-primary" href="{{ route('admin.dishes.edit', $dish->id) }}">Modifica</a>
-                        </td>
-        
-                        <td>
-                            <a class="btn btn-info" href="{{ route('admin.dishes.show', $dish->slug) }}">Mostra</a>
-                        </td>
-        
-                        <td>
+                <div class="mb-3 dish-card d-flex">
+                    <div class="thumb ml-2 mr-4">
+                        <img src="{{ asset('/storage/' . $dish->thumb) }}" alt="Thumb {{ $dish->name }}">
+                    </div>
+                    <div class="dish-info d-flex flex-column">
+                        <div>
+                            <strong>{{ $dish->name }}</strong> ({{ $dish->price }} €)
+                        </div>
+                        <div>
+                            @if ($dish->is_visible === 1)
+                                <span class="text-success">
+                                    <i class="fa-solid fa-eye mr-2"></i> Visibile
+                                </span>
+                            @else
+                                <span class="text-danger">
+                                    <i class="fa-solid fa-eye-slash mr-2"></i> Non visibile
+                                </span>
+                            @endif
+                        </div>
+                        <div>
+                            {{ $dish->ingredients }}
+                        </div>
+                        <div class="flex-grow-1 py-3 d-flex align-items-end">
+                            <a class="btn btn-primary mr-2" href="{{ route('admin.dishes.show', $dish->slug) }}">
+                                <i class="fa-solid fa-eye"></i> Vai ai dettagli
+                            </a>
+                            <a class="btn btn-warning mr-2" href="{{ route('admin.dishes.edit', $dish->id) }}">
+                                <i class="fa-solid fa-square-pen mr-2"></i> Modifica
+                            </a>
                             <form action="{{ route('admin.dishes.destroy', $dish->id )}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input class="btn btn-danger" type="submit" value="Cancella">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa-solid fa-eraser mr-2"></i> Cancella
+                                </button>
                             </form>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
+                </div>
                 @endforeach
-            </tbody>
-        </table>
+            </div>
         @endif
     </div>
 @endsection

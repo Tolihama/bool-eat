@@ -1,106 +1,103 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-4">
-        <h1>Crea il tuo ristorante</h1>
+    <div id="restaurant-create" class="container py-4">
+        <h1 class="pb-4">Crea il tuo ristorante</h1>
         @if (session('status'))
             <div class="alert alert-danger">
-                {{ session('status') }}
+                <i class="fa-solid fa-triangle-exclamation text-danger fw-bold mr-2"></i> {{ session('status') }}
             </div>
         @endif
         @if ($errors->any()) 
             <div class="alert alert-danger">
-                <ul class="py-0 my-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                <i class="fa-solid fa-triangle-exclamation text-danger fw-bold mr-2"></i> Attenzione: ci sono alcuni errori di compilazione!
             </div>
         @endif
         <form action="{{route('admin.restaurant.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="input mb-2">
-                <label for="name">Nome del ristorante</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{old('name')}}">
 
-                @error('name')
-                <div class="text-danger">{{$message}}</div>
-                @enderror
-            </div>
+            <div class="mb-4">
+                <h4 class="mb-2">Riferimenti</h4>
 
-            <div class="input mb-2">
-                <label for="address">Indirizzo</label>
-                <input type="text" name="address" id="address" class="form-control" value="{{old('address')}}">
-
-                @error('address')
-                <div class="text-danger">{{$message}}</div>
-                @enderror
-            </div>
-
-            <div class="input mb-2">
-                <label for="vat">Partita IVA</label>
-                <input type="text" name="vat" id="vat" class="form-control" value="{{old('vat')}}">
-
-                @error('vat')
-                <div class="text-danger">{{$message}}</div>
-                @enderror
-            </div>
-
-            <div class="input mb-2">
-                <label for="thumb">Immagine del profilo</label>
-                <div class="browse">
-                    <input type="file" name="thumb" id="thumb">
+                <div class="input row align-items-center mb-3">
+                    <label for="name" class="col-2">Nome del ristorante:</label>
+                    <input type="text" name="name" id="name" class="form-control col-10" value="{{old('name')}}">
+    
+                    @error('name')
+                    <div class="text-danger col-12">{{$message}}</div>
+                    @enderror
                 </div>
-
-                @error('thumb')
-                <div class="text-danger">{{$message}}</div>
-                @enderror
-            </div>
-
-            <div class="input mb-2">
-                <label for="cover">Immagine di copertina</label>
-                <div class="browse">
-                    <input type="file" name="cover" id="cover">
+    
+                <div class="input row align-items-center mb-3">
+                    <label for="address" class="col-2">Indirizzo:</label>
+                    <input type="text" name="address" id="address" class="form-control col-10" value="{{old('address')}}">
+    
+                    @error('address')
+                    <div class="text-danger col-12">{{$message}}</div>
+                    @enderror
                 </div>
-
-                @error('cover')
-                <div class="text-danger">{{$message}}</div>
-                @enderror
+    
+                <div class="input row align-items-center mb-3">
+                    <label for="vat" class="col-2">Partita IVA:</label>
+                    <input type="text" name="vat" id="vat" class="form-control col-10" value="{{old('vat')}}">
+    
+                    @error('vat')
+                    <div class="text-danger col-12">{{$message}}</div>
+                    @enderror
+                </div>
             </div>
 
-
-            @if ($categories)
-                <div class="input mb-2">
-                        <h4>Categorie</h4>
-                        @foreach ($categories as $category)
-                            <span class="d-inline-block form-check mr-3">
-                                <input 
-                                type="checkbox" 
-                                id="category{{$loop->iteration}}" 
-                                name="categories[]" 
-                                value="{{$category->id}}" 
-                                @if(in_array($category->id, old('categories', []))) checked @endif>
-                                
-                                <label for="category{{$loop->iteration}}">{{$category->name}}</label>
-                        @endforeach
-
-                        @error('category_id')
+            <div class="mb-4">
+                <h4>Immagini</h4>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 input mb-2">
+                        <label for="thumb">Immagine del profilo:</label>
+                        <div class="browse mb-2">
+                            <input type="file" name="thumb" id="thumb">
+                        </div>
+        
+                        @error('thumb')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
+                    </div>
+        
+                    <div class="col-sm-12 col-md-6 input mb-2">
+                        <label for="cover">Immagine di copertina:</label>
+                        <div class="browse mb-2">
+                            <input type="file" name="cover" id="cover">
+                        </div>
+        
+                        @error('cover')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+            </div>
 
-                </div>  
-            @endif
+            <div class="mb-4">
+                <h4>Categorie</h4>
+                <div class="row">
+                    @foreach ($categories as $category)
+                    <span class="form-check mr-2">
+                        <input 
+                            type="checkbox" 
+                            id="category{{$loop->iteration}}" 
+                            name="categories[]"
+                            value="{{$category->id}}" 
+                            @if(in_array($category->id, old('categories', []))) checked @endif
+                        >
+                        
+                        <label for="category{{ $loop->iteration }}">{{ $category->name }}</label>
+                    </span>
+                    @endforeach
+                </div>
 
-            <button type="submit" class="btn btn-primary">Save</button>
+                @error('categories')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div> 
 
-
-
-
-
-
-            
-
+            <button type="submit" class="btn btn-primary">Registra il tuo ristorante!</button>
         </form>
     </div>
-    
 @endsection

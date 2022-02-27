@@ -7,10 +7,11 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Components
+// Partials
 @import 'partials/app';
 @import 'partials/cp';
 @import 'partials/dashboard';
-@import 'partials/show-dish';
 @import 'partials/show-restaurant';
 @import 'partials/edit-restaurant';
+@import 'partials/index-dishes';
+@import 'partials/show-dish';

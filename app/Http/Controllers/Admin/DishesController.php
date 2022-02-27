@@ -50,7 +50,7 @@ class DishesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->validation_rules(), $this->validation_messages() );
+        $request->validate($this->store_validation_rules(), $this->validation_messages() );
         
 
         $data = $request->all();
@@ -87,8 +87,6 @@ class DishesController extends Controller
         $new_dish->save();
 
         return redirect()->route('admin.dishes.show', $new_dish->slug);
-
-
     }
 
     /**
@@ -132,7 +130,7 @@ class DishesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate($this->validation_rules(), $this->validation_messages() );
+        $request->validate($this->update_validation_rules(), $this->validation_messages());
 
         $data = $request->all();
 
@@ -180,31 +178,44 @@ class DishesController extends Controller
     {
         $delete_dish = Dish::find($id);
 
-        if($delete_dish ->thumb){
+        if($delete_dish->thumb){
             Storage::delete($delete_dish ->thumb);
         }
 
-        $delete_dish ->delete();
+        $delete_dish->delete();
 
         return redirect()->route('admin.dishes.index')->with('deleted', $delete_dish->name);
     }
 
-    //validation rules
 
-    private function validation_rules(){
+    /**
+     * VALIDATION RULES
+     */
+    private function store_validation_rules() {
         return [
-            'name' => 'required|max:100',
-            'description' => 'required|max:255',
-            'ingredients' => 'required|max:255',
-            // 'thumb' => 'required|file|mimes:jpg,jpeg,bmp,png'
+            'name' => 'required|max:50',
+            'price' => 'required|numeric|min:0|max:999.99',
+            'description' => 'required|string',
+            'ingredients' => 'required|string',
+            'thumb' => 'required|file|mimes:jpg,jpeg,bmp,png'
         ];
     }
 
-    private function validation_messages(){
+    private function update_validation_rules() {
         return [
-            'required' => 'The :attribute is a required filed!',
-            'max' => 'Max :max characters allowed for the :attribute!',
+            'name' => 'required|max:50',
+            'price' => 'required|numeric|min:0|max:999.99',
+            'description' => 'required|string',
+            'ingredients' => 'required|string',
+            'thumb' => 'file|mimes:jpg,jpeg,bmp,png'
         ];
     }
 
+    private function validation_messages() {
+        return [
+            'required' => 'Campo richiesto',
+            'max' => 'Il campo :attribute ha un limite massimo di caratteri pari a :max',
+            'thumb.required' => "È richiesta un'immagine del piatto!"
+        ];
+    }
 }

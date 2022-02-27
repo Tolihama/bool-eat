@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container edit-restaurant py-4">
+    <div id="restaurant-edit" class="container py-4">
+        <h1 class="pb-4">Modifica il tuo ristorante: {{ $restaurant->name }}</h1>
 
         @if ($errors->any()) 
             <div class="alert alert-danger">
-                <ul class="py-0 my-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                <i class="fa-solid fa-triangle-exclamation text-danger fw-bold mr-2"></i> Attenzione: ci sono alcuni errori di compilazione!
             </div>
         @endif
         
@@ -71,45 +68,31 @@
                 @enderror
             </div>
 
-            
+            <div class="input mb-2">
+                    <h4>Categorie</h4>
+                    @foreach ($categories as $category)
+                        <span class="d-inline-block form-check mr-3">
+                            <input 
+                            type="checkbox" 
+                            id="category-{{$loop->iteration}}" 
+                            name="categories[]" 
+                            value="{{$category->id}}" 
+                            @if($errors->any() && in_array($category->id, old('categories'))) 
+                            checked 
+                            @elseif(!$errors->any() && $restaurant->categories->contains($category->id))
+                            checked
+                            @endif>
+                            
+                            <label for="category-{{$loop->iteration}}">{{$category->name}}</label>
+                    @endforeach
 
-
-            @if ($categories)
-                <div class="input mb-2">
-                        <h4>Categorie</h4>
-                        @foreach ($categories as $category)
-                            <span class="d-inline-block form-check mr-3">
-                                <input 
-                                type="checkbox" 
-                                id="category-{{$loop->iteration}}" 
-                                name="categories[]" 
-                                value="{{$category->id}}" 
-                                @if($errors->any() && in_array($category->id, old('categories'))) 
-                                checked 
-                                @elseif(!$errors->any() && $restaurant->categories->contains($category->id))
-                                checked
-                                @endif>
-                                
-                                <label for="category-{{$loop->iteration}}">{{$category->name}}</label>
-                        @endforeach
-
-                        @error('category_id')
-                        <div class="text-danger">{{$message}}</div>
-                        @enderror
-
-                </div>  
-            @endif
+                    @error('category_id')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+            </div>  
 
             <button type="submit" class="btn btn-primary">Salva</button>
 
-
-
-
-
-
-            
-
         </form>
     </div>
-    
 @endsection
