@@ -22,7 +22,10 @@ class DishesController extends Controller
     public function index()
     {
         if (!DB::table('restaurants')->where('user_id', Auth::id())->exists()) {
-            return redirect()->route('admin.restaurant.create');
+            return redirect()->route('admin.restaurant.create')->with(
+                'status', 
+                'Non puoi creare un nuovo piatto nel menù se prima non hai registrato il tuo ristorante!'
+            );
         }
         $restaurant_id = DB::table('restaurants')->where('user_id', Auth::id())->first()->id;
         $dishes = Dish::where('restaurant_id', $restaurant_id)->get();
