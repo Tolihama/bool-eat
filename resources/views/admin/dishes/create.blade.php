@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="container mt-3">
-        <h1 class="text-center mb-5">Create a new dishes</h1>
+        <h1 class="text-center mb-5">Crea un nuovo piatto</h1>
 
         <form action="{{route('admin.dishes.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- name --}}
             <div class="mb-3">
-                <label for="name" class="form-label">Name*</label>
+                <label for="name" class="form-label">Nome*</label>
                 <input class="form-control" type="text" name="name" id="name" value="{{old('name')}}">
             </div>
             @error('name')
@@ -18,7 +18,7 @@
 
             {{-- description --}}
             <div class="mb-3">
-                <label for="description" class="form-label">description*</label>
+                <label for="description" class="form-label">Descrizione*</label>
                 <textarea class="form-control" type="text" name="description" id="description">
                     {{ old('description') }}</textarea>
                 </textarea>
@@ -29,7 +29,7 @@
 
             {{-- price --}}
             <div class="mb-3">
-                <label for="price" class="form-label">price*</label>
+                <label for="price" class="form-label">Prezzo*</label>
                 <input class="form-control" type="text" name="price" id="price" value{{old('price')}}>
             </div>
             @error('price')
@@ -38,7 +38,7 @@
 
             {{-- ingredients --}}
             <div class="mb-3">
-                <label for="ingredients" class="form-label">ingredients*</label>
+                <label for="ingredients" class="form-label">Ingredienti*</label>
                 <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients') }}</textarea>
             </div>
             @error('ingredients')
@@ -47,14 +47,14 @@
 
             {{-- is_visible --}}
             <div class="mb-3">
-                <h4>visibility</h4>
+                <h4>Visibilità</h4>
                 <input type="checkbox" id="is_visible" name="is_visible" checked>
                 <label for="is_visible">Visible</label>
             </div>
 
             {{-- thumb --}}
             <div class="mb-3">
-                <h4>Immagine Dishes</h4>
+                <h4>Immagine del piatto</h4>
                 <input class="form-control-file" type="file" name="thumb" id="thumb">
             </div>
             @error('thumb')
@@ -64,7 +64,7 @@
             {{-- submit --}}
             <div>
                 <button class="btn btn-primary" type="submit">
-                    Create dish
+                    Crea piatto
                 </button>
             </div>
         </form>

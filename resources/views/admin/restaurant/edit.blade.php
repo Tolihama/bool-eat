@@ -17,7 +17,7 @@
             @csrf
             @method('PATCH')
             <div class="input mb-2">
-                <label for="name">Name</label>
+                <label for="name">Nome ristorante</label>
                 <input type="text" name="name" id="name" class="form-control" value="{{old('name', $restaurant->name)}}">
 
                 @error('name')
@@ -26,7 +26,7 @@
             </div>
 
             <div class="input mb-2">
-                <label for="address">Address</label>
+                <label for="address">Indirizzo</label>
                 <input type="text" name="address" id="address" class="form-control" value="{{old('address', $restaurant->address)}}">
 
                 @error('address')
@@ -35,7 +35,7 @@
             </div>
 
             <div class="input mb-4">
-                <label for="vat">Vat number</label>
+                <label for="vat">Partita IVA</label>
                 <input type="text" name="vat" id="vat" class="form-control" value="{{old('vat', $restaurant->vat)}}">
 
                 @error('vat')
@@ -48,7 +48,7 @@
                     <img src="{{asset('/storage/' . $restaurant->thumb)}}" alt="">
                 </div>
                 <div class="browse">
-                    <label for="thumb" class="d-block">Thumb</label>
+                    <label for="thumb" class="d-block">Immagine del profilo</label>
                     <input type="file" name="thumb" id="thumb">
                 </div>
 
@@ -62,7 +62,7 @@
                     <img src="{{asset('/storage/' . $restaurant->cover)}}" alt="">
                 </div>
                 <div class="browse">
-                    <label for="cover" class="d-block">Cover</label>
+                    <label for="cover" class="d-block">Immagine di copertina</label>
                     <input type="file" name="cover" id="cover">
                 </div>
 
@@ -76,7 +76,7 @@
 
             @if ($categories)
                 <div class="input mb-2">
-                        <h4>Categories</h4>
+                        <h4>Categorie</h4>
                         @foreach ($categories as $category)
                             <span class="d-inline-block form-check mr-3">
                                 <input 
@@ -100,7 +100,7 @@
                 </div>  
             @endif
 
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">Salva</button>
 
 
 

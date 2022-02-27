@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-3">
-        <h1 class="text-center mb-5">Edit: {{$dish_edit->name}}</h1>
+        <h1 class="text-center mb-5">Modifica: {{$dish_edit->name}}</h1>
 
         <form action="{{route('admin.dishes.update', $dish_edit->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -10,7 +10,7 @@
 
             {{-- name --}}
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">Nome piatto</label>
                 <input 
                     class="form-control" 
                     type="text" name="name" id="name" 
@@ -22,7 +22,7 @@
 
             {{-- description --}}
             <div class="mb-3">
-                <label for="description" class="form-label">description*</label>
+                <label for="description" class="form-label">Descrizione*</label>
                 <textarea 
                     class="form-control" 
                     type="text" name="description" id="description" rows="6"
@@ -36,7 +36,7 @@
 
             {{-- price --}}
             <div class="mb-3">
-                <label for="price" class="form-label">price*</label>
+                <label for="price" class="form-label">Prezzo*</label>
                 <input 
                 class="form-control" type="text" name="price" id="price" 
                 value = "{{old('price', $dish_edit->price)}}">
@@ -47,7 +47,7 @@
 
             {{-- ingredients --}}
             <div class="mb-3">
-                <label for="ingredients" class="form-label">ingredients*</label>
+                <label for="ingredients" class="form-label">Ingredienti*</label>
                 <textarea class="form-control" name="ingredients" id="ingredients">
                     {{ old('ingredients', $dish_edit->ingredients) }}
                 </textarea>
@@ -58,14 +58,14 @@
 
             {{-- is_visible --}}
             <div class="mb-3">
-                <h4>visibility</h4>
+                <h4>Visibilità</h4>
                 <input type="checkbox" id="is_visible" name="is_visible" checked>
-                <label for="is_visible">Visible</label>
+                <label for="is_visible">Visibile</label>
             </div>
 
             {{-- thumb --}}
             <div class="mb-3">
-                <h4>Immagine Dishes</h4>
+                <h4>Immagine del piatto</h4>
                 @if ($dish_edit->thumb)
                     <figure class="mb-3">
                         <img src="{{ asset('./storage/' . $dish_edit->thumb)}}" alt="{{ $dish_edit->name}}">
@@ -80,7 +80,7 @@
             {{-- submit --}}
             <div>
                 <button class="btn btn-primary" type="submit">
-                    Update dish
+                   Salva modifiche
                 </button>
             </div>
         </form>

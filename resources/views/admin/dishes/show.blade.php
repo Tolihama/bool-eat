@@ -12,18 +12,18 @@
 
         <div class="row">
             <div class="mb-3 col-md-3">
-                <h4>Ingredients</h4>
+                <h4>Ingredienti</h4>
                 <p>{{ $dish->ingredients }}</p>
             </div>
             <div class="mb-3 col-md-6">
-                <h4>Description</h4>
+                <h4>Descrizione</h4>
                 <p>{{ $dish->description }}</p>
             </div>
         </div>
             
         <div class="mt-4">
-            <a class="btn btn-warning mr-4" href="{{route('admin.dishes.edit', $dish->id) }} ">Edit Dish</a>
-            <a class="btn btn-primary " href="{{route('admin.dishes.index') }} ">Back to archive</a>
+            <a class="btn btn-warning mr-4" href="{{route('admin.dishes.edit', $dish->id) }} ">Modifica piatto</a>
+            <a class="btn btn-primary " href="{{route('admin.dishes.index') }} ">Torna al menù</a>
         </div>
     </div>
 @endsection

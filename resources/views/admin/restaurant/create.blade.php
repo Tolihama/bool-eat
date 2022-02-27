@@ -15,7 +15,7 @@
         <form action="{{route('admin.restaurant.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="input mb-2">
-                <label for="name">Name</label>
+                <label for="name">Nome del ristorante</label>
                 <input type="text" name="name" id="name" class="form-control" value="{{old('name')}}">
 
                 @error('name')
@@ -24,7 +24,7 @@
             </div>
 
             <div class="input mb-2">
-                <label for="address">Address</label>
+                <label for="address">Indirizzo</label>
                 <input type="text" name="address" id="address" class="form-control" value="{{old('address')}}">
 
                 @error('address')
@@ -33,7 +33,7 @@
             </div>
 
             <div class="input mb-2">
-                <label for="vat">Vat number</label>
+                <label for="vat">Partita IVA</label>
                 <input type="text" name="vat" id="vat" class="form-control" value="{{old('vat')}}">
 
                 @error('vat')
@@ -42,7 +42,7 @@
             </div>
 
             <div class="input mb-2">
-                <label for="thumb">Thumb</label>
+                <label for="thumb">Immagine del profilo</label>
                 <div class="browse">
                     <input type="file" name="thumb" id="thumb">
                 </div>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="input mb-2">
-                <label for="cover">Cover</label>
+                <label for="cover">Immagine di copertina</label>
                 <div class="browse">
                     <input type="file" name="cover" id="cover">
                 </div>
@@ -66,6 +66,7 @@
 
             @if ($categories)
                 <div class="input mb-2">
+                        <h4>Categorie</h4>
                         @foreach ($categories as $category)
                             <span class="d-inline-block form-check mr-3">
                                 <input 
