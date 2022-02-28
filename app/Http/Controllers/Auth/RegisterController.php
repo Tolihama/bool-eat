@@ -57,8 +57,15 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'bio' => ['nullable', 'string'],
             'avatar' => ['nullable', 'file', 'mimes:jpeg,jpg,bmp,png']
+        ],[
+            'required' => "L'elemento è richiesto",
+            'max' => "L'elemento è troppo lungo",
+            'min' => "L'elemento è troppo corto",
+            'string' => "L'elemento deve essere una stringa",
+            'file' => "L'elemento deve essere un file",
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
