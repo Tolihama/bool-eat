@@ -116,7 +116,7 @@ class RestaurantController extends Controller
             abort(404);
         }
 
-        if($restaurant->slug == $user_restaurant->slug) {
+        if($restaurant->user_id == $user_restaurant->user_id) {
             return view('admin.restaurant.show', compact('restaurant'));
         } else {
             abort(403);
@@ -132,12 +132,12 @@ class RestaurantController extends Controller
     public function edit($slug)
     {
         $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
-        // dd($your_restaurant->slug);
+        // dd($user_restaurant);
         
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::all();
 
-        if ($user_restaurant->slug == $restaurant->slug) {
+        if ($user_restaurant->user_id == $restaurant->user_id) {
             return view('admin.restaurant.edit', compact('restaurant', 'categories'));
         } else {
             abort(403);
