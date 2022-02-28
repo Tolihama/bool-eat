@@ -16,7 +16,7 @@
             {{-- name --}}
             <div class="mb-3">
                 <label for="name" class="form-label">Nome piatto*</label>
-                <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}" required>
+                <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}" required maxlength="50">
                 @error('name')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -25,7 +25,7 @@
             {{-- price --}}
             <div class="mb-3">
                 <label for="price" class="form-label">Prezzo*</label>
-                <input class="form-control" type="number" step="0.01" min="1" max="999.99" name="price" id="price" required value="{{ old('price') }}">
+                <input class="form-control" type="number" step="0.01" min="0" max="999.99" name="price" id="price" required value="{{ old('price') }}">
                 @error('price')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
