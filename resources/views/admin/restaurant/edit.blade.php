@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="restaurant-edit" class="container py-4">
+    <div id="edit-restaurant" class="container py-4">
         <h1 class="pb-4">Modifica il tuo ristorante: {{ $restaurant->name }}</h1>
 
         @if ($errors->any()) 

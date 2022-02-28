@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container restaurant-show py-5">
+    <div class="container py-5" id="restaurant-show">
         <h1 class="mb-5">Il tuo ristorante: {{$restaurant->name}}</h1>
         <div class="row">
             <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
