@@ -29,7 +29,7 @@ class DishesController extends Controller
             );
         }
         $restaurant_id = DB::table('restaurants')->where('user_id', Auth::id())->first()->id;
-        $dishes = Dish::where('restaurant_id', $restaurant_id)->get();
+        $dishes = Dish::where('restaurant_id', $restaurant_id)->orderBy('name')->paginate(15);
         return view('admin.dishes.index', compact('dishes'));
     }
 
