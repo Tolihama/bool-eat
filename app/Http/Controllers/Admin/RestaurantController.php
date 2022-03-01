@@ -107,7 +107,7 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::where('slug', $slug)->first();
         // $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
 
-        if (! $restaurant) {
+        if (!$restaurant) {
             abort(404);
         }
 
@@ -135,7 +135,7 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::all();
 
-        if($this->user_restaurant() != $restaurant->user_id) {
+        if(!$restaurant || $this->user_restaurant() != $restaurant->user_id)  {
             abort(403);  
         } 
 
@@ -215,7 +215,7 @@ class RestaurantController extends Controller
 
         $restaurant = Restaurant::where('slug', $slug)->first();
 
-        if($this->user_restaurant() != $restaurant->user_id) {
+        if(!$restaurant || $this->user_restaurant() != $restaurant->user_id) {
             abort(403);  
         } 
 
@@ -233,7 +233,7 @@ class RestaurantController extends Controller
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
 
-        if($this->user_restaurant() != $restaurant->user_id) {
+        if(!$restaurant || $this->user_restaurant() != $restaurant->user_id) {
             abort(403);  
         } 
 
