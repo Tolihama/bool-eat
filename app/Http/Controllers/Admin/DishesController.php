@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+
 use App\Dish;
 use App\Restaurant;
 
@@ -96,10 +97,17 @@ class DishesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
-    {
+    {   
+        
         $dish = Dish::where('slug', $slug)->first();
         if(! $dish){
             abort(404);
+        }
+
+        $dish_restaurant_user_id = $dish->restaurant()->first()->user()->first()->id;
+
+        if($dish_restaurant_user_id != Auth::id()) {
+            abort(403);
         }
 
         return view('admin.dishes.show', compact('dish'));
@@ -113,10 +121,18 @@ class DishesController extends Controller
      */
     public function edit($id)
     {
+
+        
         $dish_edit = Dish::find($id);
         
         if (! $dish_edit){
             abort(404);
+        }
+        
+        $dish_restaurant_user_id = $dish_edit->restaurant()->first()->user()->first()->id;
+
+        if($dish_restaurant_user_id != Auth::id()) {
+            abort(403);
         }
         return view('admin.dishes.edit', compact('dish_edit'));
     }
@@ -178,6 +194,12 @@ class DishesController extends Controller
     {
         $delete_dish = Dish::find($id);
 
+        $dish_restaurant_user_id = $delete_dish->restaurant()->first()->user()->first()->id;
+
+        if($dish_restaurant_user_id != Auth::id()) {
+            abort(403);
+        }
+
         if($delete_dish->thumb){
             Storage::delete($delete_dish ->thumb);
         }
@@ -186,7 +208,6 @@ class DishesController extends Controller
 
         return redirect()->route('admin.dishes.index')->with('deleted', $delete_dish->name);
     }
-
 
     /**
      * VALIDATION RULES
