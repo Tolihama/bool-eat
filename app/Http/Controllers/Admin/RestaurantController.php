@@ -51,17 +51,14 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation
         $request->validate($this->store_validation_rules(), $this->validation_messages());
-        $data = $request->all();
 
-        // New Restaurant istance
+        $data = $request->all();
         $new_restaurant = new Restaurant();
 
-        // User id assign to restaurant
         $new_restaurant->user_id = Auth::id();
 
-        // Slug
+        //SLUG
         $slug = Str::slug($data['name'], '-');
         $count = 1;
         $base_slug = $slug;
@@ -72,23 +69,26 @@ class RestaurantController extends Controller
 
         $data['slug'] = $slug;
 
-        /**
-         * IMAGES
-         */
-        // Thumb
+        
+
+        //IMAGES
+
+        //thumb
         if(array_key_exists('thumb', $data)) {
             $data['thumb'] = Storage::put('restaurant-image', $data['thumb']);
         } 
 
-        // Cover
+        //cover
         if(array_key_exists('cover', $data)) {
             $data['cover'] = Storage::put('restaurant-image', $data['cover']);
         }
 
+
         $new_restaurant->fill($data);
+
         $new_restaurant->save();
 
-        // Categories
+        //CATEGORIES
         if(array_key_exists('categories', $data)) {
             $new_restaurant->categories()->attach($data['categories']);
         }
@@ -105,12 +105,17 @@ class RestaurantController extends Controller
     public function show($slug)
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
+        $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
 
         if (! $restaurant) {
             abort(404);
         }
 
-        return view('admin.restaurant.show', compact('restaurant'));
+        if($restaurant->user_id == $user_restaurant->user_id) {
+            return view('admin.restaurant.show', compact('restaurant'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -121,11 +126,19 @@ class RestaurantController extends Controller
      */
     public function edit($slug)
     {
-
+        $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
+        // dd($user_restaurant);
+        
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::all();
 
-        return view('admin.restaurant.edit', compact('restaurant', 'categories'));
+        if ($user_restaurant->user_id == $restaurant->user_id) {
+            return view('admin.restaurant.edit', compact('restaurant', 'categories'));
+        } else {
+            abort(403);
+        }
+
+        
     }
 
     /**
@@ -234,43 +247,44 @@ class RestaurantController extends Controller
         return redirect()->route('admin.home');
     }
 
-    /**
-     * CHECK USER / RESTAURANT
-     */
+
+    //CHECK USER/RESTAURANT
+
     private function db_restaurant_check() {
         return DB::table('restaurants')->where('user_id', Auth::id())->exists();
     }
 
-    /**
-     * VALIDATION RULES
-     */
+
+
+    //VALIDATION
+
     private function store_validation_rules() {
         return [
             'name' => 'required|max:100',
+            'category_id' => 'nullable|exists:categories,id',
             'vat' => 'required|size:11',
             'address' => 'required|max:150',
             'thumb' => 'required|file|mimes:jpeg,jpg,bmp,png',
-            'cover' => 'required|file|mimes:jpeg,jpg,bmp,png',
-            'categories' => 'present|array|exists:categories,id',
+            'cover' => 'required|file|mimes:jpeg,jpg,bmp,png'
         ];
     }
 
     private function validation_messages() {
         return [
-            'required' => 'Campo richiesto',
-            'max' => 'Il campo :attribute ha un limite massimo di caratteri pari a :max',
-            'size.vat' => 'La partita IVA deve essere di 11 cifre',
-            'categories.present' => 'È necessario selezionare almeno una categoria',
-            'categories.exists' => 'La categoria selezionata non esiste',
+            'required' => 'The :attribute is required',
+            'max' => 'Max :max characters allowed for the :attribute',
+            'category_id.exists' => 'Selected category does not exists',
         ];
     }
 
     private function update_validation_rules() {
         return [
             'name' => 'required|max:100',
+            'category_id' => 'nullable|exists:categories,id',
             'vat' => 'required|size:11',
             'address' => 'required|max:150',
-            'categories' => 'present|array|exists:categories,id',
+            // 'thumb' => 'file|mimes:jpeg,jpg,bmp,png',
+            // 'cover' => 'file|mimes:jpeg,jpg,bmp,png'
         ];
     }
 }
