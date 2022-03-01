@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-5" id="restaurant-show">
+    <div id="restaurant-show" class="container py-5">
         <h1 class="mb-5">Il tuo ristorante: {{$restaurant->name}}</h1>
         <div class="row">
             <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
@@ -43,7 +43,15 @@
                         <i class="fa-solid fa-square-pen mr-2"></i> Modifica dati ristorante
                     </a>
                 </div>
-                <form action="{{ route('admin.restaurant.destroy', $restaurant->slug) }}" method="POST">
+                <div class="cta-my-3">
+                    <a
+                        href="{{ route('admin.restaurant.confirm-delete', $restaurant->slug) }}"
+                        class="btn btn-danger w-50"
+                    >
+                        <i class="fa-solid fa-eraser mr-2"></i> Elimina ristorante
+                    </a>
+                </div>
+{{--                 <form action="{{ route('admin.restaurant.destroy', $restaurant->slug) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     
@@ -51,20 +59,8 @@
                         <i class="fa-solid fa-eraser mr-2"></i> Elimina ristorante
                     </button>
         
-                </form>
+                </form> --}}
             </div>
         </div>
-        
-
-        
-        
-
-        
-
-        
-        
-
-        
-
     </div>
 @endsection
