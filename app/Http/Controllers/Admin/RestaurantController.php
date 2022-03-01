@@ -22,9 +22,9 @@ class RestaurantController extends Controller
         if ($this->db_restaurant_check()) {
             $restaurant = Restaurant::where('user_id', Auth::id())->first();
             return redirect()->route('admin.restaurant.show', $restaurant->slug);
-        } else {
-            return redirect()->route('admin.restaurant.create');
-        }
+        } 
+        
+        return redirect()->route('admin.restaurant.create');
     }
 
     /**
@@ -34,18 +34,13 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-
         if ($this->db_restaurant_check()) {
-
             $restaurant = Restaurant::where('user_id', Auth::id())->first();
             return redirect()->route('admin.restaurant.show', $restaurant->slug);
-
-        } else {
-
-            return view('admin.restaurant.create', compact('categories'));
-            
         }
+
+        $categories = Category::all();
+        return view('admin.restaurant.create', compact('categories'));
     }
 
     /**
@@ -198,6 +193,7 @@ class RestaurantController extends Controller
      */
     public function confirm_delete($slug) 
     {
+        dd($this->db_restaurant_check());
         if (!$this->db_restaurant_check()) {
             abort(403);
         }
