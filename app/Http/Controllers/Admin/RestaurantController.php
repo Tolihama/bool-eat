@@ -194,26 +194,45 @@ class RestaurantController extends Controller
     }
 
     /**
+     * Return the confirmation page for restaurant delete.
+     */
+    public function confirm_delete($slug) 
+    {
+        if (!$this->db_restaurant_check()) {
+            abort(403);
+        }
+
+        $restaurant = Restaurant::where('slug', $slug)->first();
+
+
+        return view('admin.restaurant.confirm-delete', compact('restaurant'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(Request $request, $slug)
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
 
-        if($restaurant->thumb) {
+        $request->validate([
+            'confirm' => "required|string|regex:/{$slug}/"
+        ], [
+            'required' => 'Il campo è richiesto.',
+            'regex' => 'Il valore immesso non coincide con quello richiesto.'
+        ]);
+
+        if ($restaurant->thumb) {
             Storage::delete($restaurant->thumb);
         }
-
-        if($restaurant->cover) {
+        if ($restaurant->cover) {
             Storage::delete($restaurant->cover);
         }
 
-
         $restaurant->delete();
-
         $restaurant->categories()->detach();
 
         return redirect()->route('admin.home');
@@ -223,11 +242,7 @@ class RestaurantController extends Controller
      * CHECK USER / RESTAURANT
      */
     private function db_restaurant_check() {
-        if (DB::table('restaurants')->where('user_id', Auth::id())->exists()) {
-            return $check = true;
-        } else {
-            return $check = false;
-        }
+        return DB::table('restaurants')->where('user_id', Auth::id())->exists();
     }
 
     /**
