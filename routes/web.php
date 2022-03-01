@@ -23,6 +23,7 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('/dishes', 'DishesController');
         Route::resource('/restaurant', 'RestaurantController');
+        Route::get('/restaurant/{restaurant}/confirm-delete', 'RestaurantController@confirm_delete')->name('restaurant.confirm-delete');
     });
 
 Auth::routes();
