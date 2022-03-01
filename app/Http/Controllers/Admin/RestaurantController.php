@@ -105,17 +105,20 @@ class RestaurantController extends Controller
     public function show($slug)
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
-        $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
+        // $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
 
         if (! $restaurant) {
             abort(404);
         }
 
-        if($restaurant->user_id == $user_restaurant->user_id) {
-            return view('admin.restaurant.show', compact('restaurant'));
-        } else {
-            abort(403);
-        }
+        if($this->user_restaurant() != $restaurant->user_id) {
+            abort(403);  
+        } 
+
+        return view('admin.restaurant.show', compact('restaurant'));
+            
+        
+        
     }
 
     /**
@@ -126,18 +129,17 @@ class RestaurantController extends Controller
      */
     public function edit($slug)
     {
-        $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
+        // $user_restaurant = DB::table('restaurants')->where('user_id', Auth::id())->first();
         // dd($user_restaurant);
         
         $restaurant = Restaurant::where('slug', $slug)->first();
         $categories = Category::all();
 
-        if ($user_restaurant->user_id == $restaurant->user_id) {
-            return view('admin.restaurant.edit', compact('restaurant', 'categories'));
-        } else {
-            abort(403);
-        }
+        if($this->user_restaurant() != $restaurant->user_id) {
+            abort(403);  
+        } 
 
+        return view('admin.restaurant.edit', compact('restaurant', 'categories'));
         
     }
 
@@ -206,12 +208,16 @@ class RestaurantController extends Controller
      */
     public function confirm_delete($slug) 
     {
-        dd($this->db_restaurant_check());
+        // dd($this->db_restaurant_check());
         if (!$this->db_restaurant_check()) {
             abort(403);
         }
 
         $restaurant = Restaurant::where('slug', $slug)->first();
+
+        if($this->user_restaurant() != $restaurant->user_id) {
+            abort(403);  
+        } 
 
 
         return view('admin.restaurant.confirm-delete', compact('restaurant'));
@@ -226,6 +232,10 @@ class RestaurantController extends Controller
     public function destroy(Request $request, $slug)
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
+
+        if($this->user_restaurant() != $restaurant->user_id) {
+            abort(403);  
+        } 
 
         $request->validate([
             'confirm' => "required|string|regex:/{$slug}/"
@@ -244,6 +254,8 @@ class RestaurantController extends Controller
         $restaurant->delete();
         $restaurant->categories()->detach();
 
+        
+
         return redirect()->route('admin.home');
     }
 
@@ -252,6 +264,11 @@ class RestaurantController extends Controller
 
     private function db_restaurant_check() {
         return DB::table('restaurants')->where('user_id', Auth::id())->exists();
+    }
+
+    private function user_restaurant() {
+        return $user_restaurant_id = DB::table('restaurants')->where('user_id', Auth::id())->first()->user_id;
+
     }
 
 
@@ -287,4 +304,6 @@ class RestaurantController extends Controller
             // 'cover' => 'file|mimes:jpeg,jpg,bmp,png'
         ];
     }
+
+    
 }

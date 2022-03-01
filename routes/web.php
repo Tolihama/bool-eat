@@ -34,7 +34,13 @@ Route::middleware('auth')->group(function() {
     })->name('registration-confirmed');
 });
 
+
+Route::get('/', function() {
+    return view('guest.home');
+
+})->name('home');
+
 // Front SPA route
 Route::get('{any?}', function() {
-    return view('guest.home');
+    return redirect()->route('home');
 })->where('any', '.*');
