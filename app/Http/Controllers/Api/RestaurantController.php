@@ -15,10 +15,18 @@ class RestaurantController extends Controller
         return response()->json($restaurants);
     }
 
-    public function show($id) {
-        $restaurant = Restaurant::where('id', $id)
+    public function show($slug) {
+        $restaurant = Restaurant::where('slug', $slug)
+                    ->with(['categories:id,name'])
                     ->select(['id', 'name', 'thumb', 'cover', 'address'])
-                    ->get();
+                    ->first();
+
+        if (!preg_match('/http/', $restaurant->thumb)) {
+            $restaurant->thumb = url("storage/{$restaurant->thumb}");
+        }
+        if (!preg_match('/http/', $restaurant->cover)) {
+            $restaurant->cover = url("storage/{$restaurant->cover}");
+        }
 
         return response()->json($restaurant);
     }
