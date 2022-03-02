@@ -14,7 +14,11 @@ class DishesController extends Controller
                 ->where('is_visible', '1')
                 ->select(['id', 'restaurant_id', 'name', 'slug', 'thumb', 'ingredients', 'description', 'price'])
                 ->get();
-
+        foreach ($dishes as $dish) {
+            if (!preg_match('/http/', $dish->thumb)) {
+                $dish->thumb = url("storage/{$dish->thumb}");
+            };
+        }
         return response()->json($dishes);
     }
 }
