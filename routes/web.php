@@ -24,6 +24,11 @@ Route::middleware('auth')
         Route::resource('/dishes', 'DishesController');
         Route::resource('/restaurant', 'RestaurantController');
         Route::get('/restaurant/{restaurant}/confirm-delete', 'RestaurantController@confirm_delete')->name('restaurant.confirm-delete');
+
+        // Admin route doesn't exist: redirect to dashboard
+        Route::get('{any?}', function() {
+            return redirect()->route('admin.home');
+        })->where('any', '.*');
     });
 
 Auth::routes();
@@ -34,13 +39,7 @@ Route::middleware('auth')->group(function() {
     })->name('registration-confirmed');
 });
 
-
-Route::get('/', function() {
-    return view('guest.home');
-
-})->name('home');
-
 // Front SPA route
 Route::get('{any?}', function() {
-    return redirect()->route('home');
+    return view('guest.home');
 })->where('any', '.*');
