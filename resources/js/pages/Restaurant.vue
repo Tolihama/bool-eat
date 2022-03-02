@@ -36,13 +36,13 @@
 import axios from 'axios';
 
 // Components
-import Dishes from '../components/Dishes';
+// import Dishes from '../components/Dishes';
 import Loader from '../components/Loader';
 
 export default {
     name: 'Restaurant',
     components: {
-        Dishes,
+        // Dishes,
         Loader,
     },
     data() {

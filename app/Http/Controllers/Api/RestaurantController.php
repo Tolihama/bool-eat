@@ -12,7 +12,17 @@ class RestaurantController extends Controller
     public function index() {
         $restaurants = Restaurant::with(['categories'])->get();
 
+        foreach($restaurants as $restaurant) {
+            if (!preg_match('/http/', $restaurant->thumb)) {
+                $restaurant->thumb = url("storage/{$restaurant->thumb}");
+            }
+            if (!preg_match('/http/', $restaurant->cover)) {
+                $restaurant->cover = url("storage/{$restaurant->cover}");
+            }
+        }
+
         return response()->json($restaurants);
+        // return $restaurants;
     }
 
     public function show($slug) {

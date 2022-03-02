@@ -1,6 +1,10 @@
 <template>
-    <div class="container">
-        <div
+    <div>
+        <router-link :to="{name: 'restaurant',
+        params: {
+            slug: restaurant.slug,
+        }
+        }"
             class="row mb-3"
             v-for="(restaurant, i) in list"
             :key="`restaurant${i}`"
@@ -38,7 +42,7 @@
                 </div>
             </div>
             <div class="col-6">altre info</div>
-        </div>
+        </router-link>
     </div>
 </template>
 
