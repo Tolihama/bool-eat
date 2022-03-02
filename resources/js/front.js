@@ -1,7 +1,6 @@
 import Vue from 'vue';
-import router from 'vue-router';
-
 import App from './views/App';
+import router from './routes';
 
 const root = new Vue({
     el: '#root',
