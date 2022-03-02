@@ -25,7 +25,7 @@
                         <h2>{{ restaurant.address }}</h2>
                     </div>
                 </div>
-                <Dishes />
+                <Dishes :dishes="dishes" />
             </div>
         </div>
         <Loader v-else class="flex-grow-1 d-flex justify-content-center align-items-center" />
@@ -36,32 +36,41 @@
 import axios from 'axios';
 
 // Components
-// import Dishes from '../components/Dishes';
+import Dishes from '../components/Dishes';
 import Loader from '../components/Loader';
 
 export default {
     name: 'Restaurant',
     components: {
-        // Dishes,
+        Dishes,
         Loader,
     },
     data() {
         return {
-            restaurant: null,
+            restaurant: [],
+            dishes: [],
         }
     },
     created() {
         this.getRestaurant();
     },
-    methods: {
+    methods:{
         getRestaurant() {
             axios.get(`http://127.0.0.1:8000/api/restaurants/${this.$route.params.slug}`)
                 .then(res => {
                     this.restaurant = res.data;
+                    axios.get(`http://127.0.0.1:8000/api/${res.data.id}/dishes`)
+                        .then( results => {
+                            console.log(results.data);
+                            this.dishes = results.data;
+                        })
+                        .catch( err => console.error(err));
                 })
                 .catch(err => console.log(err));
-        }
-    }
+            
+        },
+
+}
 }
 </script>
 

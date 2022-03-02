@@ -24,33 +24,14 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 
 export default {
     name: 'Dishes',
     props: {
-        restaurantId: Number,
+        dishes: Array,
     },
-    data(){
-        return{
-            dishes: null,
-        }
-    },
-    created(){
-        this.getDishes();
-    },
-    methods:{
-        getDishes(){
-            axios.get(`http://127.0.0.1:8000/api/${this.restaurantId}/dishes`)
-                .then( res => {
-                    console.log(res.data);
-                    this.dishes = res.data
-                })
-                .catch( err => console.error(err))
-        }
 
-    },
 }
 </script>
 
