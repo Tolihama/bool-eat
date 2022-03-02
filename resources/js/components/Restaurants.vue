@@ -5,13 +5,11 @@
             slug: restaurant.slug,
         }
         }"
-            class="row mb-4 p-3 restaurant"
+            class="d-flex mb-4 p-3 restaurant"
             v-for="(restaurant, i) in list"
             :key="`restaurant${i}`"
         >
-            <div class="col-3">
-                <div class="row">
-                    <div class="col-6">
+            
                         <div class="restaurant-images">
                             <div class="cover">
                                 <img
@@ -26,10 +24,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-9 d-flex align-items-center">
+            
+            
                         <div class="info d-flex flex-column justify-content-center">
                             <h5>{{ restaurant.name }}</h5>
                             <span
@@ -40,7 +36,7 @@
                                 {{ category.name }}
                             </span>
                         </div>
-                    </div>
+                    
             
         </router-link>
     </div>
@@ -55,6 +51,8 @@ export default {
 };
 </script>
 
+
+
 <style lang="scss" scoped>
 .cover {
     width: 200px;
@@ -62,6 +60,10 @@ export default {
     // border-radius: 20px;
     // overflow: hidden;
     position: relative;
+}
+
+.restaurant-images {
+    padding-right: calc(50px + 2rem);
 }
 .thumb {
     width: 100px;
@@ -89,6 +91,12 @@ a {
 }
 
 .restaurant {
+    border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    background: transparent;
+    transition: all .3s ease-in-out;
+    &:hover {
+        background: rgb(208, 230, 240);
+    }
 }
 </style>
