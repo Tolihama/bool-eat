@@ -5,11 +5,11 @@
             slug: restaurant.slug,
         }
         }"
-            class="row mb-3"
+            class="row mb-4 p-3 restaurant"
             v-for="(restaurant, i) in list"
             :key="`restaurant${i}`"
         >
-            <div class="col-6">
+            <div class="col-3">
                 <div class="row">
                     <div class="col-6">
                         <div class="restaurant-images">
@@ -27,8 +27,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="info">
+                </div>
+            </div>
+            <div class="col-9 d-flex align-items-center">
+                        <div class="info d-flex flex-column justify-content-center">
                             <h5>{{ restaurant.name }}</h5>
                             <span
                                 class="mx-2"
@@ -39,9 +41,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-6">altre info</div>
+            
         </router-link>
     </div>
 </template>
@@ -69,8 +69,9 @@ export default {
     // border-radius: 20px;
     // overflow: hidden;
     position: absolute;
-    top: 32.5px;
+    top: 50%;
     right: -50px;
+    transform: translateY(-50%);
 }
 
 img {
@@ -79,5 +80,15 @@ img {
     border-radius: 20px;
     object-fit: cover;
     object-position: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.restaurant {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 </style>
