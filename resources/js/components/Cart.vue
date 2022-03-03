@@ -5,36 +5,46 @@
         </h2>
         <div class="order flex-grow-1 overflow-auto">
             <!-- DISH DETAIL  -->
-             <div class="dish d-flex justify-content-between p-2 align-items-center">
+             <div 
+             class="dish d-flex justify-content-between p-2 align-items-center"
+             v-for="dish in order"
+             :key="dish.id"
+             >
 
                 <!-- DISH IMAGE  -->
                 <div class="dish-img">
-                    <img src="https://i0.wp.com/www.puntarellarossa.it/wp/wp-content/uploads/2018/12/Hot-dog-Fonzie.jpg?w=1000&ssl=1" alt="hot dog">
+                    <img :src="dish.thumb" :alt="`thumb-${dish.name}`">
                 </div>
 
                 <!-- DISH INFO -->
                 <div class="dish-info">
-                    <h5>Nome piatto</h5>
+                    <h5>{{dish.name}}</h5>
                 </div>
 
                 <!-- SELECTED QUANTITY  -->
                 <div class="quantity">
-                    <span>3</span>
+                    <span>{{dish.quantity}}</span>
                 </div>
 
                 <!-- PRICE  -->
                 <div class="price">
-                    <span>prezzo€</span>
+                    <span>{{dish.price * dish.quantity}}€</span>
                 </div>
                 <!-- ACTIONS  -->
                 <div class="cta">
-                    <button class="btn">
+                    <button class="btn"
+                    @click="$emit('addMoreDish', dish)"
+                    >
                         <i class="fa-solid fa-circle-plus"></i>
                     </button>
-                    <button class="btn">
+                    <button class="btn"
+                    @click="subDishQuantity(dish)"
+                    >
                         <i class="fa-solid fa-circle-minus"></i>
                     </button>
-                    <button class="btn">
+                    <button class="btn"
+                    @click="removeDishFromOrder(dish)"
+                    >
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>         
@@ -43,11 +53,15 @@
         </div>
         <div class="cart-footer d-flex justify-content-around align-items-center p-3">
             <div class="order-detail">
-                <h4>Totale: 44€</h4>
+                <h4>Totale: {{priceSum}}€</h4>
             </div>
             <div class="cta">
                 <button class="btn btn-success mr-3">Conferma ordine</button>
-                <button class="btn btn-danger">Svuota carrello</button>
+                <button class="btn btn-danger"
+                @click="emptyCart()"
+                >
+                    Svuota carrello
+                </button>
             </div>
         </div>
     </div>
@@ -56,6 +70,56 @@
 <script>
 export default {
     name: 'Cart',
+    props: {
+        order: Array,
+    }, 
+    computed: {
+        priceSum() {
+            let sum = 0;
+            this.order.forEach(el => {
+                sum += el.price * el.quantity;
+            })
+
+            return sum;
+        }
+    },
+    methods: {
+        emptyCart() {
+            
+            this.$emit('updateCart', []);
+        },
+
+        subDishQuantity(dish) {
+            const updatedOrder = [...this.order];
+            const selectedDish = updatedOrder.find(o => o.id === dish.id);
+            const selectedDishIndex = updatedOrder.findIndex(o => o.id === dish.id);
+            selectedDish.quantity -= 1;
+            if (selectedDish.quantity === 0) {
+                this.removeDishFromOrder(dish);
+                return
+            }
+
+            
+
+
+            updatedOrder[selectedDishIndex] = selectedDish;
+
+            this.$emit('updateCart', updatedOrder) 
+        },
+
+        removeDishFromOrder(dish) {
+            const updatedOrder = [...this.order];
+            const selectedDishIndex = updatedOrder.findIndex(o => o.id === dish.id);
+
+            updatedOrder.splice(selectedDishIndex, 1)
+
+            this.$emit('updateCart', updatedOrder);
+
+        }
+
+
+    }
+    
 
 }
 </script>

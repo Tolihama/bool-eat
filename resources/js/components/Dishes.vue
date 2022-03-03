@@ -16,7 +16,7 @@
             </li>
         </ul>
         <div class="cta col-md-4">
-            <button class="btn">
+            <button class="btn" @click="$emit('addDish', dish)">
                 <i class="fa-solid fa-circle-plus"></i>
             </button>
         </div>
