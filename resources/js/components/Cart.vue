@@ -87,6 +87,7 @@ export default {
         emptyCart() {
             
             this.$emit('updateCart', []);
+            
         },
 
         subDishQuantity(dish) {

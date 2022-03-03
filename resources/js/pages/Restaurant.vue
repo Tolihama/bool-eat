@@ -88,7 +88,12 @@ export default {
         },
         updateCart(order) {
             this.selectedDishes = order;
-            this.saveOrder();
+
+            if(order.length === 0) {
+                localStorage.removeItem('selectedDishes');
+            } else {
+                this.saveOrder();
+            }
         },
 
         addDishToOrder(dish) {
