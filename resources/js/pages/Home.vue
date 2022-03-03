@@ -1,6 +1,6 @@
 <template>
     <div id="home" class="container py-5">
-        <Categories :categoriesList="categories" />
+        <Categories @apiFilter="apiFilter" :categoriesList="categories" />
         <Restaurants :list="restaurants"/>
     </div>
 </template>
@@ -40,6 +40,16 @@ export default {
                 .then(res => {
                     this.categories= res.data;  
                 })
+        },
+        apiFilter(filter, page=1){
+            if(filter===","){
+                this.getRestaurants(page);
+            }else{
+                axios.get(`http://127.0.0.1:8000/api/restaurants/categories_filter/${filter}?page=${page}`)
+                .then(res => {
+                    this.restaurants = res.data.data;    
+                })
+            }   
         }
     },
 }
