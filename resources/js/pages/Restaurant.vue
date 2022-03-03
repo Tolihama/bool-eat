@@ -14,7 +14,7 @@
                     </div>
                     <div class="categories py-3">
                         <span 
-                            class="category" 
+                            class="category mr-1" 
                             v-for="category in restaurant.categories"
                             :key="`${category.id}`"
                         >
@@ -25,7 +25,9 @@
                         <h2>{{ restaurant.address }}</h2>
                     </div>
                 </div>
-                <Dishes :dishes="dishes" />
+                <Cart :order="selectedDishes" @updateCart="updateCart"
+                @addMoreDish="addDishToOrder"/>
+                <Dishes :dishes="dishes" @addDish="addDishToOrder"/>
             </div>
         </div>
         <Loader v-else class="flex-grow-1 d-flex justify-content-center align-items-center" />
@@ -38,30 +40,45 @@ import axios from 'axios';
 // Components
 import Dishes from '../components/Dishes';
 import Loader from '../components/Loader';
+import Cart from '../components/Cart';
 
 export default {
     name: 'Restaurant',
     components: {
         Dishes,
         Loader,
+        Cart,
     },
     data() {
         return {
             restaurant: [],
             dishes: [],
+            selectedDishes: [],
         }
     },
     created() {
         this.getRestaurant();
     },
+
+    mounted() {
+        if (localStorage.getItem('selectedDishes')) {
+            try {
+            this.selectedDishes = JSON.parse(localStorage.getItem('selectedDishes'));
+        } catch(e) {
+            localStorage.removeItem('selectedDishes');
+        }
+    }
+  },
+
     methods:{
+        
         getRestaurant() {
             axios.get(`http://127.0.0.1:8000/api/restaurants/${this.$route.params.slug}`)
                 .then(res => {
                     this.restaurant = res.data;
                     axios.get(`http://127.0.0.1:8000/api/${res.data.id}/dishes`)
                         .then( results => {
-                            console.log(results.data);
+                            // console.log(results.data);
                             this.dishes = results.data;
                         })
                         .catch( err => console.error(err));
@@ -69,8 +86,37 @@ export default {
                 .catch(err => console.log(err));
             
         },
+        updateCart(order) {
+            this.selectedDishes = order;
+            this.saveOrder();
+        },
 
-}
+        addDishToOrder(dish) {
+
+
+            // this.selectedDishes.push(dish);
+
+            let alreadySelected = this.selectedDishes.find(o => o.name === dish.name);
+
+            if(this.selectedDishes.includes(alreadySelected)) {
+                this.selectedDishes = this.selectedDishes.slice();
+                alreadySelected.quantity += 1;
+            } else {
+                dish.quantity = 1;
+                this.selectedDishes.push(dish);
+            }
+
+            this.saveOrder();
+
+            // console.log(this.selectedDishes);
+        },
+
+        saveOrder() {
+            const parsed = JSON.stringify(this.selectedDishes);
+            localStorage.setItem('selectedDishes', parsed);
+        },
+
+    }
 }
 </script>
 

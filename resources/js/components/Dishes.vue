@@ -2,7 +2,7 @@
   <div class="container">
       <h2 class="title mt-4 mb-4">Box Dishes</h2>
     <div class="dishes__container row" v-for="dish in dishes" :key= "`dish-${dish.id}`">
-        <ul class="col-md-8">
+        <ul class="col-md-4">
             <li>
                  <h3 class="dish__name">{{ dish.name }}</h3>
             </li>
@@ -15,6 +15,11 @@
                 <p class="dish__price">{{dish.price}} €</p>
             </li>
         </ul>
+        <div class="cta col-md-4">
+            <button class="btn" @click="$emit('addDish', dish)">
+                <i class="fa-solid fa-circle-plus"></i>
+            </button>
+        </div>
         <div class="img-container d-flex col-md-4 justify-content-end">
             <img :src="dish.thumb" :alt="dish.name">
         </div>
@@ -46,7 +51,7 @@ export default {
         margin-bottom: 20px;
         background-color: #fcfcfb;
         align-items: center;
-        cursor: pointer;
+        // cursor: pointer;
         &:hover{
             background-color: #f7f7f7;
         }
@@ -81,6 +86,9 @@ export default {
                 border: 1px solid #efedea;
                 border-radius: 8px;
             }
+        }
+        i {
+            font-size: 2rem;
         }
     }
 </style>
