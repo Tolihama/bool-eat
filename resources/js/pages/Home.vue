@@ -43,7 +43,7 @@ export default {
         },
         apiFilter(filter, page=1){
             if(filter===","){
-                this.getRestaurants();
+                this.getRestaurants(page);
             }else{
                 axios.get(`http://127.0.0.1:8000/api/restaurants/categories_filter/${filter}?page=${page}`)
                 .then(res => {
