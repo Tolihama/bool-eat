@@ -14,7 +14,7 @@
                     </div>
                     <div class="categories py-3">
                         <span 
-                            class="category" 
+                            class="category mr-1" 
                             v-for="category in restaurant.categories"
                             :key="`${category.id}`"
                         >
@@ -25,6 +25,7 @@
                         <h2>{{ restaurant.address }}</h2>
                     </div>
                 </div>
+                <Cart />
                 <Dishes :dishes="dishes" />
             </div>
         </div>
@@ -38,12 +39,14 @@ import axios from 'axios';
 // Components
 import Dishes from '../components/Dishes';
 import Loader from '../components/Loader';
+import Cart from '../components/Cart';
 
 export default {
     name: 'Restaurant',
     components: {
         Dishes,
         Loader,
+        Cart,
     },
     data() {
         return {
