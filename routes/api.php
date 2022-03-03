@@ -18,10 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('Api')->group(function() {
+Route::namespace('Api')->group(function () {
     Route::get('/restaurants', 'RestaurantController@index');
     Route::get('/restaurants/{restaurant}', 'RestaurantController@show');
+    Route::get('/restaurants/categories_filter/{categories}', 'RestaurantController@filtered_by_categories');
     Route::get('/categories', 'CategoriesController@index');
     Route::get('/{restaurant}/dishes', 'DishesController@index');
-
 });

@@ -24,22 +24,21 @@ export default {
         }
     },
     created() {
+
         this.getRestaurants();
         this.getCategories();
     },
     methods: {
-        getRestaurants() {
-            axios.get('http://127.0.0.1:8000/api/restaurants')
+        getRestaurants(page=1) {
+            axios.get(`http://127.0.0.1:8000/api/restaurants?page=${page}`)
                 .then(res => {
-                    this.restaurants = res.data;
-                    // console.log(this.restaurants);
+                    this.restaurants = res.data.data;    
                 })
         },
         getCategories() {
             axios.get('http://127.0.0.1:8000/api/categories')
                 .then(res => {
-                    this.categories= res.data;
-                    // console.log(this.restaurants);
+                    this.categories= res.data;  
                 })
         }
     },
