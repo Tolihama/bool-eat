@@ -26,6 +26,7 @@
                     </div>
                 </div>
                 <Cart :order="selectedDishes" @updateCart="updateCart"
+                class="my-3"
                 @addMoreDish="addDishToOrder"/>
                 <Dishes :dishes="dishes" @addDish="addDishToOrder"/>
             </div>
