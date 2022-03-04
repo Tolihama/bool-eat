@@ -25,9 +25,13 @@
                         <h2>{{ restaurant.address }}</h2>
                     </div>
                 </div>
-                <Cart :order="selectedDishes" @updateCart="updateCart"
-                class="my-3"
-                @addMoreDish="addDishToOrder"/>
+                <Cart 
+                    v-if="checkRestaurantOrder && selectedDishes.length > 0"
+                    :order="selectedDishes" 
+                    @updateCart="updateCart"
+                    @addMoreDish="addDishToOrder"
+                    class="my-3"
+                />
                 <Dishes :dishes="dishes" @addDish="addDishToOrder"/>
             </div>
         </div>
@@ -61,6 +65,12 @@ export default {
         this.getRestaurant();
     },
 
+    computed: {
+        checkRestaurantOrder() {
+             return this.selectedDishes.find(o => o.id === this.restaurant.id);
+        }
+    },
+
     mounted() {
         if (localStorage.getItem('selectedDishes')) {
             try {
@@ -88,6 +98,7 @@ export default {
             
         },
         updateCart(order) {
+            
             this.selectedDishes = order;
 
             if(order.length === 0) {
@@ -99,8 +110,9 @@ export default {
 
         addDishToOrder(dish) {
 
-
-            // this.selectedDishes.push(dish);
+            if(this.selectedDishes.length > 0 && !this.checkRestaurantOrder) {
+                return alert('Puoi ordinare da un solo ristorante alla volta');
+            }
 
             let alreadySelected = this.selectedDishes.find(o => o.name === dish.name);
 
