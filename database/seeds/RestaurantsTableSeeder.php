@@ -38,5 +38,6 @@ class RestaurantsTableSeeder extends Seeder
             $new_restaurant->save();
             $new_restaurant->categories()->attach(rand(1, 11));
         }
+
     }
 }
