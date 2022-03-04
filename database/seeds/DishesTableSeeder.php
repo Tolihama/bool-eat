@@ -16,18 +16,18 @@ class DishesTableSeeder extends Seeder
     {
         $dishes = config('dishes-seed');
 
-        foreach ($dishes as $dish){
+        foreach ($dishes as $dish) {
             $new_dish = new Dish();
             $new_dish->name = $dish['name'];
             $new_dish->restaurant_id = DB::table('restaurants')->select('id')->first()->id;
-            $new_dish->slug = Str::slug($new_dish->name,'-');
+            $new_dish->slug = Str::slug($new_dish->name, '-');
             $new_dish->ingredients = $dish['ingredients'];
             $new_dish->description = $dish['description'];
             $new_dish->price = floatval($dish['price']);
             $new_dish->thumb = $dish['thumb'];
-            $new_dish->is_visible = false;
-            
-            $new_dish->save(); 
+            $new_dish->is_visible = true;
+
+            $new_dish->save();
         }
     }
 }

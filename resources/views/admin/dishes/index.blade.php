@@ -7,8 +7,8 @@
         {{-- Dish deleted message --}}
         @if (session('deleted'))
             <div class="alert alert-success">
-                <strong>{{ session('deleted') }}</strong>
-                Piatto eliminato dal menù.
+                "<strong>{{ session('deleted') }}</strong>"
+                è stato cancellato.
             </div>
         @endif
         
@@ -55,7 +55,7 @@
                             <form action="{{ route('admin.dishes.destroy', $dish->id )}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Sicuro di voler cancellare questo piatto? ({{$dish->name}})')">
                                     <i class="fa-solid fa-eraser mr-2"></i> Cancella
                                 </button>
                             </form>
