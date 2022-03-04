@@ -19,7 +19,6 @@
             <img :src="dish.thumb" :alt="dish.name">
         </div>
     </div>
-
   </div>
 </template>
 
