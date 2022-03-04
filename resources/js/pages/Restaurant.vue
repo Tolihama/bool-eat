@@ -1,6 +1,11 @@
 <template>
     <div class="w-100 d-flex flex-column">
         <div id="restaurant" v-if="restaurant">
+            <OrderCheckout
+                v-if="orderConfirmed"
+                :order="selectedDishes"
+                @closeWindow="closeConfirmOrderWindow"
+            />
             <div class="cover">
                 <img :src="restaurant.cover" :alt="`Cover ${restaurant.name}`">
             </div>
@@ -30,6 +35,7 @@
                     :order="selectedDishes" 
                     @updateCart="updateCart"
                     @addMoreDish="addDishToOrder"
+                    @confirmOrder="openConfirmOrderWindow"
                     class="my-3"
                 />
                 <Dishes :dishes="dishes" @addDish="addDishToOrder"/>
@@ -46,6 +52,7 @@ import axios from 'axios';
 import Dishes from '../components/Dishes';
 import Loader from '../components/Loader';
 import Cart from '../components/Cart';
+import OrderCheckout from '../components/OrderCheckout';
 
 export default {
     name: 'Restaurant',
@@ -53,12 +60,14 @@ export default {
         Dishes,
         Loader,
         Cart,
+        OrderCheckout
     },
     data() {
         return {
             restaurant: [],
             dishes: [],
             selectedDishes: [],
+            orderConfirmed: false,
         }
     },
     created() {
@@ -134,12 +143,23 @@ export default {
             localStorage.setItem('selectedDishes', parsed);
         },
 
+        openConfirmOrderWindow() {
+            this.orderConfirmed = true;
+        },
+
+        closeConfirmOrderWindow() {
+            this.orderConfirmed = false;
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 #restaurant {
+    position: relative;
+    max-height: calc(100vh - 55px);
+    overflow: auto;
+
     .cover {
         display: flex;
         justify-content: center;

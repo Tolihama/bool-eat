@@ -56,9 +56,15 @@
                 <h4>Totale: {{priceSum}}€</h4>
             </div>
             <div class="cta">
-                <button class="btn btn-success mr-3">Conferma ordine</button>
-                <button class="btn btn-danger"
-                @click="emptyCart()"
+                <button 
+                    class="btn btn-success mr-3"
+                    @click="$emit('confirmOrder')"
+                >
+                    Conferma ordine
+                </button>
+                <button 
+                    class="btn btn-danger"
+                    @click="emptyCart()"
                 >
                     Svuota carrello
                 </button>
