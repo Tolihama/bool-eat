@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="d-flex align-items-center justify-content-between mt-4 px-5 py-3">
-            <div class="mb-4" v-if="paginateData">
+            <div class="mb-4 d-flex align-items-center w-100" v-if="paginateData">
                 <!-- first -->
                 <button 
                     class="btn-paginate" 
@@ -42,41 +42,43 @@
                 >
                     <i class="fa-solid fa-angles-right"></i>
                 </button>
+
+                <div class="total-restaurant flex-grow-1 text-end">
+                    Ristoranti aperti:
+                    <strong class="total-number">
+                        {{paginateData.total}}
+                    </strong>
+                </div>
             </div>
             <Loader v-else/>
-            <span class="total-restaurant ">
-                 Ristoranti aperti:
-                <strong class="total-number">
-                    {{paginateData.total}}
-                </strong>
-            </span>
         </div>
     </div>
 </template>
 
 <script>
+// Components
 import Loader from './Loader';
+
 export default {
     name: 'Paginate',
+
     components: {
         Loader,
     },
+
     props: {
         paginateData: Object,
     },
+
     data() {
         return {
             currentPage: 1,
         }
     },
+
     methods: {
-
-        updateCurrentPage() {
-            this.currentPage = this.paginateData.currentPage ;
-        },
-
         firstPage() {
-            this.updateCurrentPage();
+            this.currentPage = this.paginateData.currentPage;
             if(this.currentPage > 1) {
                 this.currentPage = 1;
                 this.$emit('currentPage', this.currentPage);
@@ -84,7 +86,7 @@ export default {
         },
 
         prev() {
-            this.updateCurrentPage();
+            this.currentPage = this.paginateData.currentPage;
             if(this.currentPage > 1){
                 this.currentPage -= 1;
                 this.$emit('currentPage', this.currentPage);
@@ -92,7 +94,7 @@ export default {
         },
 
         next() {
-            this.updateCurrentPage();
+            this.currentPage = this.paginateData.currentPage;
             if(this.currentPage < this.paginateData.lastPage){
                 this.currentPage += 1;
                 this.$emit('currentPage', this.currentPage);
@@ -101,21 +103,19 @@ export default {
         },
 
         lastPage() {
-            this.updateCurrentPage();
+            this.currentPage = this.paginateData.currentPage;
             if(this.currentPage < this.paginateData.lastPage){
                 this.currentPage = this.paginateData.lastPage;
                 this.$emit('currentPage', this.currentPage);
 
             }
         },
-
-
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .btn-paginate{
+    .btn-paginate {
         background-color: #f5f3f1;
         border: 0;
         border-radius: 50rem;
@@ -126,17 +126,18 @@ export default {
         cursor: pointer;
         &:hover {
             background-color: #f9700b;
-            i{
+            i {
                 color: #ffff;
             }
         }
 
-        i{
+        i {
             color: #f9700b;
             font-size: 20px
         }
     }
-    .paginate-number{
+
+    .paginate-number {
         color: #ec6909;
         font-weight: 900;
         cursor: default;
@@ -144,9 +145,10 @@ export default {
             color: #fff;
         }
     }
-    .total-restaurant{
+
+    .total-restaurant {
         font-size: 18px;
-        .total-number{
+        .total-number {
             color: #ec6909;
         }
     }
