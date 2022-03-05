@@ -6,7 +6,7 @@
                 <!-- first -->
                 <button 
                     class="btn-paginate" 
-                    :disabled="paginateData.currentPage === 1"
+                    :class="{'disabled-paginate' : paginateData.currentPage === 1}"
                     @click="firstPage" 
                 >
                     <i class="fa-solid fa-angles-left"></i>
@@ -15,7 +15,7 @@
                 <!-- prev -->
                 <button 
                     class="btn-paginate" 
-                    :disabled="paginateData.currentPage === 1"
+                    :class="{'disabled-paginate' : paginateData.currentPage === 1}"
                     @click="prev"
                 >
                     <i class="fa-solid fa-angle-left"></i>
@@ -28,7 +28,7 @@
                 <!-- Next -->
                 <button 
                     class="btn-paginate" 
-                    :disabled="paginateData.currentPage === paginateData.lastPage"
+                    :class="{ 'disabled-paginate' : paginateData.currentPage === paginateData.lastPage}"
                     @click="next"
                 >
                     <i class="fa-solid fa-angle-right"></i>
@@ -38,7 +38,7 @@
                 <button 
                 class="btn-paginate" 
                 @click="lastPage"
-                :disabled="paginateData.currentPage === paginateData.lastPage"
+                :class="{ 'disabled-paginate' : paginateData.currentPage === paginateData.lastPage}"
                 >
                     <i class="fa-solid fa-angles-right"></i>
                 </button>
@@ -135,6 +135,15 @@ export default {
             color: #f9700b;
             font-size: 20px
         }
+    }
+
+    .disabled-paginate{
+       opacity: 0.7;
+       pointer-events:none;
+       background: #ebe9e7;
+       i{
+           color: #ca7509;
+       }
     }
 
     .paginate-number {
