@@ -18,7 +18,7 @@ class RestaurantTableFakerSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 50; $i++){
+        for ($i = 1; $i <= 100; $i++){
             $new_user = new User;
             $new_user->name = $faker->word();
             $new_user->email = "user{$i}@email.com";
@@ -33,8 +33,9 @@ class RestaurantTableFakerSeeder extends Seeder
             $slug = Str::slug($new_restaurant->name,'-');
             $count = 1;
             $base_slug = $slug;
-            while(Restaurant::where('slug', $slug)->first()) {
+            while (Restaurant::where('slug', $slug)->first()) {
                 $slug = $base_slug . '-' . $count;
+                $count++;
             }
             $new_restaurant->slug = $slug;
 
@@ -43,16 +44,18 @@ class RestaurantTableFakerSeeder extends Seeder
             $new_restaurant->address = "via di prova n {$i} ";
             $new_restaurant->vat = "12345678912";
             $new_restaurant->save();
+
             $categories = [];
             $num_categories = rand(1, 3);
-            do{
+            do {
                 $rand_category = rand(1, 11);
-                if(! in_array($rand_category, $categories, true)){
+                if (!in_array($rand_category, $categories)) {
                     array_push($categories, $rand_category);
+                } else {
                 }
-                dump($i, count($categories) < $num_categories, $rand_category );
-            } while (count($categories) < $num_categories);
+            } while (count($categories) <= $num_categories);
             $new_restaurant->categories()->sync($categories);
+            echo "{$i}%\n";
         }
     }
 }
