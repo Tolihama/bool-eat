@@ -1,5 +1,5 @@
 <template>
-    <div id="cart" class="p-3 d-flex flex-column">
+    <div class="cart p-3 d-flex flex-column">
         <h2>
             Il tuo ordine
         </h2>
@@ -56,12 +56,20 @@
                 <h4>Totale: {{priceSum}}€</h4>
             </div>
             <div class="cta">
-                <button 
+<!--                 <button 
                     class="btn btn-success mr-3"
                     @click="$emit('confirmOrder')"
                 >
                     Conferma ordine
-                </button>
+                </button> -->
+                <a href="" class="btn btn-success">
+                    <router-link
+                        :to="{ name: 'checkout' }"
+                        class="btn btn-success"
+                    >
+                        Conferma ordine
+                    </router-link>
+                </a>
                 <button 
                     class="btn btn-danger"
                     @click="emptyCart()"
@@ -76,9 +84,11 @@
 <script>
 export default {
     name: 'Cart',
+
     props: {
         order: Array,
     }, 
+
     computed: {
         priceSum() {
             let sum = 0;
@@ -89,11 +99,10 @@ export default {
             return sum;
         }
     },
+
     methods: {
         emptyCart() {
-            
             this.$emit('updateCart', []);
-            
         },
 
         subDishQuantity(dish) {
@@ -105,10 +114,6 @@ export default {
                 this.removeDishFromOrder(dish);
                 return
             }
-
-            
-
-
             updatedOrder[selectedDishIndex] = selectedDish;
 
             this.$emit('updateCart', updatedOrder) 
@@ -121,19 +126,14 @@ export default {
             updatedOrder.splice(selectedDishIndex, 1)
 
             this.$emit('updateCart', updatedOrder);
-
-        }
-
-
+        },
     }
-    
-
 }
 </script>
 
 <style lang="scss" scoped>
 
-#cart {
+.cart {
     border-radius: 15px;
     max-height: 450px;
     box-shadow: inset 0px 1px 8px 3px #ABABAB,5px 5px 5px -100px #DDDDDD;

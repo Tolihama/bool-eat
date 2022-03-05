@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <h2 class="title mt-4 mb-4">Box Dishes</h2>
+      <h2 class="title mt-4 mb-4">Menù</h2>
     <div class="dishes__container row" v-for="dish in dishes" :key= "`dish-${dish.id}`">
         <ul class="col-md-4">
             <li>

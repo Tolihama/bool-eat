@@ -1,43 +1,41 @@
 <template>
     <div>
-        <router-link :to="{name: 'restaurant',
-        params: {
-            slug: restaurant.slug,
-        }
-        }"
+        <router-link 
+            :to="{
+                name: 'restaurant',
+                params: {
+                    slug: restaurant.slug,
+                }
+            }"
             class="d-flex mb-4 p-3 restaurant"
             v-for="(restaurant, i) in list"
             :key="`restaurant${i}`"
         >
-            
-                        <div class="restaurant-images">
-                            <div class="cover">
-                                <img
-                                    :src="restaurant.cover"
-                                    :alt="restaurant.name"
-                                />
-                                <div class="thumb">
-                                    <img
-                                        :src="restaurant.thumb"
-                                        :alt="restaurant.thumb"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-            
-            
-                        <div class="info d-flex flex-column justify-content-center">
-                            <h5>{{ restaurant.name }}</h5>
-                            <span
-                                class="mx-2"
-                                v-for="(category, i) in restaurant.categories"
-                                :key="`${restaurant.name}-category${i}`"
-                            >
-                                {{ category.name }}
-                            </span>
-                        </div>
-                    
-            
+            <div class="restaurant-images">
+                <div class="cover">
+                    <img
+                        :src="restaurant.cover"
+                        :alt="restaurant.name"
+                    />
+                    <div class="thumb">
+                        <img
+                            :src="restaurant.thumb"
+                            :alt="restaurant.thumb"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="info d-flex flex-column justify-content-center">
+                <h5>{{ restaurant.name }}</h5>
+                <span
+                    class="mx-2"
+                    v-for="(category, i) in restaurant.categories"
+                    :key="`${restaurant.name}-category${i}`"
+                >
+                    {{ category.name }}
+                </span>
+            </div>
         </router-link>
     </div>
 </template>
