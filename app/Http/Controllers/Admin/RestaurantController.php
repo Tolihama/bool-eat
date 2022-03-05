@@ -65,11 +65,10 @@ class RestaurantController extends Controller
 
         while(Restaurant::where('slug', $slug)->first()) {
             $slug = $base_slug . '-' . $count;
+            $count++;
         }
 
         $data['slug'] = $slug;
-
-        
 
         //IMAGES
 
