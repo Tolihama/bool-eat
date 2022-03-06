@@ -6,32 +6,32 @@
         <div class="order flex-grow-1 overflow-auto">
             <!-- DISH DETAIL  -->
              <div 
-             class="dish d-flex p-3 align-items-center"
+             class="dish row g-0 p-3 align-items-center"
              v-for="dish in order"
              :key="dish.id"
              >
 
                 <!-- DISH IMAGE  -->
-                <div class="dish-img col-2">
+                <div class="dish-img d-none d-md-block col-2 p-1">
                     <img :src="dish.thumb" :alt="`thumb-${dish.name}`">
                 </div>
 
                 <!-- DISH INFO -->
-                <div class="dish-info col-2">
+                <div class="dish-info col-12 col-md-2 p-1">
                     <h5>{{dish.name}}</h5>
                 </div>
 
                 <!-- SELECTED QUANTITY  -->
-                <div class="quantity col-2 offset-2">
+                <div class="quantity col-4 col-md-2 offset-md-2 p-1">
                     <span>× {{dish.quantity}}</span>
                 </div>
 
                 <!-- PRICE  -->
-                <div class="price col-2">
+                <div class="price col-4 col-md-2 p-1">
                     <span>{{dish.price * dish.quantity}}€</span>
                 </div>
                 <!-- ACTIONS  -->
-                <div class="cta col-2">
+                <div class="cta col-4 col-md-2 p-1">
                     <button class="btn"
                     @click="$emit('addMoreDish', dish)"
                     >
@@ -150,6 +150,8 @@ export default {
         color: rgb(184, 17, 17);
     }
     .dish {
+        width: 95%;
+        margin: 0 auto;
         font-size: 14px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
         h5 {
