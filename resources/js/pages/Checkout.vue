@@ -145,19 +145,19 @@ export default {
     },
 
     mounted() {
-        if (localStorage.getItem('selectedDishes')) {
+        if (localStorage.getItem('currentOrder')) {
             try {
-                this.order = JSON.parse(localStorage.getItem('selectedDishes'));
+                this.order = JSON.parse(localStorage.getItem('currentOrder'));
             } catch(e) {
-                localStorage.removeItem('selectedDishes');
+                localStorage.removeItem('currentOrder');
             }
         }
 
-        if (localStorage.getItem('restaurantName')) {
+        if (localStorage.getItem('currentRestaurantOrder')) {
             try {
-                this.restaurantName = JSON.parse(localStorage.getItem('restaurantName'));
+                this.restaurantName = JSON.parse(localStorage.getItem('currentRestaurantOrder')).restaurantName;
             } catch(e) {
-                localStorage.removeItem('restaurantName');
+                localStorage.removeItem('currentRestaurantOrder');
             }
         }
     }
