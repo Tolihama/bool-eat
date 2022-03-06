@@ -63,6 +63,7 @@ class RegisterController extends Controller
             'min' => "L'elemento è troppo corto",
             'string' => "L'elemento deve essere una stringa",
             'file' => "L'elemento deve essere un file",
+            'confirmed' => "Le due password devono corrispondere"
         ]);
     }
 

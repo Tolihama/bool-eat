@@ -107,6 +107,9 @@
                             </div>
 
                         </form>
+                        <!-- <div id="braintree">
+                            <input type="hidden" id="nonce" name="payment_method_nonce"/>
+                        </div> -->
                     </div>
                 </section>
             </div>
@@ -117,6 +120,10 @@
 </template>
 
 <script>
+
+// import axios from 'axios';
+// import braintree from "braintree-web";
+
 // Components
 import Loader from '../components/Loader';
 
@@ -160,7 +167,20 @@ export default {
                 localStorage.removeItem('currentRestaurantOrder');
             }
         }
-    }
+    },
+    methods: {
+        // payment(){
+        //     braintree.dropin.create({
+        //         container: '#braintree',
+        //         authorization: 'sandbox_4xnr9mmv_7h5bp4pqq7f8pdpm',
+        //     }).then( istance => {
+        //         istance.requestPaymentMethod(){
+
+        //         }
+        //     });
+        //     });
+        // },
+    },
 }
 </script>
 
