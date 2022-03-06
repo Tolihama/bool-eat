@@ -52,11 +52,12 @@ class RestaurantController extends Controller
         }
         return response()->json($restaurants);
     }
+
     public function show($slug)
     {
         $restaurant = Restaurant::where('slug', $slug)
             ->with(['categories:id,name'])
-            ->select(['id', 'name', 'thumb', 'cover', 'address'])
+            ->select(['id', 'name', 'slug', 'thumb', 'cover', 'address'])
             ->first();
 
         if (!preg_match('/http/', $restaurant->thumb)) {

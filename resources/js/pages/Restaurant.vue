@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <Cart 
-                    v-if="checkRestaurantOrder && selectedDishes.length > 0"
+                    v-if="isActiveRestaurant && selectedDishes"
                     :order="selectedDishes"
                     @updateCart="updateCart"
                     @addMoreDish="addDishToOrder"
@@ -68,7 +68,8 @@ export default {
             restaurant: null,
             dishes: null,
             selectedDishes: null,
-            // orderConfirmed: false,
+            thereIsActiveRestaurant: false,
+            isActiveRestaurant: false,
         }
     },
 
@@ -77,18 +78,36 @@ export default {
     },
 
     computed: {
-        checkRestaurantOrder() {
-             return this.selectedDishes.find(o => o.id === this.restaurant.id);
+        checkThereIsActiveRestaurant() {
+            this.thereIsActiveRestaurant = localStorage.getItem('currentRestaurantOrder') ? true : false;
+            return;
+        },
+
+        checkIsActiveRestaurant() {
+            if (this.thereIsActiveRestaurant) {
+                const currentRestaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
+                this.isActiveRestaurant = currentRestaurantOrder.restaurantSlug === this.$route.params.slug;
+                return;
+            }
+            this.isActiveRestaurant = false;
+            return;
         }
     },
 
     mounted() {
-        if (localStorage.getItem('selectedDishes')) {
+        if (localStorage.getItem('currentOrder')) {
             try {
-                this.selectedDishes = JSON.parse(localStorage.getItem('selectedDishes'));
+                this.selectedDishes = JSON.parse(localStorage.getItem('currentOrder'));
             } catch(e) {
-                localStorage.removeItem('selectedDishes');
+                localStorage.removeItem('currentOrder');
             }
+        }
+
+        const currentRestaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
+        this.thereIsActiveRestaurant = currentRestaurantOrder ? true : false;
+
+        if (this.thereIsActiveRestaurant) {
+            this.isActiveRestaurant = currentRestaurantOrder.restaurantSlug === this.$route.params.slug ? true : false;
         }
     },
 
@@ -106,27 +125,23 @@ export default {
                 .catch(err => console.log(err));
         },
 
-        updateCart(order) {
-            this.selectedDishes = order;
-
-            if (order.length === 0) {
-                localStorage.removeItem('selectedDishes');
-            } else {
-                this.saveOrder();
-            }
-        },
-
         addDishToOrder(dish) {
-            if (this.selectedDishes.length > 0 && !this.checkRestaurantOrder) {
+            if (this.selectedDishes && this.activeRestaurant) {
                 return alert('Puoi ordinare da un solo ristorante alla volta');
             }
 
-            let alreadySelected = this.selectedDishes.find(o => o.name === dish.name);
+            if (this.selectedDishes) {
+                const alreadySelected = this.selectedDishes.find(o => o.name === dish.name);
 
-            if(this.selectedDishes.includes(alreadySelected)) {
-                this.selectedDishes = this.selectedDishes.slice();
-                alreadySelected.quantity += 1;
+                if(this.selectedDishes.includes(alreadySelected)) {
+                    this.selectedDishes = this.selectedDishes.slice();
+                    alreadySelected.quantity += 1;
+                } else {
+                    dish.quantity = 1;
+                    this.selectedDishes.push(dish);
+                }
             } else {
+                this.selectedDishes = [];
                 dish.quantity = 1;
                 this.selectedDishes.push(dish);
             }
@@ -134,18 +149,25 @@ export default {
             this.saveOrder();
         },
 
+        updateCart(order) {
+            this.selectedDishes = order;
+
+            if (order) {
+                localStorage.removeItem('currentOrder');
+                localStorage.removeItem('currentRestaurantOrder');
+            }
+            
+            this.saveOrder();
+        },
+
         saveOrder() {
-            localStorage.setItem('selectedDishes', JSON.stringify(this.selectedDishes));
-            localStorage.setItem('restaurantName', JSON.stringify(this.restaurant.name));
+            localStorage.setItem('currentOrder', JSON.stringify(this.selectedDishes));
+            localStorage.setItem('currentRestaurantOrder', JSON.stringify({
+                restaurantName: this.restaurant.name,
+                restaurantSlug: this.restaurant.slug,
+                restaurantId: this.restaurant.id
+            }));
         },
-
-/*         openConfirmOrderWindow() {
-            this.orderConfirmed = true;
-        },
-
-        closeConfirmOrderWindow() {
-            this.orderConfirmed = false;
-        } */
     }
 }
 </script>

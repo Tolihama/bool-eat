@@ -62,14 +62,12 @@
                 >
                     Conferma ordine
                 </button> -->
-                <a href="" class="btn btn-success">
-                    <router-link
-                        :to="{ name: 'checkout' }"
-                        class="btn btn-success"
-                    >
-                        Conferma ordine
-                    </router-link>
-                </a>
+                <router-link
+                    :to="{ name: 'checkout' }"
+                    class="btn btn-success"
+                >
+                    Conferma ordine
+                </router-link>
                 <button 
                     class="btn btn-danger"
                     @click="emptyCart()"
@@ -102,7 +100,7 @@ export default {
 
     methods: {
         emptyCart() {
-            this.$emit('updateCart', []);
+            this.$emit('updateCart', null);
         },
 
         subDishQuantity(dish) {
