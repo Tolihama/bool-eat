@@ -43,7 +43,7 @@
                     <i class="fa-solid fa-angles-right"></i>
                 </button>
 
-                <div class="total-restaurant flex-grow-1 text-end">
+                <div class="total-restaurant flex-grow-1 text-end d-none d-sm-block">
                     Ristoranti aperti:
                     <strong class="total-number">
                         {{paginateData.total}}
