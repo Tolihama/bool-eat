@@ -126,7 +126,7 @@ export default {
         },
 
         addDishToOrder(dish) {
-            if (this.selectedDishes && this.activeRestaurant) {
+            if (this.selectedDishes && !this.isActiveRestaurant) {
                 return alert('Puoi ordinare da un solo ristorante alla volta');
             }
 
