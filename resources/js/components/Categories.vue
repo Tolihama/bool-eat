@@ -1,7 +1,11 @@
 <template>
- <ul class="mb-5 d-flex">
-   <li v-for="(category, i) in categoriesList" :key="`category-${i}`" @click="updateFilter(category.id, `category-${i}`)" :id="`category-${i}`">
+ <ul class="mb-5 d-flex justify content-center">
+   <li v-for="(category, i) in categoriesList" :key="`category-${i}`" @click="updateFilter(category.id, `category-${i}`)" :id="`category-${i}`"
+    class="col-1 d-flex flex-column justify-content-center align-items-center"
+   >
+    <div class="img-container">
      <img :src="category.thumb" :alt="category.name">
+    </div>
      <span>{{category.name}}</span>
    </li>
  </ul>
@@ -40,9 +44,13 @@
 ul{
   list-style: none;
   li{
-    width: calc(100%/11);
-    height:width;
+    // width: calc(100%/11);
+    cursor: pointer;
     padding: 1%;
+    .img-container {
+      width: 85px;
+      height: 85px;
+    }
     
     img{
       height: 100%;
@@ -59,7 +67,7 @@ ul{
     }
   }
   li:hover img{
-      border:4px solid #888;
+      border:4px solid #f9700c;
       transform: translateY(-20%);
     }
     li:hover span{
@@ -67,7 +75,7 @@ ul{
       font-weight: 700;
     }
   li.active img{
-      border:4px solid #888;
+      border:4px solid #f9700c;
       transform: translateY(-20%);
   }
    li.active span{
