@@ -1,7 +1,7 @@
 <template>
- <ul class="mb-5 d-flex justify content-center">
+ <ul class="mb-5 d-flex justify content-center flex-wrap">
    <li v-for="(category, i) in categoriesList" :key="`category-${i}`" @click="updateFilter(category.id, `category-${i}`)" :id="`category-${i}`"
-    class="col-1 d-flex flex-column justify-content-center align-items-center"
+    class="col-6 col-sm-4 col-md-3 col-lg-1 d-flex flex-column justify-content-center align-items-center p-2"
    >
     <div class="img-container">
      <img :src="category.thumb" :alt="category.name">
@@ -46,7 +46,7 @@ ul{
   li{
     // width: calc(100%/11);
     cursor: pointer;
-    padding: 1%;
+    // padding: 1%;
     .img-container {
       width: 85px;
       height: 85px;

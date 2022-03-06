@@ -7,11 +7,11 @@
                     slug: restaurant.slug,
                 }
             }"
-            class="d-flex mb-4 p-3 restaurant"
+            class="row mb-4 p-5 p-md-3 restaurant"
             v-for="(restaurant, i) in list"
             :key="`restaurant${i}`"
         >
-            <div class="restaurant-images">
+            <div class="restaurant-images col-12 mb-4 mb-md-0 col-md-6">
                 <div class="cover">
                     <img
                         :src="restaurant.cover"
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="info d-flex flex-column justify-content-center">
+            <div class="info d-flex flex-column justify-content-center col-12 col-md-6">
                 <h5>{{ restaurant.name }}</h5>
                 <span
                     class="mx-2"
@@ -94,7 +94,7 @@ a {
     background: transparent;
     transition: all .3s ease-in-out;
     &:hover {
-        background: rgb(208, 230, 240);
+        background: #fd954b;
     }
 }
 </style>
