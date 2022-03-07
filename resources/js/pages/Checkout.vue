@@ -7,7 +7,7 @@
                     <div class="box py-3">
                         <h2 class="p-3">Dati del cliente</h2>
                         <form action="" class="px-3">
-                            <label for="customer_name">Nome cliente</label>
+                            <label for="customer_name">Nome e cognome cliente</label>
                             <input 
                                 type="text" 
                                 id="customer_name" 
@@ -15,6 +15,7 @@
                                 class="form-control"
                                 required 
                                 maxlength="50"
+                                v-model.trim="customerName"
                             >
 
                             <label for="customer_address">Indirizzo di consegna</label>
@@ -25,6 +26,7 @@
                                 class="form-control"
                                 required 
                                 maxlength="150"
+                                v-model.trim="customerAddress"
                              >
 
                             <label for="customer_phone">Riferimento telefonico</label>
@@ -35,6 +37,7 @@
                                 class="form-control"
                                 required 
                                 maxlength="255"
+                                v-model.trim="customerPhone"
                             >
 
                             <label for="customer_email">Email</label>
@@ -45,6 +48,7 @@
                                 class="form-control"
                                 required
                                 maxlength="255"
+                                v-model.trim="customerEmail"
                             >
 
                             <label for="notes">Informazioni aggiuntive da comunicare al ristorante</label>
@@ -53,6 +57,7 @@
                                 id="notes" 
                                 name="notes" 
                                 class="form-control"
+                                v-model.trim="notes"
                             >
                         </form>
                         <!-- <div id="braintree">
@@ -119,6 +124,14 @@ export default {
         return {
             order: null,
             restaurantName: null,
+            restaurantId: null,
+
+            // Form customer data
+            customerName: null,
+            customerAddress: null,
+            customerPhone: null,
+            customerEmail: null,
+            notes: null,
         }
     },
 
@@ -132,10 +145,6 @@ export default {
         }
     },
 
-/*     created() {
-        this.payment();
-    }, */
-
     mounted() {
         if (localStorage.getItem('currentOrder')) {
             try {
@@ -147,29 +156,30 @@ export default {
 
         if (localStorage.getItem('currentRestaurantOrder')) {
             try {
-                this.restaurantName = JSON.parse(localStorage.getItem('currentRestaurantOrder')).restaurantName;
+                const restaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
+                this.restaurantName = restaurantOrder.restaurantName;
+                this.restaurantId = restaurantOrder.restaurantId;
             } catch(e) {
                 localStorage.removeItem('currentRestaurantOrder');
             }
         }
     },
-    methods: {
-/*         payment() {
-            braintree.dropin.create({
-                container: '#dropin-container',
-                authorization: 'sandbox_4xnr9mmv_7h5bp4pqq7f8pdpm',
-            }).then( istance => {
-                istance.requestPaymentMethod() {
-                     //
-                }
-            });
-        },  */
 
+    methods: {
         onSuccess (payload) {
             let nonce = payload.nonce;
             // Do something great with the nonce...
             axios.post('http://127.0.0.1:8000/api/payment-request', {
                 payment_method_nonce: nonce,
+                order: this.order,
+                customer: {
+                    customer_name: this.customerName,
+                    customer_address: this.customerAddress,
+                    customer_phone: this.customerPhone,
+                    customer_email: this.customerEmail,
+                    notes: this.notes,
+                    restaurant_id: this.restaurantId,
+                }
             }).then(res => {
                 console.log(res);
             }).catch(err => console.log(err));

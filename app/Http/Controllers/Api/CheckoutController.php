@@ -6,8 +6,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use Braintree;
+
+use App\Order;
 
 class CheckoutController extends Controller
 {
@@ -19,7 +22,17 @@ class CheckoutController extends Controller
             'privateKey' => config('services.braintree.privateKey'),
         ]);
 
-        $amount = '10';
+        // Order amount calculate from DB data
+        $order = $request->order;
+        $amount = 0;
+        foreach($order as $dish) {
+            $price = DB::table('dishes')
+                ->where('id', $dish['id'])
+                ->select('price')
+                ->first();
+            $amount += $dish['quantity'] * floatval($price->price);
+        }
+
         $nonce = $request->payment_method_nonce;
 
         $result = $gateway->transaction()->sale([
@@ -35,11 +48,21 @@ class CheckoutController extends Controller
             ]
         ]);
 
+
         if ($result->success) {
             $transaction = $result->transaction;
-            // header("Location: transaction.php?id=" . $transaction->id);
 
-            // return back()->with('success_message', 'Transaction successful. The ID is:'. $transaction->id);
+            $new_order = new Order();
+            $new_order->restaurant_id = $request->customer['restaurant_id'];
+            $new_order->customer_name = $request->customer['customer_name'];
+            $new_order->customer_address = $request->customer['customer_address'];
+            $new_order->customer_phone = $request->customer['customer_phone'];
+            $new_order->customer_email = $request->customer['customer_email'];
+            $new_order->notes = $request->customer['notes'];
+            $new_order->save();
+
+            //  return response()->json($new_order);
+
             return response()->json('Transaction successful. The ID is:'. $transaction->id);
         } else {
             $errorString = "";
@@ -48,9 +71,6 @@ class CheckoutController extends Controller
                 $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
             }
 
-            // $_SESSION["errors"] = $errorString;
-            // header("Location: index.php");
-            // return back()->withErrors('An error occurred with the message: '.$result->message);
             return response()->json('An error occurred with the message: '.$result->message);
         }
     }
