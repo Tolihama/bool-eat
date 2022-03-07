@@ -25,7 +25,7 @@ class CheckoutController extends Controller
         // Order amount calculate from DB data
         $order = $request->order;
         $amount = 0;
-        foreach($order as $dish) {
+        foreach ($order as $dish) {
             $price = DB::table('dishes')
                 ->where('id', $dish['id'])
                 ->select('price')
@@ -33,6 +33,7 @@ class CheckoutController extends Controller
             $amount += $dish['quantity'] * floatval($price->price);
         }
 
+        // Payment nonce
         $nonce = $request->payment_method_nonce;
 
         $result = $gateway->transaction()->sale([
@@ -50,18 +51,24 @@ class CheckoutController extends Controller
 
 
         if ($result->success) {
+            // Send transaction to Braintree
             $transaction = $result->transaction;
 
+            // Save order in DB
             $new_order = new Order();
-            $new_order->restaurant_id = $request->customer['restaurant_id'];
-            $new_order->customer_name = $request->customer['customer_name'];
-            $new_order->customer_address = $request->customer['customer_address'];
-            $new_order->customer_phone = $request->customer['customer_phone'];
-            $new_order->customer_email = $request->customer['customer_email'];
-            $new_order->notes = $request->customer['notes'];
+            $new_order->fill($request->customer);
             $new_order->save();
 
-            //  return response()->json($new_order);
+            $order_id = Order::all()->last()->id;
+
+            foreach ($order as $dish) {
+                DB::table('dish_order')->insert([
+                    'order_id' => $order_id,
+                    'dish_id' => $dish['id'],
+                    'quantity' => $dish['quantity'],
+                ]);
+            }
+
 
             return response()->json('Transaction successful. The ID is:'. $transaction->id);
         } else {
