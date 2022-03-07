@@ -3,31 +3,7 @@
         <div class="container p-3" v-if="order">
             <div class="row">
                 <section class="col-md-12 col-lg-6 px-2">
-                    <div class="box py-3">
-                        <h2 class="p-3">
-                            Riepilogo ordine<span v-if="restaurantName"> da {{ restaurantName }}</span>
-                        </h2>
-                        <div 
-                            class="dish row px-3"
-                            v-for="dish in order"
-                            :key="`dish-${dish.id}`"
-                        >
-                            <div class="col-6 py-1">
-                                {{ dish.name }}
-                            </div>
-                            <div class="col-6 py-1">
-                                {{ dish.quantity }} x {{ dish.price }}€ = {{ dish.price * dish.quantity }}€
-                            </div>
-                        </div>
-                        <div class="total row px-3 fw-bold">
-                            <div class="col-6 offset-6 py-1 fw-bold">
-                                Totale: {{ totalOrder }}€
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="col-md-12 col-lg-6 px-2">
+                    <!-- Form dati del cliente -->
                     <div class="box py-3">
                         <h2 class="p-3">Dati del cliente</h2>
                         <form action="" class="px-3">
@@ -78,39 +54,45 @@
                                 name="notes" 
                                 class="form-control"
                             >
-
-                            <!-- Carta di credito -->
-                            <h2 class="pt-3">Dati carta di credito</h2>
-
-                            <!-- Credit card number -->
-                            <label for="card_number">Numero di carta</label>
-                            <input 
-                                type="number" 
-                                id="card_number" 
-                                name="card_number" 
-                                class="form-control"
-                            >
-
-                            <!-- Credit card expiry -->
-                            <label for="expiry">Scadenza</label>
-                            <input 
-                                type="text" 
-                                id="expiry" 
-                                name="expiry" 
-                                class="form-control"
-                            >
-
-                            <div class="text-center py-3">
-                                <button type="submit" class="btn btn-success">
-                                    Autorizza ordine e pagamento
-                                </button>
-                            </div>
-
                         </form>
                         <!-- <div id="braintree">
                             <input type="hidden" id="nonce" name="payment_method_nonce"/>
                         </div> -->
                     </div>
+                </section>
+
+                <section class="col-md-12 col-lg-6 px-2">
+                    <!-- Riepilogo ordine box -->
+                    <div class="box py-3">
+                        <h2 class="p-3">
+                            Riepilogo ordine<span v-if="restaurantName"> da {{ restaurantName }}</span>
+                        </h2>
+                        <div 
+                            class="dish row px-3"
+                            v-for="dish in order"
+                            :key="`dish-${dish.id}`"
+                        >
+                            <div class="col-6 py-1">
+                                {{ dish.name }}
+                            </div>
+                            <div class="col-6 py-1">
+                                {{ dish.quantity }} x {{ dish.price }}€ = {{ dish.price * dish.quantity }}€
+                            </div>
+                        </div>
+                        <div class="total row px-3 fw-bold">
+                            <div class="col-6 offset-6 py-1 fw-bold">
+                                Totale: {{ totalOrder }}€
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Braintree UI -->
+                    <!-- <div id="dropin-container"></div> -->
+                    <v-braintree 
+                        authorization="sandbox_4xnr9mmv_7h5bp4pqq7f8pdpm"
+                        @success="onSuccess"
+                        @error="onError"
+                    ></v-braintree>
                 </section>
             </div>
         </div>
@@ -120,9 +102,9 @@
 </template>
 
 <script>
-
 // import axios from 'axios';
-// import braintree from "braintree-web";
+import braintree from 'braintree-web';
+
 
 // Components
 import Loader from '../components/Loader';
@@ -151,6 +133,10 @@ export default {
         }
     },
 
+/*     created() {
+        this.payment();
+    }, */
+
     mounted() {
         if (localStorage.getItem('currentOrder')) {
             try {
@@ -169,17 +155,26 @@ export default {
         }
     },
     methods: {
-        // payment(){
-        //     braintree.dropin.create({
-        //         container: '#braintree',
-        //         authorization: 'sandbox_4xnr9mmv_7h5bp4pqq7f8pdpm',
-        //     }).then( istance => {
-        //         istance.requestPaymentMethod(){
+/*         payment() {
+            braintree.dropin.create({
+                container: '#dropin-container',
+                authorization: 'sandbox_4xnr9mmv_7h5bp4pqq7f8pdpm',
+            }).then( istance => {
+                istance.requestPaymentMethod() {
+                     //
+                }
+            });
+        },  */
 
-        //         }
-        //     });
-        //     });
-        // },
+        onSuccess (payload) {
+            let nonce = payload.nonce;
+            // Do something great with the nonce...
+        },
+
+        onError (error) {
+            let message = error.message;
+            // Whoops, an error has occured while trying to get the nonce
+        }
     },
 }
 </script>
