@@ -77,23 +77,6 @@ export default {
         this.getRestaurant();
     },
 
-    computed: {
-        checkThereIsActiveRestaurant() {
-            this.thereIsActiveRestaurant = localStorage.getItem('currentRestaurantOrder') ? true : false;
-            return;
-        },
-
-        checkIsActiveRestaurant() {
-            if (this.thereIsActiveRestaurant) {
-                const currentRestaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
-                this.isActiveRestaurant = currentRestaurantOrder.restaurantSlug === this.$route.params.slug;
-                return;
-            }
-            this.isActiveRestaurant = false;
-            return;
-        }
-    },
-
     mounted() {
         if (localStorage.getItem('currentOrder')) {
             try {
@@ -126,7 +109,7 @@ export default {
         },
 
         addDishToOrder(dish) {
-            if (this.selectedDishes && !this.isActiveRestaurant) {
+            if (this.selectedDishes && !this.isActiveRestaurant && this.thereIsActiveRestaurant) {
                 return alert('Puoi ordinare da un solo ristorante alla volta');
             }
 
@@ -150,13 +133,13 @@ export default {
         },
 
         updateCart(order) {
-            this.selectedDishes = order;
-
-            if (order) {
+            if (order === null) {
                 localStorage.removeItem('currentOrder');
                 localStorage.removeItem('currentRestaurantOrder');
             }
             
+            this.selectedDishes = order;
+
             this.saveOrder();
         },
 
@@ -167,7 +150,24 @@ export default {
                 restaurantSlug: this.restaurant.slug,
                 restaurantId: this.restaurant.id
             }));
+            this.checkThereIsActiveRestaurant();
+            this.checkIsActiveRestaurant();
         },
+
+        checkThereIsActiveRestaurant() {
+            this.thereIsActiveRestaurant = localStorage.getItem('currentRestaurantOrder') ? true : false;
+            return;
+        },
+
+        checkIsActiveRestaurant() {
+            if (this.thereIsActiveRestaurant) {
+                const currentRestaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
+                this.isActiveRestaurant = currentRestaurantOrder.restaurantSlug === this.$route.params.slug;
+                return;
+            }
+            this.isActiveRestaurant = false;
+            return;
+        }
     }
 }
 </script>
