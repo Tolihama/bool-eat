@@ -102,9 +102,8 @@
 </template>
 
 <script>
-// import axios from 'axios';
-import braintree from 'braintree-web';
-
+import axios from 'axios';
+// import braintree from 'braintree-web';
 
 // Components
 import Loader from '../components/Loader';
@@ -169,11 +168,17 @@ export default {
         onSuccess (payload) {
             let nonce = payload.nonce;
             // Do something great with the nonce...
+            axios.post('http://127.0.0.1:8000/api/payment-request', {
+                payment_method_nonce: nonce,
+            }).then(res => {
+                console.log(res);
+            }).catch(err => console.log(err));
         },
 
         onError (error) {
             let message = error.message;
             // Whoops, an error has occured while trying to get the nonce
+            console.log(message);
         }
     },
 }
