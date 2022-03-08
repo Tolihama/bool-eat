@@ -132,6 +132,7 @@ export default {
 <style lang="scss" scoped>
 
 .cart {
+    background: #f5f3f1;
     border-radius: 15px;
     max-height: 450px;
     box-shadow: inset 0px 1px 8px 3px #ABABAB,5px 5px 5px -100px #DDDDDD;

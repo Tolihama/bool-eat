@@ -187,6 +187,7 @@ export default {
     }
 
     .info {
+        background: #f5f3f1;
         box-shadow: 0 0 5px 1px #ccc;
         border-radius: 20px;
         padding: 70px 35px 35px;
