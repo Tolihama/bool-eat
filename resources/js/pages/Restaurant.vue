@@ -156,17 +156,15 @@ export default {
 
         checkThereIsActiveRestaurant() {
             this.thereIsActiveRestaurant = localStorage.getItem('currentRestaurantOrder') ? true : false;
-            return;
         },
 
         checkIsActiveRestaurant() {
             if (this.thereIsActiveRestaurant) {
                 const currentRestaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
                 this.isActiveRestaurant = currentRestaurantOrder.restaurantSlug === this.$route.params.slug;
-                return;
+            } else {
+                this.isActiveRestaurant = false;
             }
-            this.isActiveRestaurant = false;
-            return;
         }
     }
 }

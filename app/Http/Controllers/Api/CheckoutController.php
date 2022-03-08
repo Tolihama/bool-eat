@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-// require_once __DIR__ . '/../../../vendor/braintree/braintree_php/lib/Braintree.php';
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +13,11 @@ use App\Order;
 class CheckoutController extends Controller
 {
     public function payment_request(Request $request) {
+        /**
+         * TODO: VALIDAZIONE DELLA FORM CON I RIFERIMENTI DEL CLIENTE
+         */
+
+
         $gateway = new Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
             'merchantId' => config('services.braintree.merchantId'),
@@ -69,6 +72,10 @@ class CheckoutController extends Controller
                 ]);
             }
 
+
+            /**
+             * TODO: MAIL DI CONFERMA ORDINE DA INVIARE AL CLIENTE E AL RISTORANTE
+             */
 
             return response()->json('Transaction successful. The ID is:'. $transaction->id);
         } else {
