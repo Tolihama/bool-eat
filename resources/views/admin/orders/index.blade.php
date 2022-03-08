@@ -13,14 +13,16 @@
             </thead>
             <tbody>
                 @foreach ($orders as $order )
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->customer_name}}</td>
-                    <td>
-                        <a class="btn btn-primary" 
-                            href="{{route('admin.orders.show', $order->id)}}">
-                            Guarda in dettaglio
-                        </a>
-                    </td>
+                    <tr>
+                        <td>{{ $order->id }}</td>
+                        <td>{{ $order->customer_name}}</td>
+                        <td>
+                            <a class="btn btn-primary" 
+                                href="{{route('admin.orders.show', $order->id)}}">
+                                Guarda in dettaglio
+                            </a>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
