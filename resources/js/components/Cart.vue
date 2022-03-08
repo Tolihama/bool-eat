@@ -32,15 +32,16 @@
                 </div>
                 <!-- ACTIONS  -->
                 <div class="cta col-4 col-md-2 p-1">
-                    <button class="btn"
-                    @click="$emit('addMoreDish', dish)"
-                    >
-                        <i class="fa-solid fa-circle-plus"></i>
-                    </button>
+                    
                     <button class="btn"
                     @click="subDishQuantity(dish)"
                     >
                         <i class="fa-solid fa-circle-minus"></i>
+                    </button>
+                    <button class="btn"
+                    @click="$emit('addMoreDish', dish)"
+                    >
+                        <i class="fa-solid fa-circle-plus"></i>
                     </button>
                     <button class="btn"
                     @click="removeDishFromOrder(dish)"
