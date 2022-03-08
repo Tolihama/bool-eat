@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <h1>Ordrs Index ok</h1>
-        <table class="table">
+        <table class="table mt-4">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Actions</th>
+                    <th colspan="2">Actions</th>
                 </tr>
             </thead>
             <tbody>
