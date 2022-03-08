@@ -18,8 +18,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('restaurant_id');
             $table->string('customer_name', 50);
             $table->string('customer_address', 150);
-            $table->string('customer_phone');
-            $table->string('customer_email');
+            $table->string('customer_phone', 30);
+            $table->string('customer_email', 50);
             $table->string('notes')->nullable();
             $table->timestamps();
         });
