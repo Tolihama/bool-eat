@@ -5,11 +5,18 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 use Braintree;
 
+// DB Models
 use App\Order;
+use App\Restaurant;
+
+// Mail Models
+use App\Mail\ConfirmOrderMailToCustomer;
+use App\Mail\ConfirmOrderMailToRestaurant;
 
 class CheckoutController extends Controller
 {
@@ -81,10 +88,13 @@ class CheckoutController extends Controller
                 ]);
             }
 
+            // Confirm Order Mail to Customer
+            $restaurant_name = Restaurant::find($request->customer['restaurant_id'])->first()->name;
+            Mail::to($request->customer['customer_email'])->send(new ConfirmOrderMailToCustomer($restaurant_name, $transaction->id));
 
-            /**
-             * TODO: MAIL DI CONFERMA ORDINE DA INVIARE AL CLIENTE E AL RISTORANTE
-             */
+            // Confirm Order Mail to Restaurant
+            $restaurant_email = Restaurant::find($request->customer['restaurant_id'])->user()->first()->email;
+            Mail::to($restaurant_email)->send(new ConfirmOrderMailToRestaurant($transaction->id));
 
             return response()->json('Transaction successful. The ID is:' . $transaction->id);
         } else {

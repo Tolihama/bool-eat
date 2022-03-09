@@ -133,6 +133,11 @@
 
                     <!-- Braintree UI -->
                     <!-- <div id="dropin-container"></div> -->
+                    <v-braintree 
+                        authorization="sandbox_fw8dv4ck_7h5bp4pqq7f8pdpm"
+                        @success="onSuccess"
+                        @error="onError"
+                    ></v-braintree>
                 </section>
             </div>
         </div>
