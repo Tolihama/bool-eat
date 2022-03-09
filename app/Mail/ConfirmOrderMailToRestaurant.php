@@ -11,14 +11,16 @@ class ConfirmOrderMailToRestaurant extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $transaction_id;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($transaction_id)
     {
-        //
+        $this->transaction_id = $transaction_id;
     }
 
     /**
@@ -28,6 +30,9 @@ class ConfirmOrderMailToRestaurant extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.confirm_order_to_restaurant');
+        return $this->markdown('mail.confirm_order_to_restaurant')
+                    ->with([
+                        'transaction_id' => $this->transaction_id,
+                    ]);
     }
 }
