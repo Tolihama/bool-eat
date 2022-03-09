@@ -6,7 +6,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="disabled">
+            <a href="{{ route('admin.orders.index') }}" class="@if(Request::route()->getName() == 'admin.orders.index') active @endif">
                 <i class="fas fa-shipping-fast icon mr-2"></i> Ordini
             </a>
         </li>
