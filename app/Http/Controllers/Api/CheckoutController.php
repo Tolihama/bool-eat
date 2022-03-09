@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 use Braintree;
 
@@ -19,11 +20,19 @@ use App\Mail\ConfirmOrderMailToRestaurant;
 
 class CheckoutController extends Controller
 {
-    public function payment_request(Request $request) {
-        /**
-         * TODO: VALIDAZIONE DELLA FORM CON I RIFERIMENTI DEL CLIENTE
-         */
-
+    public function payment_request(Request $request)
+    {
+        $validator = Validator::make($request->customer, [
+            "customer_name" => "required|max:50",
+            "customer_address" => "required|max:150",
+            "customer_phone" => "required|min:11",
+            "customer_email" => "required|email|max:50",
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ]);
+        }
 
         $gateway = new Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
@@ -49,7 +58,7 @@ class CheckoutController extends Controller
         $result = $gateway->transaction()->sale([
             'amount' => $amount,
             'paymentMethodNonce' => $nonce,
-/*             'customer' => [
+            /*             'customer' => [
                 'firstName' => 'Tony',
                 'lastName' => 'Stark',
                 'email' => 'tony@avengers.com',
@@ -81,14 +90,13 @@ class CheckoutController extends Controller
 
             // Confirm Order Mail to Customer
             $restaurant_name = Restaurant::find($request->customer['restaurant_id'])->first()->name;
-            // $request->customer['customer_email']
-            Mail::to('toli@toli.it')->send(new ConfirmOrderMailToCustomer($restaurant_name, $transaction->id));
+            Mail::to($request->customer['customer_email'])->send(new ConfirmOrderMailToCustomer($restaurant_name, $transaction->id));
 
             // Confirm Order Mail to Restaurant
             $restaurant_email = Restaurant::find($request->customer['restaurant_id'])->user()->first()->email;
             Mail::to($restaurant_email)->send(new ConfirmOrderMailToRestaurant($transaction->id));
 
-            return response()->json('Transaction successful. The ID is:'. $transaction->id);
+            return response()->json('Transaction successful. The ID is:' . $transaction->id);
         } else {
             $errorString = "";
 
@@ -96,7 +104,7 @@ class CheckoutController extends Controller
                 $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
             }
 
-            return response()->json('An error occurred with the message: '.$result->message);
+            return response()->json('An error occurred with the message: ' . $result->message);
         }
     }
 }
