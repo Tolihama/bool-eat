@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 use App\Order;
 
@@ -16,7 +19,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $restaurant_id = DB::table('restaurants')->where('user_id', Auth::id())->first()->id;
+        $orders = Order::where('restaurant_id', $restaurant_id)->orderBy('created_at', 'desc')->paginate(15);
         return view('admin.orders.index', compact('orders'));
     }
 

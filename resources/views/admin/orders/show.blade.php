@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="container-order" class="container mt-5 ml-3">
+    <div id="container-order" class="container py-5">
         <h1 class="text-center">Dettagli dell'ordine: 
             <strong> {{ $order->customer_name}}</strong>
        </h1>
@@ -53,7 +53,7 @@
                     <a href="{{ route('admin.orders.index') }}" 
                         class="btn-order-info effect01">
                         <span>
-                            torna indetro
+                            torna indietro
                         </span>
                     </a>
     
