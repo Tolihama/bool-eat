@@ -94,7 +94,7 @@
                     <!-- Braintree UI -->
                     <!-- <div id="dropin-container"></div> -->
                     <v-braintree 
-                        authorization="sandbox_zjjhr68c_2yv4zgpmxtsdhwnc"
+                        authorization="sandbox_v2wrrt69_xtc6tcgrjdyr28jq"
                         @success="onSuccess"
                         @error="onError"
                     ></v-braintree>
