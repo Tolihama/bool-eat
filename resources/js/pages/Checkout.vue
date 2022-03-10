@@ -52,8 +52,9 @@
                                     id="customer_phone" 
                                     name="customer_phone" 
                                     class="form-control"
-                                    minlength="11"
+                                    minlength="9"
                                     maxlength="30"
+                                    pattern="[1-9]*"
                                     required 
                                     v-model.trim="customerPhone"
                                 >
@@ -251,18 +252,19 @@ export default {
             previous_slide.classList.add("active");
         },
         validateSlide(slide){
-            let inputsValid = true;
             const inputs=slide.querySelectorAll("input");
             for (let i = 0; i < inputs.length; i++) {
-                const valid = inputs[i].checkValidity();
-            if (!valid) {
-                inputsValid = false;
+                const inputValid = inputs[i].checkValidity();
+                
+            if (!inputValid) {
                 inputs[i].classList.add("invalid-input");
+                inputs[i].reportValidity();
+                return false;
             } else {
                 inputs[i].classList.remove("invalid-input");
             }  
         }
-        return inputsValid;
+        return true;
         }
     }
 }
