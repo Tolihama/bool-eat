@@ -26,7 +26,7 @@ class CheckoutController extends Controller
 
         // Client token generation
         $clientToken = $gateway->clientToken()->generate([
-            "customerId" => '665897560'
+            "customerId" => config('services.braintree.customerIDTest')
         ]);
 
         return $clientToken;
