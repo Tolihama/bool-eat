@@ -9,14 +9,14 @@ class Order extends Model
     /**
      * MASS ASSIGNMENT
      */
-/*     protected $fillable = [
+    protected $fillable = [
         'restaurant_id',
         'customer_name',
         'customer_address',
         'customer_phone',
         'customer_email',
         'notes'
-    ]; */
+    ];
     
     /**
      * RELATIONS

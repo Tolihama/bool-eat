@@ -1,5 +1,10 @@
 <template>
     <div id="restaurant" class="d-flex flex-column w-100">
+        <Alert 
+            v-if="alertVisible"
+            @closeAlert="closeAlert"
+            :link="activeRestaurantSlug"
+            />
         <div v-if="restaurant">
 <!--             <OrderCheckout
                 v-if="orderConfirmed"
@@ -30,6 +35,7 @@
                         <h2>{{ restaurant.address }}</h2>
                     </div>
                 </div>
+                
                 <Cart 
                     v-if="isActiveRestaurant && selectedDishes"
                     :order="selectedDishes"
@@ -37,6 +43,7 @@
                     @addMoreDish="addDishToOrder"
                     class="my-3"
                 />
+                
                 <Dishes :dishes="dishes" @addDish="addDishToOrder"/>
             </div>
         </div>
@@ -52,6 +59,7 @@ import Dishes from '../components/Dishes';
 import Loader from '../components/Loader';
 import Cart from '../components/Cart';
 import OrderCheckout from '../components/OrderCheckout';
+import Alert from '../components/Alert';
 
 export default {
     name: 'Restaurant',
@@ -60,7 +68,8 @@ export default {
         Dishes,
         Loader,
         Cart,
-        OrderCheckout
+        OrderCheckout,
+        Alert
     },
 
     data() {
@@ -70,11 +79,21 @@ export default {
             selectedDishes: null,
             thereIsActiveRestaurant: false,
             isActiveRestaurant: false,
+            alertVisible: false,
+            activeRestaurantSlug: '',
         }
     },
 
     created() {
         this.getRestaurant();
+        this.$watch(
+        () => this.$route.params,
+        () => {
+            this.getRestaurant();
+            this.alertVisible = false;
+            this.isActiveRestaurant = true;
+      }
+    )
     },
 
     mounted() {
@@ -87,11 +106,15 @@ export default {
         }
 
         const currentRestaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
+
+        this.activeRestaurantSlug = currentRestaurantOrder.restaurantSlug;
         this.thereIsActiveRestaurant = currentRestaurantOrder ? true : false;
 
         if (this.thereIsActiveRestaurant) {
             this.isActiveRestaurant = currentRestaurantOrder.restaurantSlug === this.$route.params.slug ? true : false;
         }
+
+        
     },
 
     methods: {
@@ -110,7 +133,8 @@ export default {
 
         addDishToOrder(dish) {
             if (this.selectedDishes && !this.isActiveRestaurant && this.thereIsActiveRestaurant) {
-                return alert('Puoi ordinare da un solo ristorante alla volta');
+                this.alertVisible = true;
+                return
             }
 
             if (this.selectedDishes) {
@@ -156,17 +180,21 @@ export default {
 
         checkThereIsActiveRestaurant() {
             this.thereIsActiveRestaurant = localStorage.getItem('currentRestaurantOrder') ? true : false;
-            return;
         },
 
         checkIsActiveRestaurant() {
             if (this.thereIsActiveRestaurant) {
                 const currentRestaurantOrder = JSON.parse(localStorage.getItem('currentRestaurantOrder'));
                 this.isActiveRestaurant = currentRestaurantOrder.restaurantSlug === this.$route.params.slug;
-                return;
+            } else {
+                this.isActiveRestaurant = false;
             }
-            this.isActiveRestaurant = false;
-            return;
+        },
+
+        closeAlert() {
+            this.updateCart(null);
+            this.alertVisible = false;
+
         }
     }
 }
@@ -179,6 +207,7 @@ export default {
         justify-content: center;
         height: 300px;
         overflow: hidden;
+        position: relative;
 
         img {
             object-fit: cover;

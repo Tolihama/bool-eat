@@ -24,5 +24,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/restaurants/categories_filter/{categories}', 'RestaurantController@filtered_by_categories');
     Route::get('/categories', 'CategoriesController@index');
     Route::get('/{restaurant}/dishes', 'DishesController@index');
+
+    // Braintree payment system
+    Route::get('/payment-token', 'CheckoutController@payment_token');
     Route::post('/payment-request', 'CheckoutController@payment_request');
 });
