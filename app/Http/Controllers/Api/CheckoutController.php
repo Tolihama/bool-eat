@@ -93,15 +93,26 @@ class CheckoutController extends Controller
                 ]);
             }
 
+            $restaurant = Restaurant::find($request->customer['restaurant_id'])->first();
+
             // Confirm Order Mail to Customer
-            $restaurant_name = Restaurant::find($request->customer['restaurant_id'])->first()->name;
+            $restaurant_name = $restaurant->name;
             Mail::to($request->customer['customer_email'])->send(new ConfirmOrderMailToCustomer($restaurant_name, $transaction->id));
 
             // Confirm Order Mail to Restaurant
             $restaurant_email = Restaurant::find($request->customer['restaurant_id'])->user()->first()->email;
             Mail::to($restaurant_email)->send(new ConfirmOrderMailToRestaurant($transaction->id));
 
-            return response()->json('Transaction successful. The ID is:' . $transaction->id);
+            // Prepare response
+            $response = [
+                'transaction_id' => $transaction->id,
+                'restaurant' => $restaurant,
+                'customer' => $request->customer,
+                'dishes' => $order,
+                'amount' => $amount,
+            ];
+
+            return response()->json($response);
 
         } else {
 
