@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Order;
 
@@ -50,6 +51,12 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::find($id);
+        $dishes = DB::table('orders')
+                    ->join('dish_order', 'orders.id', '=', 'dish_order.order_id')
+                    ->join('dishes', 'dish_order.dish_id', '=', 'dishes.id')
+                    ->where('order_id', $id)
+                    ->get();
+        dd($dishes);
         return view('admin.orders.show', compact('order'));
     }
 

@@ -20,26 +20,36 @@ use App\Mail\ConfirmOrderMailToRestaurant;
 
 class CheckoutController extends Controller
 {
+    public function payment_token() {
+        // Braitree gateway
+        $gateway = $this->braintree_gateway();
+
+        // Client token generation
+        $clientToken = $gateway->clientToken()->generate([
+            "customerId" => '665897560'
+        ]);
+
+        return $clientToken;
+    }
+
     public function payment_request(Request $request)
-    {
+    {   
+        // Customer data validation
         $validator = Validator::make($request->customer, [
             "customer_name" => "required|max:50",
             "customer_address" => "required|max:150",
             "customer_phone" => "required|min:11",
             "customer_email" => "required|email|max:50",
         ]);
+
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors()
             ]);
         }
 
-        $gateway = new Braintree\Gateway([
-            'environment' => config('services.braintree.environment'),
-            'merchantId' => config('services.braintree.merchantId'),
-            'publicKey' => config('services.braintree.publicKey'),
-            'privateKey' => config('services.braintree.privateKey'),
-        ]);
+        // Braitree gateway
+        $gateway = $this->braintree_gateway();
 
         // Order amount calculate from DB data
         $order = $request->order;
@@ -55,19 +65,14 @@ class CheckoutController extends Controller
         // Payment nonce
         $nonce = $request->payment_method_nonce;
 
+        // Braintree transaction define
         $result = $gateway->transaction()->sale([
             'amount' => $amount,
             'paymentMethodNonce' => $nonce,
-            /*             'customer' => [
-                'firstName' => 'Tony',
-                'lastName' => 'Stark',
-                'email' => 'tony@avengers.com',
-            ], */
             'options' => [
                 'submitForSettlement' => true
             ]
         ]);
-
 
         if ($result->success) {
             // Send transaction to Braintree
@@ -97,7 +102,9 @@ class CheckoutController extends Controller
             Mail::to($restaurant_email)->send(new ConfirmOrderMailToRestaurant($transaction->id));
 
             return response()->json('Transaction successful. The ID is:' . $transaction->id);
+
         } else {
+
             $errorString = "";
 
             foreach ($result->errors->deepAll() as $error) {
@@ -106,5 +113,14 @@ class CheckoutController extends Controller
 
             return response()->json('An error occurred with the message: ' . $result->message);
         }
+    }
+
+    private function braintree_gateway() {
+        return new Braintree\Gateway([
+            'environment' => config('services.braintree.environment'),
+            'merchantId' => config('services.braintree.merchantId'),
+            'publicKey' => config('services.braintree.publicKey'),
+            'privateKey' => config('services.braintree.privateKey'),
+        ]);
     }
 }
