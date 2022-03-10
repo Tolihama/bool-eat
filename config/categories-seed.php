@@ -43,10 +43,10 @@ return $categories = [
     ],
     [
         'name' => 'Messicano',
-        'img' => 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.giallozafferano.it%2Finventaricette%2Fburritos%2F&psig=AOvVaw2O-4m-PjHS_qvt4TAEkuEv&ust=1647018099463000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOCunNiCvPYCFQAAAAAdAAAAABAO',
+        'img' => 'https://blog.giallozafferano.it/inventaricette/wp-content/uploads/2020/07/BURRITOS-SALSICCIA-VID-720x425.jpg',
     ],
     [
         'name' => 'Senza Glutine',
-        'img' => 'https://www.google.com/url?sa=i&url=https%3A%2F%2Flarusticana.eu%2Fprodotti-unici-base-per-pizza%2Frusticana-senza-glutine%2F&psig=AOvVaw0GekIu-RIdINX75rOvBiRh&ust=1647018245584000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCIictZ-DvPYCFQAAAAAdAAAAABAD',
+        'img' => 'https://larusticana.eu/wp-content/uploads/2020/03/glutine_free-300x275.jpg',
     ],
 ];
