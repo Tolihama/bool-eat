@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 
 use App\Order;
+use App\Dish;
 
 class OrderController extends Controller
 {
@@ -53,8 +54,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
+        $dishes_order = DB::table('dish_order')->where('order_id', $id)->get();
         $order = Order::find($id);
-        return view('admin.orders.show', compact('order'));
+        return view('admin.orders.show', compact('order', 'dishes_order'));
     }
 
     /**

@@ -7,7 +7,7 @@
        </h1>
         <div class="row">
             <div class="mt-5 info-order-ctn">
-                <h3>Informazioni:</h3>
+                <h3 class = "mb-3">Informazioni:</h3>
                 <div class="box-info">
                     <p>
                         ID dell'ordine: 
