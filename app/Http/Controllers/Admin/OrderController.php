@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
 use App\Order;
 use App\Dish;
 
@@ -56,7 +55,14 @@ class OrderController extends Controller
     {
         $dishes_order = DB::table('dish_order')->where('order_id', $id)->get();
         $order = Order::find($id);
-        return view('admin.orders.show', compact('order', 'dishes_order'));
+
+        $dishes = DB::table('orders')
+                    ->join('dish_order', 'orders.id', '=', 'dish_order.order_id')
+                    ->join('dishes', 'dish_order.dish_id', '=', 'dishes.id')
+                    ->where('order_id', $id)
+                    ->get();
+        dd($dishes);
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
