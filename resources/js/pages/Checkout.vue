@@ -1,6 +1,6 @@
 <template>
-    <div id="checkout" class="d-flex flex-column w-100 py-5">
-        <div class="container p-3" v-if="order">
+    <div id="checkout" class="d-flex flex-column w-100">
+        <div class="container p-5" v-if="order">
             <div class="row">
                 <section class="col-md-12 col-lg-8 p-2">
                     <!-- Form dati del cliente -->
@@ -54,7 +54,7 @@
                                     class="form-control"
                                     minlength="9"
                                     maxlength="30"
-                                    pattern="[1-9]*"
+                                    pattern="[0-9]*"
                                     required 
                                     v-model.trim="customerPhone"
                                 >
@@ -133,7 +133,12 @@
             </div>
         </div>
 
-        <Loader v-else />
+        <div v-if="ongoingPayment" class="ongoing-payment">
+            <div class="h3 p-3">Pagamento in corso</div>
+            <div class="spinner-grow p-3" role="status"></div>
+        </div>
+
+        <Loader v-if="!order" />
         
     </div>
 </template>
@@ -168,6 +173,9 @@ export default {
 
             // Braintree customer token
             token: null,
+
+            // Flags
+            ongoingPayment: false,
         }
     },
 
@@ -208,9 +216,10 @@ export default {
     methods: {
 
         /**
-         * Braintree payment functionality function
+         * Braintree payment functionality functions
          */
         onSuccess (payload) {
+            this.ongoingPayment = true;
             let nonce = payload.nonce;
             // Do something great with the nonce...
             this.payment(nonce);
@@ -244,12 +253,21 @@ export default {
                 }
             })
             .then(res => {
-                if(res.data.errors){
+                if(res.data.errors) {
                     this.errors = res.data.errors;
+                    return;
                 }
-                console.log(res);
+                localStorage.removeItem('currentOrder');
+                localStorage.removeItem('currentRestaurantOrder');
+                const response = res.data;
+                // console.log(response);
+                localStorage.setItem('orderConfirmedData', JSON.stringify(response));
+                this.$router.push({ name: 'orderconfirmed' });
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                this.ongoingPayment = false;
+                console.log(err);
+            });
         },
 
         /**
@@ -302,6 +320,24 @@ export default {
     border-radius: 20px;
     box-shadow: 0 0 5px 1px #ccc;
 }
+
+#checkout {
+    position: relative;
+
+    .ongoing-payment {
+        position: fixed;
+        color: white;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+
 #multistepsform {
   width: 80%;
   margin: 50px auto;
