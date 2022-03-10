@@ -21,6 +21,6 @@ export default {
 #vue-spa {
     display: flex;
     flex-grow: 1;
-    background-image: linear-gradient(to bottom, #ff9966, #000);
+    background-image: linear-gradient(to top, #ffc9aa, #ffc9aa, #ffc9aa, #fff);
 }
 </style>

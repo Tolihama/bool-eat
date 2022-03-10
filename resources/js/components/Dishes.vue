@@ -44,7 +44,7 @@ export default {
         font-weight: bold;
     }
     .dishes__container{
-        background: #f5f3f1;
+        background: #fff;
         border: 0.5px solid lightgrey;
         border-radius: 10px;
         padding: 20px 8px;

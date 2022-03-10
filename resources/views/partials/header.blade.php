@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="min-height: 55px">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            <img src="https://fontmeme.com/permalink/220310/1dc46317c469762d332506d29f531b9b.png" alt="" style="width: 200px">
         </a>
         
 
