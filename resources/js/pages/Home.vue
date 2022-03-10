@@ -1,6 +1,6 @@
 <template>
     <div id="home">
-        <div class="container py-5">
+        <div class="container d-flex flex-column justify-content-center py-5">
             <Categories @apiFilter="updateFilter" :categoriesList="categories" />
             <Paginate :paginateData="paginateData" @currentPage="updateCurrentPage"/>
             <Restaurants :list="restaurants"/>

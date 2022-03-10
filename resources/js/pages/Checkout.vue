@@ -297,6 +297,7 @@ export default {
 
 <style lang="scss" scoped>
 #checkout > .container section .box {
+    background: #fff;
     border-radius: 20px;
     box-shadow: 0 0 5px 1px #ccc;
 }
