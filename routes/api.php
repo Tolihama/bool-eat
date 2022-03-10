@@ -25,4 +25,5 @@ Route::namespace('Api')->group(function () {
     Route::get('/categories', 'CategoriesController@index');
     Route::get('/{restaurant}/dishes', 'DishesController@index');
     Route::post('/payment-request', 'CheckoutController@payment_request');
+    Route::get('/orderconfirmed', 'PayConfirmedController@payment_confirmed')->name('api-get-orderconfirmed');
 });
