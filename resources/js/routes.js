@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Restaurant from './pages/Restaurant';
 import NotFound from './pages/NotFound';
 import Checkout from './pages/Checkout';
+import OrderConfirmed from './pages/OrderConfirmed';
 
 // VUE ROUTER COMPONENT
 Vue.use(VueRouter);
@@ -29,6 +30,11 @@ const router = new VueRouter({
             path: '/checkout',
             name: 'checkout',
             component: Checkout,
+        },
+        {
+            path: '/orderconfirmed',
+            name: 'orderconfirmed',
+            component: OrderConfirmed,
         },
         {
             path: '*',
