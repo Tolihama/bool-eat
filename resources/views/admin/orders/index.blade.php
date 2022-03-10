@@ -3,6 +3,10 @@
 @section('content')
     <div class="container mt-5">
         <h1>Archivio ordini</h1>
+        {{ $orders->links() }}
+        @if ($orders->isEmpty()) 
+        <p>Non ci sono ordini in archivio</p>
+        @else
         <table class="table mt-4">
             <thead>
                 <tr>
@@ -32,5 +36,6 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 @endsection
