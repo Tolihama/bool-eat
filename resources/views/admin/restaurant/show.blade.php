@@ -9,13 +9,13 @@
                 <div class="thumb mb-4 text-center">
                     <h4>Immagine Profilo</h4>
                     <div class="thumb-img">
-                        <img src="{{asset('/storage/' . $restaurant->thumb)}}" alt="{{$restaurant->name}}">
+                        <img src="@if(preg_match('/http/', $restaurant->thumb) ) {{$restaurant->thumb}} @else{{ asset('/storage/' . $restaurant->thumb) }} @endif" alt="{{$restaurant->name}}">
                     </div>
                 </div>
                 
                 <h4>Immagine Copertina</h4>
                 <div class="cover text-center">
-                    <img src="{{asset('/storage/' . $restaurant->cover)}}" alt="{{$restaurant->name}}">
+                    <img src="@if(preg_match('/http/', $restaurant->cover) ) {{$restaurant->cover}} @else{{ asset('/storage/' . $restaurant->cover) }} @endif" alt="{{$restaurant->name}}">
                 </div>
 
             </div>

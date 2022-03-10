@@ -21,7 +21,7 @@
                     <div class="row mb-5">
                         <div class="col-sm-12 col-lg-6 px-5">
                             <div class="thumb">
-                                <img src="{{ asset('/storage/' . $user_restaurant->thumb) }}" alt="Thumb {{ $user_restaurant->name }}" class="w-100">
+                                <img src=" @if(preg_match('/http/', $user_restaurant->thumb) ) {{$user_restaurant->thumb}} @else{{ asset('/storage/' . $user_restaurant->thumb) }} @endif" alt="Thumb {{ $user_restaurant->name }}" class="w-100">
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
@@ -93,7 +93,7 @@
             <div class="card d-flex flex-column h-100">
                 <h2>I tuoi ordini</h2>
                 <div class="flex-grow-1">
-                    @if ($orders->isEmpty()) 
+                    @if (count($orders) === 0) 
                     <p>Non ci sono ordini in archivio</p>
                     @else
                     <ul>
