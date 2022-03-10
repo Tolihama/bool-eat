@@ -39,10 +39,14 @@ return $categories = [
     ],
     [
         'name' => 'Hamburger',
-        'img' => 'https://tse1.mm.bing.net/th?id=OIP.YP1DaNLdEbWRG45JlI3nrwHaEj&pid=Api&P=0&w=274&h=168',
+        'img' => 'https://tse1.mm.bing.net/th?id=OIP.cjTSB6ET-WVenMFR35B6OwHaEO&pid=Api&P=0&w=321&h=183',
     ],
     [
-        'name' => 'Pollo',
-        'img' => 'https://tse1.mm.bing.net/th?id=OIP.cjTSB6ET-WVenMFR35B6OwHaEO&pid=Api&P=0&w=321&h=183',
+        'name' => 'Messicano',
+        'img' => 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.giallozafferano.it%2Finventaricette%2Fburritos%2F&psig=AOvVaw2O-4m-PjHS_qvt4TAEkuEv&ust=1647018099463000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCOCunNiCvPYCFQAAAAAdAAAAABAO',
+    ],
+    [
+        'name' => 'Senza Glutine',
+        'img' => 'https://www.google.com/url?sa=i&url=https%3A%2F%2Flarusticana.eu%2Fprodotti-unici-base-per-pizza%2Frusticana-senza-glutine%2F&psig=AOvVaw0GekIu-RIdINX75rOvBiRh&ust=1647018245584000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCIictZ-DvPYCFQAAAAAdAAAAABAD',
     ],
 ];
