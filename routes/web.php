@@ -23,7 +23,8 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('/dishes', 'DishesController');
         Route::resource('/restaurant', 'RestaurantController');
-        Route::resource('/orders', 'OrderController');
+        Route::get('/orders', 'OrderController@index')->name('orders.index');
+        Route::get('/orders/{id}', 'OrderController@show')->name('orders.show');
         Route::get('/restaurant/{restaurant}/confirm-delete', 'RestaurantController@confirm_delete')->name('restaurant.confirm-delete');
 
         // Admin route doesn't exist: redirect to dashboard

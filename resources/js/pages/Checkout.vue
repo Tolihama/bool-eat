@@ -2,7 +2,7 @@
     <div id="checkout" class="d-flex flex-column w-100 py-5">
         <div class="container p-3" v-if="order">
             <div class="row">
-                <section class="col-md-12 col-lg-8">
+                <section class="col-md-12 col-lg-8 p-2">
                     <!-- Form dati del cliente -->
                     <div class="box py-3">
                         <h2 class="p-3">Dati del cliente</h2>
@@ -52,8 +52,9 @@
                                     id="customer_phone" 
                                     name="customer_phone" 
                                     class="form-control"
-                                    minlength="11"
+                                    minlength="9"
                                     maxlength="30"
+                                    pattern="[1-9]*"
                                     required 
                                     v-model.trim="customerPhone"
                                 >
@@ -90,7 +91,8 @@
                                     <span v-for="(el, i) in error" :key="`el-${i}`">{{el}}</span>
                                 </div>
                                 <v-braintree 
-                                    authorization="sandbox_9qtnf5sy_5ytrnm27bd49fwb2"
+                                    v-if="token"
+                                    :authorization="token"
                                     @success="onSuccess"
                                     @error="onError"
                                 >
@@ -100,13 +102,10 @@
                             </fieldset>
                         </form>
                             
-                        <!-- <div id="braintree">
-                            <input type="hidden" id="nonce" name="payment_method_nonce"/>
-                        </div> -->
                     </div>
                 </section>
 
-                <section class="col-md-12 col-lg-4 px-2">
+                <section class="col-md-12 col-lg-4 p-2">
                     <!-- Riepilogo ordine box -->
                     <div class="box py-3">
                         <h2 class="p-3">
@@ -130,9 +129,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Braintree UI -->
-                    <!-- <div id="dropin-container"></div> -->
                 </section>
             </div>
         </div>
@@ -168,7 +164,10 @@ export default {
             customerPhone: null,
             customerEmail: null,
             notes: null,
-            errors:{},
+            errors: {},
+
+            // Braintree customer token
+            token: null,
         }
     },
 
@@ -180,6 +179,10 @@ export default {
             });
             return total;
         }
+    },
+
+    created() {
+        this.tokenRequest();
     },
 
     mounted() {
@@ -203,9 +206,31 @@ export default {
     },
 
     methods: {
+
+        /**
+         * Braintree payment functionality function
+         */
         onSuccess (payload) {
             let nonce = payload.nonce;
             // Do something great with the nonce...
+            this.payment(nonce);
+        },
+
+        onError (error) {
+            let message = error.message;
+            // Whoops, an error has occured while trying to get the nonce
+            console.log(message);
+        },
+
+        tokenRequest() {
+            axios.get('http://127.0.0.1:8000/api/payment-token')
+                .then(res => {
+                    this.token = res.data;
+                })
+                .catch(err => console.log(err));
+        },
+
+        payment(nonce) {
             axios.post('http://127.0.0.1:8000/api/payment-request', {
                 payment_method_nonce: nonce,
                 order: this.order,
@@ -217,19 +242,19 @@ export default {
                     notes: this.notes,
                     restaurant_id: this.restaurantId,
                 }
-            }).then(res => {
+            })
+            .then(res => {
                 if(res.data.errors){
                     this.errors = res.data.errors;
                 }
                 console.log(res);
-            }).catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
         },
 
-        onError (error) {
-            let message = error.message;
-            // Whoops, an error has occured while trying to get the nonce
-            console.log(message);
-        },
+        /**
+         * Form functionality functions
+         */
         onClickNext(slide_id){
             const next_slide=document.getElementById(`${slide_id}_slide`);
             const slide=document.getElementById(`${(slide_id-1)}_slide`);
@@ -242,6 +267,7 @@ export default {
             next_slide.classList.add("active");
 
         },
+
         onClickPrevious(slide_id){
             const previous_slide=document.getElementById(`${slide_id}_slide`);
             const slide=document.getElementById(`${(slide_id+1)}_slide`);
@@ -250,19 +276,21 @@ export default {
             slide.classList.remove("active");
             previous_slide.classList.add("active");
         },
+
         validateSlide(slide){
-            let inputsValid = true;
             const inputs=slide.querySelectorAll("input");
             for (let i = 0; i < inputs.length; i++) {
-                const valid = inputs[i].checkValidity();
-            if (!valid) {
-                inputsValid = false;
+                const inputValid = inputs[i].checkValidity();
+                
+            if (!inputValid) {
                 inputs[i].classList.add("invalid-input");
+                inputs[i].reportValidity();
+                return false;
             } else {
                 inputs[i].classList.remove("invalid-input");
             }  
         }
-        return inputsValid;
+        return true;
         }
     }
 }

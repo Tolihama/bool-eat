@@ -5,7 +5,7 @@
     <h1>Dashboard di {{ Auth::user()->name }}</h1>
 
     <div class="row align-items-stretch py-3">
-        <div class="col-sm-12 col-md-6 p-3">
+        <div class="col-sm-12 col-lg-6 p-3">
             <div class="card d-flex flex-column h-100 restaurant-info @if (!$user_restaurant) bg-warning @endif">
                 <h2>
                     Il tuo ristorante 
@@ -19,12 +19,12 @@
                         Ristorante correttamente registrato!
                     </p>
                     <div class="row mb-5">
-                        <div class="col-sm-12 col-md-6 px-5">
+                        <div class="col-sm-12 col-lg-6 px-5">
                             <div class="thumb">
                                 <img src="{{ asset('/storage/' . $user_restaurant->thumb) }}" alt="Thumb {{ $user_restaurant->name }}" class="w-100">
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-lg-6">
                             <ul>
                                 <li>Nome: {{ $user_restaurant->name }}</li>
                                 <li>Indirizzo: {{ $user_restaurant->address }}</li>
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 p-3">
+        <div class="col-sm-12 col-lg-6 p-3">
             <div class="card d-flex flex-column h-100
                 @if (!$user_restaurant) bg-danger 
                 @elseif ($dishes->count() === 0) bg-warning
@@ -80,6 +80,7 @@
                                 </li>
                             @endforeach
                         </ul>
+                        <p>{{ $dishes_paginate->links() }}</p>
                         <div class="flex-grow-1 d-flex justify-content-center align-items-end">
                             <a href="{{ route('admin.dishes.index') }}" class="btn btn-primary">Vai al menù</a>
                         </div>
@@ -88,16 +89,27 @@
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 p-3">
-            <div class="card d-flex flex-column bg-danger h-100">
-                <h2>I tuoi ordini <i class="fa-solid fa-circle-xmark ml-2"></i></h2>
+        <div class="col-sm-12 col-lg-6 p-3">
+            <div class="card d-flex flex-column h-100">
+                <h2>I tuoi ordini</h2>
                 <div class="flex-grow-1">
-                    Feature da implementare
+                    @if ($orders->isEmpty()) 
+                    <p>Non ci sono ordini in archivio</p>
+                    @else
+                    <ul>
+                        @foreach ( $orders as $order )
+                            <li>
+                                <a href="{{ route('admin.orders.show', $order->id)}}">Ordine N.{{ $order->id}}</a> da {{ $order->customer_name}}
+                            </li>
+                        @endforeach
+                    </ul>
+                    <p>{{ $orders->links() }}</p>
+                    @endif
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 p-3">
+        <div class="col-sm-12 col-lg-6 p-3 d-none">
             <div class="card d-flex flex-column bg-danger h-100">
                 <h2>Il tuo profilo <i class="fa-solid fa-circle-xmark ml-2"></i></h2>
                 <div class="flex-grow-1">

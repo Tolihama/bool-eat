@@ -5,34 +5,51 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 use Braintree;
 
+// DB Models
 use App\Order;
+use App\Restaurant;
+
+// Mail Models
+use App\Mail\ConfirmOrderMailToCustomer;
+use App\Mail\ConfirmOrderMailToRestaurant;
 
 class CheckoutController extends Controller
 {
+    public function payment_token() {
+        // Braitree gateway
+        $gateway = $this->braintree_gateway();
+
+        // Client token generation
+        $clientToken = $gateway->clientToken()->generate([
+            "customerId" => config('services.braintree.customerIDTest')
+        ]);
+
+        return $clientToken;
+    }
+
     public function payment_request(Request $request)
-    {
+    {   
+        // Customer data validation
         $validator = Validator::make($request->customer, [
             "customer_name" => "required|max:50",
             "customer_address" => "required|max:150",
             "customer_phone" => "required|min:11",
             "customer_email" => "required|email|max:50",
         ]);
+
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors()
             ]);
         }
 
-        $gateway = new Braintree\Gateway([
-            'environment' => config('services.braintree.environment'),
-            'merchantId' => config('services.braintree.merchantId'),
-            'publicKey' => config('services.braintree.publicKey'),
-            'privateKey' => config('services.braintree.privateKey'),
-        ]);
+        // Braitree gateway
+        $gateway = $this->braintree_gateway();
 
         // Order amount calculate from DB data
         $order = $request->order;
@@ -48,19 +65,14 @@ class CheckoutController extends Controller
         // Payment nonce
         $nonce = $request->payment_method_nonce;
 
+        // Braintree transaction define
         $result = $gateway->transaction()->sale([
             'amount' => $amount,
             'paymentMethodNonce' => $nonce,
-            /*             'customer' => [
-                'firstName' => 'Tony',
-                'lastName' => 'Stark',
-                'email' => 'tony@avengers.com',
-            ], */
             'options' => [
                 'submitForSettlement' => true
             ]
         ]);
-
 
         if ($result->success) {
             // Send transaction to Braintree
@@ -81,13 +93,18 @@ class CheckoutController extends Controller
                 ]);
             }
 
+            // Confirm Order Mail to Customer
+            $restaurant_name = Restaurant::find($request->customer['restaurant_id'])->first()->name;
+            Mail::to($request->customer['customer_email'])->send(new ConfirmOrderMailToCustomer($restaurant_name, $transaction->id));
 
-            /**
-             * TODO: MAIL DI CONFERMA ORDINE DA INVIARE AL CLIENTE E AL RISTORANTE
-             */
+            // Confirm Order Mail to Restaurant
+            $restaurant_email = Restaurant::find($request->customer['restaurant_id'])->user()->first()->email;
+            Mail::to($restaurant_email)->send(new ConfirmOrderMailToRestaurant($transaction->id));
 
             return response()->json('Transaction successful. The ID is:' . $transaction->id);
+
         } else {
+
             $errorString = "";
 
             foreach ($result->errors->deepAll() as $error) {
@@ -96,5 +113,14 @@ class CheckoutController extends Controller
 
             return response()->json('An error occurred with the message: ' . $result->message);
         }
+    }
+
+    private function braintree_gateway() {
+        return new Braintree\Gateway([
+            'environment' => config('services.braintree.environment'),
+            'merchantId' => config('services.braintree.merchantId'),
+            'publicKey' => config('services.braintree.publicKey'),
+            'privateKey' => config('services.braintree.privateKey'),
+        ]);
     }
 }

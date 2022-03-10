@@ -1,59 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="container-order" class="container mt-5 ml-3">
-        <h1 class="text-center">Dettagli dell'ordine: 
+    <div id="container-order" class="container py-5">
+        <h1 class="text-center pb-3">Dettagli dell'ordine: 
             <strong> {{ $order->customer_name}}</strong>
        </h1>
-        <div class="row">
-            <div class="mt-5 info-order-ctn">
-                <h3>Informazioni:</h3>
-                <div class="box-info">
-                    <p>
+        <div class="row info-order-ctn py-4">
+            <div class=" px-4 col-12 col-md-6 cart-ctn d-flex flex-column">
+                <h3 class = "py-3 text-center text-uppercase">Riferimenti cliente</h3>
+                <ul class="box-info flex-grow-1">
+                    <li>
                         ID dell'ordine: 
                         <a href="#">{{ $order->id }}</a>
-                    </p>
-                </div>
-    
-                <div class="box-info">
-                    <p>
+                    </li>
+                    <li>
                         Nome del cliente: 
+                        <br />
                         <a href="#">{{ $order->customer_name}}</a>
-                    </p>
-                </div>
-    
-                <div class="box-info">
-                    <p>
+                    </li>
+                    <li>
                         Indirizzo di consegna: 
+                        <br />
                         <a href="#">
                             {{$order->customer_address }}
                         </a>
-                    </p>
-                </div>
-    
-                <div class="box-info">
-                    <p>
-                        Numero di telefono del clienete: 
+                    </li>
+                    <li>
+                        Numero di telefono: 
+                        <br />
                         <a href="#">
                             {{ $order->customer_phone}}
                         </a>
-                    </p>
-                </div>
-    
-                <div class="box-info">
-                    <p>
+                    </li>
+                    <li>
                         Email del cliente: 
+                        <br />
                         <a href="#">
                             {{ $order->customer_email}}
                         </a>
-                    </p>
-                </div>
-    
-                <div class="btn-ctn px-3 mt-3">
+                    </li>
+                </ul>
+            </div>
+            <div class=" px-4 col-12 col-md-6 cart-ctn d-flex flex-column">
+                <h3 class="py-3 text-center text-uppercase">Articoli</h3>
+                <ul class="box-info flex-grow-1">
+                    @foreach ($dishes as $dish )
+                        <li>
+                            <a href="{{ route('admin.dishes.show', $dish->slug)}}">{{ $dish->name }}</a> - {{ $dish->quantity }} porzioni. 
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+            <div class="col-12 px-4">
+                <div class="btn-ctn mt-3">
                     <a href="{{ route('admin.orders.index') }}" 
                         class="btn-order-info effect01">
                         <span>
-                            torna indetro
+                            torna indietro
                         </span>
                     </a>
     
@@ -65,6 +69,7 @@
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
