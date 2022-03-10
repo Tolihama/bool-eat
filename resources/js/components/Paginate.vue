@@ -1,8 +1,8 @@
 
 <template>
     <div>
-        <div class="d-flex align-items-center justify-content-between mt-4 px-5 py-3">
-            <div class="mb-4 d-flex align-items-center w-100" v-if="paginateData">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center w-100 mb-3 ml-5 ml-md-0 pl-3 pl-md-0" v-if="paginateData">
                 <!-- first -->
                 <button 
                     class="btn-paginate" 
@@ -21,7 +21,7 @@
                     <i class="fa-solid fa-angle-left"></i>
                 </button>
 
-                <span class="paginate-number btn-paginate">
+                <span class="paginate-number d-none d-md-block btn-paginate">
                     {{paginateData.currentPage}}
                 </span>
 

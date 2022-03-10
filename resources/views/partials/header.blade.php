@@ -1,15 +1,13 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="height: 55px">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="min-height: 55px">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            <img src="https://fontmeme.com/permalink/220310/1dc46317c469762d332506d29f531b9b.png" alt="" style="width: 200px">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar" id="navbarSupportedContent">
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto flex-shrink-1">
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
@@ -25,7 +23,7 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item mr-2">
+                    <li class="nav-item mr-2 mb-2 mb-md-0">
                         <a id="nav-link" class="btn btn-primary" href="{{ route('admin.home') }}">
                             <i class="fa-solid fa-user icon mr-2"></i> {{ Auth::user()->name }}
                         </a>

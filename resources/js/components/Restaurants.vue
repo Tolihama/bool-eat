@@ -7,12 +7,12 @@
                     slug: restaurant.slug,
                 }
             }"
-            class="row mb-4 p-5 p-md-3 restaurant"
+            class="row mb-4 p-3 p-md-3 mx-2 restaurant"
             v-for="(restaurant, i) in list"
             :key="`restaurant${i}`"
         >
-            <div class="restaurant-images col-12 mb-4 mb-md-0 col-md-6">
-                <div class="cover">
+            <div class="restaurant-images col-12 mb-4 mb-md-0 col-md-6 d-flex justify-content-center justify-content-lg-start">
+                <div class="cover flex-shrink-0">
                     <img
                         :src="restaurant.cover"
                         :alt="restaurant.name"
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="info d-flex flex-column justify-content-center col-12 col-md-6">
+            <div class="info d-flex flex-column justify-content-center col-12 text-center text-md-left col-md-6">
                 <h5>{{ restaurant.name }}</h5>
                 <span
                     class="mx-2"
@@ -61,7 +61,7 @@ export default {
 }
 
 .restaurant-images {
-    padding-right: calc(50px + 2rem);
+    // padding-right: calc(50px + 2rem);
 }
 .thumb {
     width: 100px;
@@ -91,7 +91,7 @@ a {
 .restaurant {
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    background: transparent;
+    background: #fff;
     transition: all .3s ease-in-out;
     &:hover {
         background: #fd954b;

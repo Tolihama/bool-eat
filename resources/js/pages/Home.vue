@@ -1,6 +1,9 @@
 <template>
     <div id="home">
-        <div class="container py-5">
+        <div class="jumbo">
+            <img src="http://127.0.0.1:8000/images/fast-food.jpg" alt="">
+        </div>
+        <div class="container d-flex flex-column justify-content-center py-5">
             <Categories @apiFilter="updateFilter" :categoriesList="categories" />
             <Paginate :paginateData="paginateData" @currentPage="updateCurrentPage"/>
             <Restaurants :list="restaurants"/>
@@ -99,5 +102,16 @@ export default {
     #home{
         position: relative;
         width: 100%;
+    }
+
+    .jumbo {
+        height: 450px;
+        width: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
     }
 </style>
