@@ -1,8 +1,11 @@
 <template>
-    <div id="home" class="container py-5">
-        <Categories @apiFilter="updateFilter" :categoriesList="categories" />
-        <Paginate :paginateData="paginateData" @currentPage="updateCurrentPage"/>
-        <Restaurants :list="restaurants"/>
+    <div id="home">
+        <div class="container py-5">
+            <Categories @apiFilter="updateFilter" :categoriesList="categories" />
+            <Paginate :paginateData="paginateData" @currentPage="updateCurrentPage"/>
+            <Restaurants :list="restaurants"/>
+        </div>
+        <PaymentConfirmed v-if="paymentSuccess" @closeAlert="closePaymentConfirmed" />
     </div>
 </template>
 
@@ -11,6 +14,7 @@
 import Categories from '../components/Categories';
 import Restaurants from '../components/Restaurants';
 import Paginate from '../components/Paginate';
+import PaymentConfirmed from '../components/PaymentConfirmed';
 import axios from 'axios';
 export default {
 
@@ -19,6 +23,7 @@ export default {
         Restaurants,
         Categories,
         Paginate,
+        PaymentConfirmed,
     },
     data() {
         return {
@@ -27,6 +32,7 @@ export default {
             paginateData: null,
             currentPage: 1,
             filter: ",",
+            paymentSuccess: true,
         }
     },
     created() {
@@ -81,10 +87,17 @@ export default {
             this.filter = filter;
             this.apiFilter(filter, this.currentPage);
         },
+
+        closePaymentConfirmed(){
+            this.paymentSuccess = false
+        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-
+    #home{
+        position: relative;
+        width: 100%;
+    }
 </style>
