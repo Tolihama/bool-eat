@@ -257,13 +257,12 @@ export default {
             .then(res => {
                 if(res.data.errors) {
                     this.errors = res.data.errors;
+                    this.ongoingPayment = false;
                     return;
                 }
                 localStorage.removeItem('currentOrder');
                 localStorage.removeItem('currentRestaurantOrder');
-                const response = res.data;
-                // console.log(response);
-                localStorage.setItem('orderConfirmedData', JSON.stringify(response));
+                localStorage.setItem('orderConfirmedData', JSON.stringify(res.data));
                 this.$router.push({ name: 'orderconfirmed' });
             })
             .catch(err => {

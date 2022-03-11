@@ -70,7 +70,7 @@ class CheckoutController extends Controller
             'amount' => $amount,
             'paymentMethodNonce' => $nonce,
             'options' => [
-                'submitForSettlement' => true
+                'submitForSettlement' => true,
             ]
         ]);
 
@@ -122,7 +122,9 @@ class CheckoutController extends Controller
                 $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
             }
 
-            return response()->json('An error occurred with the message: ' . $result->message);
+            return response()->json([
+                'errors' => 'An error occurred with the message: ' . $result->message,
+            ]);
         }
     }
 

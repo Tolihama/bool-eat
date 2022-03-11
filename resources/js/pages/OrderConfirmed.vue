@@ -114,6 +114,7 @@ export default {
 .cart {
     width: 70%;
     margin: auto;
+    background: #fff;
     border-radius: 15px;
     box-shadow: inset 0px 1px 8px 3px #ABABAB,5px 5px 5px -100px #DDDDDD;
     -webkit-box-shadow: inset 0px 1px 8px 3px #ABABAB,5px 5px 5px -100px #DDDDDD;
