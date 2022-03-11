@@ -93,6 +93,8 @@
                                 <v-braintree 
                                     v-if="token"
                                     :authorization="token"
+                                    locale="it_IT"
+                                    btnText="Conferma pagamento"
                                     @success="onSuccess"
                                     @error="onError"
                                 >
