@@ -39,6 +39,15 @@
                             {{ $order->customer_email}}
                         </a>
                     </li>
+                    <li>
+                        @if ( $order->notes != null)
+                            Note del cliente: 
+                            <br />
+                            <a href="#">
+                                {{ $order->notes}}
+                            </a>
+                        @endif
+                    </li>
                 </ul>
             </div>
             <div class=" px-4 col-12 col-md-6 cart-ctn d-flex flex-column">
