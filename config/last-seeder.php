@@ -1,8 +1,7 @@
 <?php
 
 return [
-  [
-              
+    [
         'name' => "McDonald's - Prati Fiscali",
         'cover' => "https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_1600,h_350,d_it:cuisines:hamburger-7.jpg/v1/it/restaurants/245487.jpg",
         'thumb' => 'https://d2egcvq7li5bpq.cloudfront.net/it/images/restaurants/245487.gif',
@@ -213,7 +212,7 @@ return [
                 'price' => '7,50',
             ]
         ]
-    ],   
+    ],
     [
         'name' => 'Archestrato di Gela',
         'cover' => 'https://tse2.mm.bing.net/th?id=OIP.sulESQP6BTwnJnt-d8aMCAHaFQ&pid=Api&P=0&w=230&h=163',
@@ -533,7 +532,7 @@ return [
           ]
       ],
       [
-         'name' => 'Filologico',
+        'name' => 'Filologico',
         'cover' => 'https://lh3.googleusercontent.com/a1KBNqk0zdCEjWS_oaE9HlwAWH7MPE6a1fNcVKxYiqgoMjFhM7Z_tOh2I6tqI4zIUgg1ZolzNpC2XP5sXg=w960-h960-n-o-v1',
         'thumb' => 'https://lh3.googleusercontent.com/jycmFpcyMgXSnFt0N7w_6REjxX62Jo3XMAut29xTmLkfrba9DrUVUnBDNpWrFfQHtIdmwaUm=w1080-h608-p-no-v0',
         'address' => 'Via Giacomo Matteotti 34, Frascati',
@@ -547,6 +546,7 @@ return [
                 'ingredients' => 'farina, olio, riso, salmone, avocado, sesamo',
                 'description' => "Morbidissimo panino tipico della tradizione giapponese, farcito con sfoglie di salmone al sesamo",
                 'price' => '4,50',
+            ],
             [
                 'name' => 'Bao con gamberi fritti',
                 'thumb' => 'https://www.maresushi.it/utenti/maresushi_it/cache/_pics/2/4/33-1_e02da3304e20139ed08a1a11063c3705_t.webp?m=1637432057',
@@ -685,7 +685,7 @@ return [
             ],
             [
                 'name' => 'Enchiladas Verdes',
-                'thumb' => 'https://wgbh.brightspotcdn.com/dims4/default/5be5415/2147483647/strip/true/crop/6720x3665+0+407/resize/990x540!/format/jpg/quality/70/?url=https%3A%2F%2Fwgbh-brightspot.s3.amazonaws.com%2F7a%2Ff9%2F555e6eb6472d92271305dd2afca2%2Fmsm-022019-briansamuels-0152.jpg',
+                'thumb' => 'https://www.mylatinatable.com/wp-content/uploads/2016/02/enchiladas-foto-heroe.jpg',
                 'ingredients' => 'pollo, peperone, cipolla, spezie, fagioli, formaggio',
                 'description' => "Tortillas farcite con pollo, bagnate con salsa
                 verde piccante, servite con crema di fagioli,
@@ -701,8 +701,6 @@ return [
                 fagioli e pico de gallo',
                 'price' => '9,00',
             ],
-            
-
         ]
     ],
     [
@@ -723,7 +721,7 @@ return [
                 'price' => '14,50',
             ],
             [
-                'name' => 'Ravioli ripieni di pesce con salsa crostacei e scampo',
+                'name' => 'Ravioli ripieni di pesce',
                 'thumb' => 'https://www.frescopesce.it/wp-content/uploads/2015/05/ravioli1.jpg',
                 'ingredients' =>  'Salsa di crostacei, scampi.',
                 'description' => "Ravioli di dentice, ricetta esclusiva del nostro chef",
@@ -744,5 +742,5 @@ return [
                 'price' => '23,00',
             ],
         ]
-    ],
+    ]
 ];

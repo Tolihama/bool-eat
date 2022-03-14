@@ -66,7 +66,7 @@ class AllTableSeeder extends Seeder
             $i++;
             $percent = ($i / $total_data) * 100;
             $formatted_percent = number_format($percent, 2, '.', ',');
-            echo "{$formatted_percent}%";
+            echo "{$formatted_percent}% \n";
         }
     }
 }
