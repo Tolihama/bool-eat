@@ -7,6 +7,7 @@
             <Categories @apiFilter="updateFilter" :categoriesList="categories" />
             <Paginate :paginateData="paginateData" @currentPage="updateCurrentPage"/>
             <Restaurants :list="restaurants"/>
+            <Paginate :paginateData="paginateData" @currentPage="updateCurrentPage"/>
         </div>
         <PaymentConfirmed v-if="paymentSuccess" @closeAlert="closePaymentConfirmed" />
     </div>
