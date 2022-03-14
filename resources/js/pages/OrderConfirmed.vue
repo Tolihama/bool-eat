@@ -38,7 +38,7 @@
                 </section>
             </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-success m-3" @click="removeOrderData">Home</button>
+                    <button class="btn btn-booleat m-3" @click="removeOrderData">Home</button>
                 </div>
         </div>
      <Loader v-else/>

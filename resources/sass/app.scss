@@ -17,3 +17,59 @@
 @import 'partials/show-dish';
 @import 'partials/edit-dish';
 @import 'partials/show-order';
+
+.btn-booleat {
+    background-color: #f5f3f1;
+    border: 0;
+    border-radius: 50rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    padding: 10px 20px;
+    top: 50%;
+    color: #f9700b;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    &:hover {
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px 3px 0px inset;
+        background-color: #f9700b;
+        color: #fff;
+        i {
+            color: #ffff;
+        }
+    }
+
+    i {
+        color: #f9700b;
+        font-size: 20px;
+        transition: all .3s ease-in-out;
+    }
+}
+
+.btn-booleat-alt {
+    background-color: #f9700b;
+    border: 0;
+    border-radius: 50rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    padding: 10px 20px;
+    top: 50%;
+    color: #fff;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    &:hover {
+        background-color: #b81111;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px 3px 0px inset;
+
+        color: #fff;
+        i {
+            color: #f9700b;
+        }
+    }
+
+    i {
+        color: #fff;
+        font-size: 20px;
+        transition: all .3s ease-in-out;
+    }
+}
+

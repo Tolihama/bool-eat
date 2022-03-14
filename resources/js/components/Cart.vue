@@ -54,9 +54,9 @@
         </div>
         <div class="cart-footer d-flex justify-content-around align-items-center p-3">
             <div class="order-detail">
-                <h4>Totale: {{priceSum}}€</h4>
+                <h4 class="m-0">Totale: {{priceSum}}€</h4>
             </div>
-            <div class="cta">
+            <div class="cta d-flex align-items-center">
 <!--                 <button 
                     class="btn btn-success mr-3"
                     @click="$emit('confirmOrder')"
@@ -65,12 +65,12 @@
                 </button> -->
                 <router-link
                     :to="{ name: 'checkout' }"
-                    class="btn btn-success"
+                    class="btn btn-booleat"
                 >
                     Conferma ordine
                 </router-link>
                 <button 
-                    class="btn btn-danger"
+                    class="btn btn-booleat-alt"
                     @click="emptyCart()"
                 >
                     Svuota carrello

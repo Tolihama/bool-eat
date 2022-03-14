@@ -128,6 +128,7 @@ export default {
         top: 50%;
         margin-right: 10px;
         cursor: pointer;
+        transition: all .3s ease-in-out;
         &:hover {
             background-color: #f9700b;
             i {
@@ -137,7 +138,8 @@ export default {
 
         i {
             color: #f9700b;
-            font-size: 20px
+            font-size: 20px;
+            transition: all .3s ease-in-out;
         }
     }
 

@@ -60,9 +60,7 @@ export default {
     position: relative;
 }
 
-.restaurant-images {
-    // padding-right: calc(50px + 2rem);
-}
+
 .thumb {
     width: 100px;
     height: 75px;
