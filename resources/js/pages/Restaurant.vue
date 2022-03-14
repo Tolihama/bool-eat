@@ -248,7 +248,8 @@ export default {
             .category {
                 padding: .2rem .5rem;
                 border-radius: 100rem;
-                background-color: aqua;
+                background-color: #f9700b;
+                color: #fff;
             }
         }
     }
