@@ -93,7 +93,7 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            $restaurant = Restaurant::find($request->customer['restaurant_id'])->first();
+            $restaurant = Restaurant::where('id', $request->customer['restaurant_id'])->first();
 
             // Confirm Order Mail to Customer
             $restaurant_name = $restaurant->name;
