@@ -1,87 +1,57 @@
 <template>
     <div class="container pt-4" id="order-confirmed">
-     <div class="cart my-4 p-3">
-        <h1 class="mb-4">L'ordine è stato effettuato con successo!</h1>
-        <div class="p-2 d-flex">
-            <section class="mr-3 col">
-                <h3 class="text-center mb-3">Dettagli Ordine</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Numero Ordine</th>
-                            <th scope="col">{{ orderData.transaction_id }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="dish in orderData.dishes" :key="`dish-${dish.id}`">
-                            <td>
-                                {{ dish.name }}
-                            </td>
-                            <td>
-                                {{ dish.quantity }} x {{ dish.price }}€ = {{ dish.quantity * parseFloat(dish.price) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4>Totale</h4>
-                            </td>
-                            <td>{{ orderData.amount }}€</td>
-                        </tr>
-                         <tr>
-                            <td>Pagato con:</td>
-                            <td>Carta</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <section class="p-2 col">
-                <img class="ml-4" :src="orderData.restaurant.thumb" :alt="`Thumb ${orderData.restaurant.name}`">
-                <div class="ml-4">
-                    <h2>{{ orderData.restaurant.name }}</h2>
-                    <ul>
-                        <li class="text-info">
-                            <i class="fa-solid fa-phone"></i>
-                            (placeholder)
-                        </li>
-                        <li>
+        <div class="cart p-5" v-if="orderData">
+            <h1 class="mb-4">L'ordine è stato effettuato con successo!</h1>
+            <div class="p-2 d-flex">
+                <section class="p-5 col-8">
+                    <div class="container d-flex flex-column">
+                        <h4 class=" mb-4">Dettagli Ordine: {{ orderData.transaction_id }}</h4>
+                        <div v-for="dish in orderData.dishes" :key="`dish-${dish.id}`" class="row mb-3">
+                            <span class="d-flex align-items-center w-50">{{ dish.name }}</span>
+                            <span class="d-flex align-items-center justify-content-end w-50">{{ dish.quantity }} x {{ dish.price }}€</span>
+                        </div>
+                        <div class="row mb-3">
+                            <span class="d-flex align-items-center w-50">Totale</span>
+                            <span class="d-flex align-items-center justify-content-end w-50">{{ orderData.amount }}€</span>
+                        </div>
+                        <div class="row mb-3">
+                            <span class="my-3">
+                                <i class="fa-solid fa-motorcycle"></i>
+                                    Spedito in: {{ orderData.customer.customer_address }}
+                            </span>
+                            <span class="mb-3">
+                                <i class="text-success fa-solid fa-circle-check"></i>
+                                    Ordine inviato 
+                            </span>
+                        </div>
+                    </div>
+                </section>
+                <section class="p-5 col-4">
+                    <img class="mb-3" :src="orderData.restaurant.thumb" :alt="`Thumb ${orderData.restaurant.name}`">
+                    <div>
+                        <h2 class="mb-3">{{ orderData.restaurant.name }}</h2>
+                        <span>
                             <i class="fa-solid fa-location-dot"></i>
                             {{ orderData.restaurant.address }}
-                        </li>
-                    </ul>
+                        </span>
+                    </div>
+                </section>
+            </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-success m-3" @click="removeOrderData">Home</button>
                 </div>
-            </section>
         </div>
-        <hr>
-        <div class="user p-2 d-flex">
-            <section>
-                <div>
-                    <ul>
-                        <li class="mb-2">
-                            <i class="text-success fa-solid fa-circle-check"></i>
-                            Ordine inviato 
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-motorcycle"></i>
-                            Domicilio
-                            <ul>
-                                <li>{{ orderData.customer.customer_address }}</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-        <div class="d-flex justify-content-end">
-             <button class="btn btn-success m-3" @click="removeOrderData">Home</button>
-        </div>
-     </div>
-  </div>
+     <Loader v-else/>
+    </div>
 </template>
 
 <script>
+import Loader from '../components/Loader';
 export default {
     name: 'OrderConfirmed',
-
+    components: {
+        Loader
+    },
     data() {
         return {
             orderData: null,
@@ -111,8 +81,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#order-confirmed{
+    min-height:90vh;
+}
 .cart {
-    width: 70%;
+    max-width: 70%;
     margin: auto;
     background: #fff;
     border-radius: 15px;
