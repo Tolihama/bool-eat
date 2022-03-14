@@ -11,7 +11,7 @@
                 </p>
               </div>
               <div class="text-center">
-                  <button @click="$emit('closeAlert')" class="btn btn-success mb-2 mb-md-0 mx-2">
+                  <button @click="$emit('closeAlert')" class="btn btn-booleat mb-2 mb-md-0 mx-2">
                       Continua la navigazione
                   </button>
               </div>

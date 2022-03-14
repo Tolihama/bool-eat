@@ -9,7 +9,7 @@
                 </p>
               </div>
               <div class="text-center">
-                  <button @click="$emit('closeAlert')" class="btn btn-success mb-2 mb-md-0 mx-2">
+                  <button @click="$emit('closeAlert')" class="btn btn-booleat mb-2 mb-md-0 mx-2">
                       Continua
                   </button>
                   <router-link
@@ -19,7 +19,7 @@
                             slug: link
                         }
                     }" 
-                    class="btn btn-primary mb-2 mb-md-0 mx-2">
+                    class="btn btn-booleat-alt mb-2 mb-md-0 mx-2">
                       Torna al mio ordine
                   </router-link>
                 
