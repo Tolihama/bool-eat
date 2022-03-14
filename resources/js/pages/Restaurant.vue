@@ -6,15 +6,10 @@
             :link="activeRestaurantSlug"
             />
         <div v-if="restaurant">
-<!--             <OrderCheckout
-                v-if="orderConfirmed"
-                :order="selectedDishes"
-                @closeWindow="closeConfirmOrderWindow"
-            /> -->
             <div class="cover">
                 <img :src="restaurant.cover" :alt="`Cover ${restaurant.name}`">
             </div>
-            <div class="container">
+            <div class="container main">
                 <div class="info">
                     <div class="thumb">
                         <img :src="restaurant.thumb" :alt="`Thumb ${restaurant.name}`">
@@ -210,12 +205,16 @@ export default {
         position: relative;
 
         img {
+            width: 100%;
             object-fit: cover;
             object-position: center;
         }
     }
 
-    .info {
+    .container.main {
+        transform: translateY(-100px);
+
+        .info {
         background: #fff;
         box-shadow: 0 0 5px 1px #ccc;
         border-radius: 20px;
@@ -252,6 +251,7 @@ export default {
                 background-color: aqua;
             }
         }
+    }
     }
 }
 </style>

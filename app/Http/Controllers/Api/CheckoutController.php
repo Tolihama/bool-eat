@@ -38,7 +38,7 @@ class CheckoutController extends Controller
         $validator = Validator::make($request->customer, [
             "customer_name" => "required|max:50",
             "customer_address" => "required|max:150",
-            "customer_phone" => "required|min:11",
+            "customer_phone" => "required|min:9",
             "customer_email" => "required|email|max:50",
         ]);
 
@@ -70,7 +70,7 @@ class CheckoutController extends Controller
             'amount' => $amount,
             'paymentMethodNonce' => $nonce,
             'options' => [
-                'submitForSettlement' => true
+                'submitForSettlement' => true,
             ]
         ]);
 
@@ -93,7 +93,7 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            $restaurant = Restaurant::find($request->customer['restaurant_id'])->first();
+            $restaurant = Restaurant::where('id', $request->customer['restaurant_id'])->first();
 
             // Confirm Order Mail to Customer
             $restaurant_name = $restaurant->name;
@@ -122,7 +122,9 @@ class CheckoutController extends Controller
                 $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
             }
 
-            return response()->json('An error occurred with the message: ' . $result->message);
+            return response()->json([
+                'errors' => 'An error occurred with the message: ' . $result->message,
+            ]);
         }
     }
 

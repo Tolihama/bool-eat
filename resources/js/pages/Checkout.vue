@@ -93,6 +93,8 @@
                                 <v-braintree 
                                     v-if="token"
                                     :authorization="token"
+                                    locale="it_IT"
+                                    btnText="Conferma pagamento"
                                     @success="onSuccess"
                                     @error="onError"
                                 >
@@ -200,6 +202,8 @@ export default {
             } catch(e) {
                 localStorage.removeItem('currentOrder');
             }
+        } else {
+            this.$router.push({ name: 'home' });
         }
 
         if (localStorage.getItem('currentRestaurantOrder')) {
@@ -255,13 +259,12 @@ export default {
             .then(res => {
                 if(res.data.errors) {
                     this.errors = res.data.errors;
+                    this.ongoingPayment = false;
                     return;
                 }
                 localStorage.removeItem('currentOrder');
                 localStorage.removeItem('currentRestaurantOrder');
-                const response = res.data;
-                // console.log(response);
-                localStorage.setItem('orderConfirmedData', JSON.stringify(response));
+                localStorage.setItem('orderConfirmedData', JSON.stringify(res.data));
                 this.$router.push({ name: 'orderconfirmed' });
             })
             .catch(err => {
@@ -335,6 +338,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 10;
     }
 
 }

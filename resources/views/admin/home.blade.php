@@ -13,18 +13,18 @@
                     @else <i class="fa-solid fa-circle-check text-success ml-2"></i> 
                     @endif
                 </h2>
-                <div class="flex-grow-1">
+                <div class="flex-grow-1 d-flex flex-column justify-content-center">
                     @if ($user_restaurant)
                     <p class="text-success">
                         Ristorante correttamente registrato!
                     </p>
-                    <div class="row mb-5">
-                        <div class="col-sm-12 col-lg-6 px-5">
-                            <div class="thumb">
+                    <div class="row mb-4 px-3">
+                        <div class="col-sm-6 p-0">
+                            <div class="thumb mx-auto">
                                 <img src=" @if(preg_match('/http/', $user_restaurant->thumb) ) {{$user_restaurant->thumb}} @else{{ asset('/storage/' . $user_restaurant->thumb) }} @endif" alt="Thumb {{ $user_restaurant->name }}" class="w-100">
                             </div>
                         </div>
-                        <div class="col-sm-12 col-lg-6">
+                        <div class="col-sm-6 p-0 py-3 mx-auto text-sm-left text-center">
                             <ul>
                                 <li>Nome: {{ $user_restaurant->name }}</li>
                                 <li>Indirizzo: {{ $user_restaurant->address }}</li>

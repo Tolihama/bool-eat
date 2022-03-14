@@ -53,7 +53,7 @@
             <div class="mb-3">
                 <h4>Visibilità</h4>
                 <input type="checkbox" id="is_visible" name="is_visible" checked>
-                <label for="is_visible">Visible</label>
+                <label for="is_visible">Visibile</label>
             </div>
 
             {{-- thumb --}}

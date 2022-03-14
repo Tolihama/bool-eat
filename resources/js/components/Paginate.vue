@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center w-100 mb-3 ml-5 ml-md-0 pl-3 pl-md-0" v-if="paginateData">
+            <div class="d-flex align-items-center w-100 paginate-ctn" v-if="paginateData">
                 <!-- first -->
                 <button 
                     class="btn-paginate" 
@@ -50,7 +50,7 @@
                     </strong>
                 </div>
             </div>
-            <Loader v-else/>
+            <!-- <Loader v-else/> -->
         </div>
     </div>
 </template>
@@ -115,6 +115,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .paginate-ctn{
+        padding: 20px 40px;
+    }
+
     .btn-paginate {
         background-color: #f5f3f1;
         border: 0;
@@ -161,6 +165,13 @@ export default {
         font-size: 18px;
         .total-number {
             color: #ec6909;
+        }
+    }
+
+    @media screen and (max-width: 579px){
+        .paginate-ctn{
+            padding: 20px 0px;
+            justify-content: center;
         }
     }
 

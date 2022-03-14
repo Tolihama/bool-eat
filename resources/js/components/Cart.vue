@@ -163,4 +163,16 @@ export default {
     
 }
 
+@media  screen and (max-width: 450px) {
+    .cart{
+        .cta{
+            display: flex;
+            flex-direction: column;
+            .btn{
+                margin-bottom: 5px;
+            }
+        }
+    }
+}
+
 </style>

@@ -1,7 +1,7 @@
 @import '../variables';
 
 aside.side-menu {
-    width: 250px;
+    max-width: 250px;
     box-shadow: 0 0 10px 1px #ccc;
 
     ul {
