@@ -56,7 +56,7 @@ class AllTableSeeder extends Seeder
                 $new_dish->slug = Str::slug($new_dish->name, '-');
                 $new_dish->ingredients = $dish['ingredients'];
                 $new_dish->description = $dish['description'];
-                $new_dish->price = floatval($dish['price']);
+                $new_dish->price = floatval(str_replace(',', '.', $dish['price']));
                 $new_dish->thumb = $dish['thumb'];
                 $new_dish->is_visible = true;
                 $new_dish->save();
