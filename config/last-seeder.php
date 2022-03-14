@@ -182,6 +182,232 @@ return [
         ]
     ],
     [
+        'name' => 'Zangaloro',
+        'cover' => 'https://tse4.explicit.bing.net/th?id=OIP.-w9fPMZHZ_H-sD6jumQXqAHaFj&pid=Api&P=0&w=219&h=164',
+        'thumb' => 'http://cralunipa.it/media/k2/items/cache/a9ccd7cd1c4267a50c67ac0bd7180172_L.jpg',
+        'address' => 'Via Isidoro la Lumia, 15, 90139 Palermo PA',
+        'email' => 'zangaloro@gmail.com',
+        'vat' => '06245000820',
+        'category' => [3, 9],
+        'dishes' => [
+            [
+                'name' => 'Hamburgher di angus',
+                'thumb' => 'https://tse2.mm.bing.net/th?id=OIP.9FwH5e52O-KrmG-YSfHY4QHaE8&pid=Api&P=0&w=273&h=182',
+                'ingredients' => 'Pane, hamburgher di angus, pomodoro, insalata',
+                'description' => "L'hamburger è una polpetta di carne macinata e pressata, solitamente bovina, cotta prevalentemente su piastra. Col diffondersi delle catene internazionali di fast food, il termine è passato a identificare anche l'omonimo panino imbottito",
+                'price' => '8',
+                
+            ],
+            [
+                'name' => 'Cocoburgher',
+                'thumb' => 'https://www.zangaloro.it/images/166841',
+                'ingredients' => 'Pane, hamburgher, pomodoro, insalata, salsa barbecue',
+                'description' => "L'hamburger è una polpetta di carne macinata e pressata, solitamente bovina, cotta prevalentemente su piastra. Col diffondersi delle catene internazionali di fast food, il termine è passato a identificare anche l'omonimo panino imbottito",
+                'price' => '7',
+            ],
+            [
+                'name' => 'COCO FRIED',
+                'thumb' => 'https://www.zangaloro.it/images/166841',
+                'ingredients' => 'Pollo fritto, bacon, cheddar, salsa barbecue, pomodoro e lattuga. Servito con patatine fritte.',
+                'description' => "L'hamburger è una polpetta di carne macinata e pressata, solitamente bovina, cotta prevalentemente su piastra. Col diffondersi delle catene internazionali di fast food, il termine è passato a identificare anche l'omonimo panino imbottito",
+                'price' => '7,50',
+            ]
+        ]
+    ],   
+    [
+        'name' => 'Archestrato di Gela',
+        'cover' => 'https://tse2.mm.bing.net/th?id=OIP.sulESQP6BTwnJnt-d8aMCAHaFQ&pid=Api&P=0&w=230&h=163',
+        'thumb' => 'https://tse2.mm.bing.net/th?id=OIP.D85kqXIIW-QMd-faRvJUOwHaC7&pid=Api&P=0&w=417&h=165',
+        'address' => 'Via Emanuele Notarbartolo, 2/F, 90149 Palermo PA',
+        'email' => 'archestrato@gmail.com',
+        'vat' => '06226060827 ',
+        'category' => [1],
+        'dishes' => [
+            [
+                'name' => 'Pizza Margherita',
+                'thumb' => 'https://tse1.mm.bing.net/th?id=OIP.HaacTGf758o5wWJR7aAt9wHaE7&pid=Api&P=0&w=280&h=186',
+                'ingredients' => 'Farina, passato di pomodoro, mozzarella, basilico',
+                'description' => "La Pizza Margherita è una tipica pizza napoletana , fatta con pomodori San Marzano , mozzarella , basilico fresco , sale e olio extravergine di oliva .",
+                'price' => '7',
+            ],
+            [
+                'name' => 'Pizza Romana',
+                'thumb' => 'https://tse3.mm.bing.net/th?id=OIP.adJQgvA0VYCSVok9Ypf-TwHaEo&pid=Api&P=0&w=279&h=174',
+                'ingredients' => 'Farina, passato di pomodoro, mozzarella, acciughe, basilico',
+                'description' => "Mozzarella, pomodoro, origano, acciughe e olio extravergine di oliva adagiati su uno strato sottile di pasta per la pizza. ",
+                'price' => '8,50',
+            ],
+            [
+                'name' => 'Pizza Capricciosa',
+                'thumb' => 'https://tse3.mm.bing.net/th?id=OIP.KDztpi78KKpKnFeqTt74MAHaEK&pid=Api&P=0&w=290&h=163',
+                'ingredients' => "Prosciutto cotto, olive, funghetti e carciofini sott'olio. ",
+                'description' => "Una delle pizze classiche più amate dai golosi condita in modo particolarmente ricco  ",
+                'price' => '9',
+            ],    
+        ],
+    ],
+    [
+        'name' => 'KFC',
+        'cover' => 'https://tse3.mm.bing.net/th?id=OIP.7DkX3jqcfN-cOr494qntHQHaEK&pid=Api&P=0&w=340&h=191',
+        'thumb' => 'https://tse1.mm.bing.net/th?id=OIP.EAmpsEJId6Mux7D-X6IXGQHaFj&pid=Api&P=0&w=228&h=171',
+        'address' => 'Via Emanuele Notarbartolo, 1, 90141 Palermo, PA',
+        'email' => 'kfcPa@gmail.com',
+        'vat' => '01731940389',
+        'category' => [2, 3, 9],
+        'dishes' => [
+            [
+                'name' => 'Chichen Zingher',
+                'thumb' => 'https://tse2.mm.bing.net/th?id=OIP.EyHrkxEn6NQn3yNHD-I6pwHaFj&pid=Api&P=0&w=224&h=168',
+                'ingredients' => 'Pane, insalata, hamburgher di pollo fritto, formaggio fuso',
+                'description' => "Delizioso filetto di pollo con panatura Hot & Spicy, lattuga, cheddar cheese e doppio strato di maionese, in un morbido panino al sesamo.",
+                'price' => '4,80',
+            ],
+            [
+                'name' => 'CHICKEN BOOM',
+                'thumb' => 'https://media.kfc.it/app/uploads/public/621/3bd/180/thumb_442_800_800_0_0_crop.png',
+                'ingredients' => 'Filetto Original Recipe, salsa BBQ, crispy onion e una doppietta di cheddar e bacon',
+                'description' => "Scopri il nuovo Chicken Boom, il sapore leggendario del filetto Original Recipe, un doppio strato di salsa BBQ, una cascata di crispy onion e una doppietta di cheddar e bacon",
+                'price' => '5,50',
+            ],
+            [
+                'name' => 'BUCKET TENDER CRISPY',
+                'thumb' => 'https://media.kfc.it/app/uploads/public/5ec/f7e/11c/thumb_258_800_800_0_0_crop.jpg',
+                'ingredients' => "Pezzi di pollo panati e fritti",
+                'description' => "Un Bucket con 12 deliziosi Tender Crispy per 2 persone e con ben 3 salse a scelta.",
+                'price' => '6',
+            ],    
+        ],
+    ],
+    [
+        'name' => 'Milì',
+        'cover' => 'https://tse1.mm.bing.net/th?id=OIP.31Rx8UzM_-yL0PRGanSmmQHaFj&pid=Api&P=0&w=232&h=174',
+        'thumb' => 'https://tse3.explicit.bing.net/th?id=OIP.hqEvm46qChKaovaRbC3vBQHaHa&pid=Api&P=0&w=179&h=179',
+        'address' => 'Via Francesco Laurana, 17, 90143 Palermo PA',
+        'email' => 'mili@gmail.com',
+        'vat' => '08291309157',
+        'category' => [4, 5],
+        'dishes' => [
+            [
+                'name' => 'Onigiri gamberi',
+                'thumb' => 'https://tse1.mm.bing.net/th?id=OIP.M1CdBACskDblZpUDjToPiQHaFj&pid=Api&P=0&w=221&h=166',
+                'ingredients' => "Riso, Tempura di gambero e alga nori ",
+                'description' => "Palla di riso, ripiena di tempura di gambero",
+                'price' => '3,50',
+            ],
+            [
+                'name' => 'Uramaki ebiten',
+                'thumb' => 'https://tse4.mm.bing.net/th?id=OIP.b9CH9kqHJ-dBb2vAVueDVQHaEK&pid=Api&P=0&w=335&h=188',
+                'ingredients' => " semi di sesamo (q.b.), mezza foglia di alga nori, riso per sushi formaggio fresco, tempura di gambero e cetrioli tagliati a bastoncini.  ",
+                'description' => "Roll di riso ripieno di tempura di gambero e formaggio, ricoperto di cetrriolini fritti",
+                'price' => '7,50',
+            ],
+            [
+                'name' => 'Involtini primavera vegetariano',
+                'thumb' => 'https://www.giallozafferano.it/images/230-23004/Involtini-primavera_450x300.jpg',
+                'ingredients' => "Morbida chalda farcita con cavolo cappuccio, cipolla e carote",
+                'description' => "Morbida chalda farcita con cavolo cappuccio, cipolla e carote",
+                'price' => '4,50',
+            ],
+        ],
+    ],
+    [
+        'name' => 'Brioscià',
+        'cover' => 'https://tse2.mm.bing.net/th?id=OIP.e6vIlv1BvcWlw-mWlDAuswHaE6&pid=Api&P=0&w=269&h=178',
+        'thumb' => 'https://tse4.mm.bing.net/th?id=OIP.ebKb8IfW_RRqMKZkOjfSmQAAAA&pid=Api&P=0&w=163&h=163',
+        'address' => 'Via Mariano Stabile 198, 90141, Palermo, Sicilia Italia',
+        'email' => 'brioscia@gmail.com',
+        'vat' => '07207118945',
+        'category' => [6, 8],
+        'dishes' =>  [
+            [
+                'name' => 'Coppetta',
+                'thumb' => 'https://tse3.mm.bing.net/th?id=OIP.R9OzRBIoT4LaxQBYMwDLzwAAAA&pid=Api&P=0&w=142&h=190',
+                'ingredients' => "Gelato a più gusti",
+                'description' => "Coppetta di piccole dimensioni e due gusti a scelta",
+                'price' => '2,50',
+            ],
+            [
+                'name' => 'Brioche con gelato',
+                'thumb' => 'https://tse3.mm.bing.net/th?id=OIP.cZ26vy1QYcrMw9pl0yM8FgAAAA&pid=Api&P=0&w=126&h=168',
+                'ingredients' => "Brioche con Gelato a più gusti",
+                'description' => "brioche e due gusti a scelta",
+                'price' => '4,50',
+            ],
+            [
+                'name' => 'Cono con gelato',
+                'thumb' => 'https://tse4.mm.bing.net/th?id=OIP.vwb20E4Csq9FQp9yEeI39wHaHa&pid=Api&P=0&w=180&h=180',
+                'ingredients' => "Cono con Gelato a più gusti",
+                'description' => "Cono e due gusti a scelta",
+                'price' => '3,80',
+            ],
+        ],
+    ],
+    [
+        'name' => 'Osteria lo Bianco',
+        'cover' => 'https://tse4.mm.bing.net/th?id=OIP.UQBs9klEzIkPGJNLS1rFvAHaEK&pid=Api&P=0&w=307&h=172',
+        'thumb' => 'https://tse4.mm.bing.net/th?id=OIP.ugNh9xR2x8pa8WgsgDCItQAAAA&pid=Api&P=0&w=120&h=171',
+        'address' => 'Via Belgio 41, 90146, Palermo, Sicilia Italia',
+        'email' => 'osteria.lobianco@gmail.com',
+        'vat' => '03826098247 ',
+        'category' => [1, 9],
+        'dishes' => [
+            [
+                'name' => 'Pasta anciova',
+                'thumb' => 'https://tse4.mm.bing.net/th?id=OIP.OMbGEaF2YxRNDHTjr9M87gHaE7&pid=Api&P=0&w=255&h=170',
+                'ingredients' => "Bucatini, cipolla bianca, spicchio d'aglio, filetti di acciughe sotto sale, concentrato di pomodoro, una manciata di uva passolina e pinoli, pangrattato, olio extravergine di oliva, sale, pepe nero",
+                'description' => "La pasta c'anciova, ovvero la pasta con le acciughe, è un tipico primo piatto palermitano. Una ricetta di origine popolare, semplice da realizzare e gustosissima",
+                'price' => '5',
+            ],
+            [
+                'name' => 'Pasta col nero di seppia',
+                'thumb' => 'https://tse1.mm.bing.net/th?id=OIP.cBeqihMjF7LKPtRRw-bvXgHaE8&pid=Api&P=0&w=265&h=176',
+                'ingredients' => 'Inchiostro di seppia, spicchio d’aglio, plio extra vergine di oliva, passata di pomodoro, sale, pepe, bicchiere di vino bianco secco, spaghetti',
+                'description' => "La preparazione degli spaghetti o del risotto al nero nasce dalla necessità di utilizzare il giorno dopo “quel che resta” delle seppie al nero",
+                'price' => '8,50',
+            ],
+            [
+                'name' => 'Fritto misto',
+                'thumb' => 'https://tse4.mm.bing.net/th?id=OIP.ntr4YfppIhF2pmulu4QrdwAAAA&pid=Api&P=0&w=172&h=172',
+                'ingredients' => "Panelle crocchè e patatine ",
+                'description' => "Panelle crocchè e patatine",
+                'price' => '2,50',
+            ],    
+        ],
+        
+    ],
+    [
+        'name' => 'Snack Away',
+        'cover' => 'https://tse2.mm.bing.net/th?id=OIP.0SKxCAwCiGv5vxHxe6iN6wHaE7&pid=Api&P=0&w=264&h=175',
+        'thumb' => 'https://d2egcvq7li5bpq.cloudfront.net/it/images/restaurants/249451.gif',
+        'address' => 'Piazzetta Francesco Bagnasco 24, Palermo, 90141',
+        'email' => 'snackaway@gmail.com',
+        'vat' => '03826098247 ',
+        'category' => [6],
+        'dishes' => [
+            [
+                'name' => 'Yogurt',
+                'thumb' => 'https://tse3.mm.bing.net/th?id=OIP.fJAFCPLSO4CVAxu36XV3SAHaIy&pid=Api&P=0&w=139&h=165',
+                'ingredients' => "Yogurt con crema a scelta",
+                'description' => "Yogurt con crema a scelta",
+                'price' => '4',
+            ],
+            [
+                'name' => 'Crepes',
+                'thumb' => 'https://tse1.mm.bing.net/th?id=OIP.Bx2jdYt4BwFumQ_sfCntrgHaE-&pid=Api&P=0&w=266&h=179',
+                'ingredients' => 'Crepes con nutella',
+                'description' => "Crepes con nutella",
+                'price' => '8,50',
+            ],
+            [
+                'name' => 'Donuts',
+                'thumb' => 'https://tse3.mm.bing.net/th?id=OIP.UNIb1YgDjIbOC_RhCZFSYwHaFj&pid=Api&P=0&w=227&h=170',
+                'ingredients' => "Ciambelle glassate ",
+                'description' => "Ciambelle glassate",
+                'price' => '2,50',
+            ],    
+        ],
+    ],
+    [
         'name' => 'Sushi Lab',
         'cover' => 'https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_414,h_300,d_it:cuisines:giapponese-0.jpg/v1/it/restaurants/222420.jpg',
         'thumb' => 'https://static.wixstatic.com/media/b3b0e6_6298b7573728438f9cad48b52e2bb2e2~mv2.png/v1/fill/w_2500,h_2500,al_c/b3b0e6_6298b7573728438f9cad48b52e2bb2e2~mv2.png',
@@ -304,10 +530,10 @@ return [
                 'description' => "riso gamberi e verdure",
                 'price' => '7,00',
             ],
-          
-            [
-
-            'name' => 'Filologico',
+          ]
+      ],
+      [
+         'name' => 'Filologico',
         'cover' => 'https://lh3.googleusercontent.com/a1KBNqk0zdCEjWS_oaE9HlwAWH7MPE6a1fNcVKxYiqgoMjFhM7Z_tOh2I6tqI4zIUgg1ZolzNpC2XP5sXg=w960-h960-n-o-v1',
         'thumb' => 'https://lh3.googleusercontent.com/jycmFpcyMgXSnFt0N7w_6REjxX62Jo3XMAut29xTmLkfrba9DrUVUnBDNpWrFfQHtIdmwaUm=w1080-h608-p-no-v0',
         'address' => 'Via Giacomo Matteotti 34, Frascati',
@@ -348,11 +574,9 @@ return [
                 'ingredients' => 'avocado, tonno, tartufo, teriyaki',
                 'description' => "Hosomaki di avocado in tempura top tartare tonno al tartufo e teriyaki 6pz",
                 'price' => '10,00',
-            ],
-
+            ]
         ]
     ],
-
     [
         'name' => 'Crispi 19',
         'cover' => 'https://ristorantecrispi19.it/images/slider/2.jpg',
@@ -390,11 +614,8 @@ return [
                 'description' => "Pizza capricciosa classica, specificare nelle note per la variante senza glutine",
                 'price' => '7,00',
             ],
-            
-
         ]
     ],
-
     [
         'name' => 'Angelo Pezzella',
         'cover' => 'https://angelopezzella.it/wp-content/uploads/2021/11/IMG_6804.jpg',
@@ -432,11 +653,8 @@ return [
                 'description' => "Pizza capricciosa classica",
                 'price' => '7,00',
             ],
-            
-
         ]
     ],
-
     [
         'name' => 'La Cucaracha',
         'cover' => 'https://www.lacucaracha.it/wp-content/uploads/2021/06/MRS_0949-scaled.jpg',
@@ -487,7 +705,6 @@ return [
 
         ]
     ],
-
     [
         'name' => 'Poldo 2',
         'cover' => 'https://poldo2.it/wp-content/uploads/2021/02/Primi-Piatti-04-Poldo-2.jpg',
@@ -526,11 +743,6 @@ return [
                 'description' => '1 scampo*, 2 gambero rosso*, 1 ostrica, tartare di tonno fresco, tartare di salmone fresco, frutta esotica, condito con pepe rosa.',
                 'price' => '23,00',
             ],
-            
-
         ]
     ],
-
-
-
 ];
