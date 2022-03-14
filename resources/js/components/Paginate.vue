@@ -50,7 +50,7 @@
                     </strong>
                 </div>
             </div>
-            <Loader v-else/>
+            <!-- <Loader v-else/> -->
         </div>
     </div>
 </template>
