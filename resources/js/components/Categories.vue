@@ -1,5 +1,5 @@
 <template>
- <ul class="mb-5 p-0 d-flex flex-wrap">
+ <ul class="mb-5 p-0 d-flex flex-wrap justify-content-center">
    <li v-for="(category, i) in categoriesList" :key="`category-${i}`" @click="updateFilter(category.id, `category-${i}`)" :id="`category-${i}`"
     class="col-6 col-sm-4 col-md-3 col-lg-1 d-flex flex-column justify-content-center align-items-center p-2"
    >

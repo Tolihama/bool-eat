@@ -15,7 +15,7 @@
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">
-                                <i class="fa-solid fa-user icon mr-2"></i>{{ __('Nome') }}
+                                <i class="fa-solid fa-user icon mr-2"></i>{{ __('Nome e cognome') }}
                             </label>
 
                             <div class="col-md-6">

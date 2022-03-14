@@ -202,6 +202,8 @@ export default {
             } catch(e) {
                 localStorage.removeItem('currentOrder');
             }
+        } else {
+            this.$router.push({ name: 'home' });
         }
 
         if (localStorage.getItem('currentRestaurantOrder')) {
@@ -336,6 +338,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 10;
     }
 
 }

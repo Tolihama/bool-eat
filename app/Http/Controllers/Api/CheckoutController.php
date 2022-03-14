@@ -38,7 +38,7 @@ class CheckoutController extends Controller
         $validator = Validator::make($request->customer, [
             "customer_name" => "required|max:50",
             "customer_address" => "required|max:150",
-            "customer_phone" => "required|min:11",
+            "customer_phone" => "required|min:9",
             "customer_email" => "required|email|max:50",
         ]);
 

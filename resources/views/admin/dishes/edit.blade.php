@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-4">
+    <div id="edit-dish" class="container py-4">
         <h1 class="pb-4">Modifica: {{ $dish_edit->name }}</h1>
 
         @if ($errors->any()) 
@@ -66,7 +66,7 @@
             <div class="mb-3">
                 <h4>Immagine del piatto</h4>
                 @if ($dish_edit->thumb)
-                    <figure class="mb-3">
+                    <figure class="mb-3 thumb">
                         <img class="w-100" src="{{ asset('./storage/' . $dish_edit->thumb)}}" alt="{{ $dish_edit->name}}">
                     </figure>
                 @endif
